@@ -1,3 +1,9 @@
 spring:
   application:
     name: back-end
+
+security:
+  jwt:
+    secret-key: Qar58+NaZJGbjJpeinGNIwrcaLvvCO0UeLxKojEHxJA=
+    expiration: 86400000
+
