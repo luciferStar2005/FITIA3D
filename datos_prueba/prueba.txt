@@ -1,0 +1,8 @@
+{
+  "identification": 123456789,
+  "firtsName": "Juan",
+  "SecondName": "Carlos",
+  "lastName": "Pérez",
+  "email": "juan.perez@ejemplo.com",
+  "Password": "miPasswordSegura123"
+}
