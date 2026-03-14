@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo 3D</title>
+    <link rel="stylesheet" href="style3D.css">
+</head>
+<body>
+        <div id="ui">
+        <h1>PERSONAL<span class="highlight">TRAINER</span> 3D</h1>
+        <div id="muscle-display">
+            <small>Músculo Seleccionado</small>
+            <div id="muscle-name">Toca la anatomía</div>
+        </div>
+    </div>
+
+     <div id="ai-panel">
+        <button id="close-panel">×</button>
+        <h2 id="ai-title">Rutina con IA</h2>
+        <div id="ai-content">Selecciona un grupo muscular para generar recomendaciones personalizadas.</div>
+    </div>
+
+    <div class="controls-hint">
+        Click: Seleccionar | Arrastrar: Rotar | Scroll: Zoom
+    </div>
+
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="modelo3d.js"></script>
+    
+</body>
+</html>
