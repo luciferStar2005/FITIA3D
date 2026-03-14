@@ -40,13 +40,13 @@ public class UserServiceTest {
         .Password("password")
         .build();
 
-        UserEntity usuarioCreado= new UserEntity(1065592068L, 
-            "Calet", 
-            "Josue", 
-            "Ortiz",
-            "test@example.com", 
-            "password", 
-            1);
+        UserEntity usuarioCreado= UserEntity.builder()
+        .identification(request.getIdentification())
+        .firtsName(request.getFirtsName())
+        .secondName(request.getSecondName())
+        .lastname(request.getLastName())
+        .email(request.getEmail())
+        .build();
         when(repository.save(any(UserEntity.class))).thenReturn(usuarioCreado);
 
         UserEntity result= service.registerUser(request);
