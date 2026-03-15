@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.springframework.http.MediaType;
 
 import com.example.back_end.config.SecurityConfig;
+import com.example.back_end.config.auth.JwtService;
 import com.example.back_end.usuario.dto.RegisterUserRequest;
 import com.example.back_end.usuario.model.UserEntity;
 import com.example.back_end.usuario.service.UserService;
@@ -23,11 +24,14 @@ import com.example.back_end.usuario.service.UserService;
 import tools.jackson.databind.ObjectMapper;
 
 @WebMvcTest(UserController.class)
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class})
 public class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockitoBean
+    private JwtService jwtService;
 
     @MockitoBean
     private UserService service;

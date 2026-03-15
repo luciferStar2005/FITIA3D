@@ -2,10 +2,14 @@ package com.example.back_end.usuario.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.back_end.usuario.dto.ProfileResponse;
 import com.example.back_end.usuario.dto.RegisterUserRequest;
 import com.example.back_end.usuario.model.UserEntity;
 import com.example.back_end.usuario.service.UserService;
@@ -19,8 +23,15 @@ public class UserController {
     private final UserService service;
 
     @PostMapping("/register")
-    public ResponseEntity<UserEntity> register(RegisterUserRequest rq){
+    public ResponseEntity<UserEntity> register(@RequestBody RegisterUserRequest rq){
         UserEntity user=service.registerUser(rq);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<ProfileResponse> getMyInfo() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        ProfileResponse actualUser = service.getProfileFromDatabase(username);
+        return new ResponseEntity<>(actualUser, HttpStatus.OK);
     }
 }

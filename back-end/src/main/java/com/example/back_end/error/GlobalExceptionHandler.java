@@ -1,4 +1,4 @@
-package com.example.back_end.error;
+/*package com.example.back_end.error;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -6,3 +6,4 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     
 }
+*/
