@@ -5,13 +5,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.back_end.usuario.data.UserRepository;
+import com.example.back_end.usuario.dto.Mensaje;
 import com.example.back_end.usuario.dto.ProfileResponse;
 import com.example.back_end.usuario.dto.RegisterUserRequest;
+import com.example.back_end.usuario.dto.UpdateUserResquest;
 import com.example.back_end.usuario.model.UserEntity;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
-import java.util.Optional;
 @Service
 @Transactional
 @AllArgsConstructor
@@ -45,5 +46,17 @@ public class UserService {
         ProfileResponse response = new ProfileResponse(user.getIdentification(), user.getFirtsName(), user.getLastname(), user.getEmail());
         return response;
 
+    }
+
+    public Mensaje modifyUser(String email, UpdateUserResquest rq){
+        UserEntity user= repository.findByEmail(email)
+        .orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
+
+        user.setFirtsName(rq.getFirtsName());
+        user.setLastname(rq.getLastName());
+
+        repository.save(user);
+
+        return new Mensaje("Actualizacion exitosa!");
     }
 }
