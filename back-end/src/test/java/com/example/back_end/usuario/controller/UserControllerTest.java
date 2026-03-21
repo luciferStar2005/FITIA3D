@@ -44,10 +44,10 @@ public class UserControllerTest {
         RegisterUserRequest request = RegisterUserRequest.builder()
         .identification(1065592068L)
         .firtsName("Calet")
-        .SecondName("Josue")
+        .secondName("Josue")
         .lastName("Ortiz")
         .email("test@example.com")
-        .Password("password")
+        .password("password")
         .build();
 
         UserEntity usuarioCreado= new UserEntity(1065592068L, 

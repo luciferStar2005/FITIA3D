@@ -10,6 +10,8 @@ import com.example.back_end.usuario.dto.ProfileResponse;
 import com.example.back_end.usuario.dto.RegisterUserRequest;
 import com.example.back_end.usuario.dto.UpdateUserResquest;
 import com.example.back_end.usuario.model.UserEntity;
+
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
@@ -23,7 +25,7 @@ public class UserService {
     public UserEntity registerUser(RegisterUserRequest rq){
         repository.findByEmail(rq.getEmail())
         .ifPresent(u->{
-            throw new RuntimeException("this email already exist");
+            throw new EntityNotFoundException("this email already exist");
         });
 
         UserEntity newUser= UserEntity.builder()
@@ -42,7 +44,7 @@ public class UserService {
 
     public ProfileResponse getProfileFromDatabase(String email){
         UserEntity user = repository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("Usuario no encontrado con email: " + email));
+            .orElseThrow(() -> new EntityNotFoundException("user not found: " + email));
         ProfileResponse response = new ProfileResponse(user.getIdentification(), user.getFirtsName(), user.getLastname(), user.getEmail());
         return response;
 
@@ -50,7 +52,7 @@ public class UserService {
 
     public Mensaje modifyUser(String email, UpdateUserResquest rq){
         UserEntity user= repository.findByEmail(email)
-        .orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
+        .orElseThrow(()-> new EntityNotFoundException("user not found"));
 
         user.setFirtsName(rq.getFirtsName());
         user.setLastname(rq.getLastName());

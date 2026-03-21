@@ -10,8 +10,8 @@ import lombok.Getter;
 public class RegisterUserRequest {
     private Long identification;
     private String firtsName;
-    private String SecondName;
+    private String secondName;
     private String lastName;
     private String email;
-    private String Password;
+    private String password;
 }

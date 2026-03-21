@@ -1,7 +1,10 @@
 package com.example.back_end.usuario.model;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -14,6 +17,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class UserEntity {
     @Id
     @Column(name="usuario_cedula")
@@ -41,9 +45,8 @@ public class UserEntity {
 
     @PrePersist
     public void prePersist() {
-        if (this.status == 0) {
-            this.status = 1;
-        }
+        this.status = 1;
+        
     }
 
 }
