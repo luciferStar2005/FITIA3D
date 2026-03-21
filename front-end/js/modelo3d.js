@@ -37,7 +37,7 @@ techLight.position.set(-2, 1, 2);
 scene.add(techLight);
 
 // --- CARGA INICIAL (Modelo Estático) ---
-loader.load('./Male_MuscleWiki.glb', (gltf) => {
+loader.load('../js/Male_MuscleWiki.glb', (gltf) => {
     modeloActual = gltf.scene;
     
     modeloActual.traverse((child) => {
@@ -59,7 +59,7 @@ loader.load('./Male_MuscleWiki.glb', (gltf) => {
 // --- FUNCIÓN PARA CARGAR ANIMACIONES (Invocada por botones de la IA) ---
 window.cargarEjercicio = function(nombreArchivo) {
     console.log("Cargando y escalando ejercicio:", nombreArchivo);
-    const ruta = `./models/${nombreArchivo}.glb`;
+    const ruta = `../js/${nombreArchivo}.glb`;
 
     loader.load(ruta, (gltf) => {
         if (modeloActual) {
