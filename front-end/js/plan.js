@@ -59,7 +59,7 @@ const content=document.getElementById("plans")
 
 const showList=(list)=>{
     content.innerHTML=list.map(p=>
-        `<div class="card card-premium flex-shrink-0 min-vw-25 mx-2 p-3 text-white">
+        `<div class="animar-entrada card card-premium flex-shrink-0 min-vw-25 mx-2 p-3 text-white">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div class="me-3">
                         <h5 class="card-title text-uppercase" >${p.titulo}</h5>
@@ -173,7 +173,7 @@ const showMetas=(metas)=>{
         const porcentaje = Math.round((m.valorActual / m.valorObjetivo) * 100);
         
         return `
-        <div class="text-white  card card-premium flex-shrink-0 mx-2 p-3 mb-3" 
+        <div class="text-white  card card-premium flex-shrink-0 mx-2 p-3 mb-3 animar-entrada" 
              style="background-color: #2a2e2b;">
             <div class="card-body p-1">
                 <div class="d-flex justify-content-between align-items-center mb-3">

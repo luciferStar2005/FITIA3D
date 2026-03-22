@@ -66,14 +66,7 @@ body{
     background-color: #303632 !important; /* Gris Carbón de tu paleta */
     border: 1px solid rgba(80, 140, 103, 0.25) !important; /* Verde sutil */
     border-radius: 12px;
-    transition: all 0.3s ease;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-}
-
-.card-premium:hover {
-    transform: translateY(-5px); /* Elevación interactiva */
-    border-color: rgba(80, 140, 103, 0.6); /* Brilla al pasar el mouse */
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5)
 }
 
 .dashboard .card {
@@ -88,3 +81,27 @@ body{
 .ana-1 { border-top: 3px solid #0dcaf0 !important; }
 .ana-3 { border-top: 3px solid #508C67 !important; }
 .ana-2 { border-top: 3px solid #ff5e00 !important; }
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.animar-entrada {
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out forwards;
+}
+
+.card-premium:hover {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.6) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
