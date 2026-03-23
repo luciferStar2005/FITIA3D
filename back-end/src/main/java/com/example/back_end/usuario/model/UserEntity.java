@@ -1,10 +1,9 @@
 package com.example.back_end.usuario.model;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -17,19 +16,16 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 @Data
-@EntityListeners(AuditingEntityListener.class)
 public class UserEntity {
     @Id
-    @Column(name="usuario_cedula")
-    private Long identification;
+    @Column(name="usuario_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column(name="usuario_nombre_1")
+    @Column(name="usuario_nombre")
     private String firtsName;
 
-    @Column(name="usuario_nombre_2")
-    private String secondName;
-
-    @Column(name="usuario_apellido_1")
+    @Column(name="usuario_apellido")
     private String lastname;
 
     @Column(name = "usuario_email")
@@ -44,9 +40,9 @@ public class UserEntity {
     protected UserEntity(){}
 
     @PrePersist
-    public void prePersist() {
-        this.status = 1;
-        
+    private void prePersist(){
+        this.status=1;
     }
+
 
 }

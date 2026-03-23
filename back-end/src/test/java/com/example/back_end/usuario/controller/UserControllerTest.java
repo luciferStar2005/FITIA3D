@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 
 import com.example.back_end.config.SecurityConfig;
 import com.example.back_end.config.auth.JwtService;
+import com.example.back_end.config.auth.UserDetailService;
 import com.example.back_end.usuario.dto.RegisterUserRequest;
 import com.example.back_end.usuario.model.UserEntity;
 import com.example.back_end.usuario.service.UserService;
@@ -36,23 +37,23 @@ public class UserControllerTest {
     @MockitoBean
     private UserService service;
 
+    @MockitoBean
+    private UserDetailService detail;
+
     @Autowired
     private ObjectMapper objectMapper;
     
     @Test
     void testRegister() throws Exception {
         RegisterUserRequest request = RegisterUserRequest.builder()
-        .identification(1065592068L)
         .firtsName("Calet")
-        .secondName("Josue")
         .lastName("Ortiz")
         .email("test@example.com")
         .password("password")
         .build();
 
-        UserEntity usuarioCreado= new UserEntity(1065592068L, 
-            "Calet", 
-            "Josue", 
+        UserEntity usuarioCreado= new UserEntity(1,
+            "Calet",
             "Ortiz",
             "test@example.com", 
             "password", 
@@ -61,12 +62,12 @@ public class UserControllerTest {
         Mockito.when(service.registerUser(any(RegisterUserRequest.class)))
         .thenReturn(usuarioCreado);
 
-        mockMvc.perform(post("/api/user/register")
+        mockMvc.perform(post("/api/v2/user/register")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(request)))
             .andDo(print())
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.email").value("test@example.com")) // Verificamos el contenido
-            .andExpect(jsonPath("$.identification").exists());
+            .andExpect(jsonPath("$.id").exists());
     }
 }

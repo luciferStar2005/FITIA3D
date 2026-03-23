@@ -13,7 +13,7 @@ import com.example.back_end.usuario.dto.LoginRequest;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthController {
 

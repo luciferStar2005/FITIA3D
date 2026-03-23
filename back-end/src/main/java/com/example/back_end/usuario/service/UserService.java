@@ -13,11 +13,11 @@ import com.example.back_end.usuario.model.UserEntity;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository repository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -29,9 +29,7 @@ public class UserService {
         });
 
         UserEntity newUser= UserEntity.builder()
-        .identification(rq.getIdentification())
         .firtsName(rq.getFirtsName())
-        .secondName(rq.getSecondName())
         .lastname(rq.getLastName())
         .email(rq.getEmail())
         .passsword(passwordEncoder.encode(rq.getPassword()))
@@ -45,7 +43,7 @@ public class UserService {
     public ProfileResponse getProfileFromDatabase(String email){
         UserEntity user = repository.findByEmail(email)
             .orElseThrow(() -> new EntityNotFoundException("user not found: " + email));
-        ProfileResponse response = new ProfileResponse(user.getIdentification(), user.getFirtsName(), user.getLastname(), user.getEmail());
+        ProfileResponse response = new ProfileResponse(user.getFirtsName(), user.getLastname(), user.getEmail());
         return response;
 
     }

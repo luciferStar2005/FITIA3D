@@ -22,7 +22,7 @@ import com.example.back_end.usuario.service.UserService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/v2/user")
 @AllArgsConstructor
 public class UserController {
     private final UserService service;

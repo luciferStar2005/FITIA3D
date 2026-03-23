@@ -32,18 +32,14 @@ public class UserServiceTest {
     @Test
     void testRegisterUser() {
         RegisterUserRequest request = RegisterUserRequest.builder()
-        .identification(1065592068L)
         .firtsName("Calet")
-        .secondName("Josue")
         .lastName("Ortiz")
         .email("test@example.com")
         .password("password")
         .build();
 
         UserEntity usuarioCreado= UserEntity.builder()
-        .identification(request.getIdentification())
         .firtsName(request.getFirtsName())
-        .secondName(request.getSecondName())
         .lastname(request.getLastName())
         .email(request.getEmail())
         .build();
