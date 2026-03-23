@@ -1,0 +1,9 @@
+@import url(general.css);
+
+.cartas{
+    background-color: var(--bs-fond-c);
+}
+
+.red{
+    background-color: var(--bs-primary);
+}
