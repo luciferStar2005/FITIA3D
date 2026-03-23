@@ -46,6 +46,17 @@ body {
   100% { transform: scale(1); }
 }
 
+@keyframes aparecerDesdeAbajo {
+    0% {
+        opacity: 0;
+        transform: translateY(50px); 
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);   
+    }
+}
+
 .navPrincipal{
     display: flex;
     list-style: none; 
@@ -116,6 +127,11 @@ primera seccion
         linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 40px 40px; 
 }
+
+.p-izquierda{
+    animation: aparecerDesdeAbajo 1s ease-out;
+}
+
 .encabezado{
  color: var(--blanco-suave); 
  margin-top: 0;
@@ -129,6 +145,7 @@ primera seccion
     margin-bottom: 0.1em;
     padding: 30px 30px;
     color: var(--blanco-suave);
+    
 }
 
 .informacion{
@@ -161,6 +178,14 @@ primera seccion
      animation: latido 7s infinite;
 
 }
+
+.p-derecha{
+    display: flex;
+    flex: 1;
+    border: 2px solid var(--verde-brillante);
+    animation: aparecerDesdeAbajo 1s ease-out;
+}
+
 
 /*
 seccion problematica
