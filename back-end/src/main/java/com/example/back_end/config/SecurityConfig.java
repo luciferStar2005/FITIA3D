@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.back_end.config.auth.JwtAuthenticationFilter;
+import com.example.back_end.config.errorSecurity.RestAuthenticationEntryPoint;
 
 import lombok.AllArgsConstructor;
 
@@ -28,7 +29,7 @@ import lombok.AllArgsConstructor;
 public class SecurityConfig {
 
     private  final JwtAuthenticationFilter jwtAuthFilter;
-    
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -49,8 +50,12 @@ public class SecurityConfig {
                 .requestMatchers("/api/v2/user/register", "/api/v1/auth/**").permitAll()
                 .anyRequest().authenticated()
             )
+            .exceptionHandling(exception -> exception
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+            )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+            
         return http.build();
     }
 
