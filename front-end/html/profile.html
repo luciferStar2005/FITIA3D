@@ -111,27 +111,28 @@
                     
                 </div>
                 <div class="modal-body text-white">
-                    <form class="text-white">
+                    <form class="text-white" id="formEditarPerfil">
                         <div class="mb-3">
-                            <label for="" class="form-label">Primer Nombre</label>
-                            <input type="text" class="form-control text-white" aria-describedby="emailHelp">
-                            
+                            <label class="form-label">Primer Nombre</label>
+                            <input type="text" class="form-control text-white bg-dark border-secondary" id="inputNombre">
+                            <small id="errorNombre" class="text-danger" style="display: none;">Solo se permiten letras.</small>
                         </div>
 
                         <div class="mb-3">
-                            <label for="" class="form-label">Apellido</label>
-                            <input type="text" class="form-control text-white" aria-describedby="emailHelp">
+                            <label class="form-label">Apellido</label>
+                            <input type="text" class="form-control text-white bg-dark border-secondary" id="inputApellido">
+                            <small id="errorApellido" class="text-danger" style="display: none;">Solo se permiten letras.</small>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" id="boton" class="btn btn-danger">Guardar Cambios</button>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-danger">guardar cambios</button>
                 </div>
             </div>
         </div>
     </div>
+    <script src="/js/formularioEditar.js"></script>
     <script src="/js/menu.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
