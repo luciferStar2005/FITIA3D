@@ -1,12 +1,12 @@
 package com.example.back_end.usuario.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
 @AllArgsConstructor
-public class LoginRequest {
+@Data
+public class ProfileResponse {
+    private String firtsName;
+    private String lastName;
     private String email;
-    private String password;
-
 }

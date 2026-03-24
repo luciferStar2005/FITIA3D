@@ -1,3 +1,19 @@
 spring:
   application:
     name: back-end
+  datasource:
+    url: jdbc:postgresql://aws-0-us-west-2.pooler.supabase.com:6543/postgres?prepareThreshold=0&&sslmode=require
+    username: postgres.qakojyucncuuyjxdyvuo
+    password: qA86tJufEJ7aCHEd
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+    
+security:
+  jwt:
+    secret-key: Qar58+NaZJGbjJpeinGNIwrcaLvvCO0UeLxKojEHxJA=
+    expiration: 86400000
+
