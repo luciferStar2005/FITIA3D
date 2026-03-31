@@ -126,10 +126,12 @@ primera seccion
         linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 40px 40px; 
+    display: flex;
 }
 
 .p-izquierda{
     animation: aparecerDesdeAbajo 1s ease-out;
+    max-width: 50%;
 }
 
 .encabezado{
@@ -159,7 +161,7 @@ primera seccion
 }
 .btn-p-izquierda{
     
-     font-family: "DM Mono";
+    font-family: "DM Mono";
     font-size: 20px;
     background-color: var(--verde-brillante);
     color: var(--casi-negro);
@@ -182,8 +184,16 @@ primera seccion
 .p-derecha{
     display: flex;
     flex: 1;
-    border: 2px solid var(--verde-brillante);
+   /* border: 2px solid var(--verde-brillante);*/
     animation: aparecerDesdeAbajo 1s ease-out;
+   margin-left: 30px;
+    
+}
+
+.modelo3d{
+    align-items: center;
+    margin-top: 10rem;
+    max-height: 100%;
 }
 
 

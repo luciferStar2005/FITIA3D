@@ -37,7 +37,7 @@ techLight.position.set(-2, 1, 2);
 scene.add(techLight);
 
 // --- CARGA INICIAL (Modelo Estático) ---
-loader.load('../js/Male_MuscleWiki.glb', (gltf) => {
+loader.load('../models/Male_MuscleWiki.glb', (gltf) => {
     modeloActual = gltf.scene;
     
     modeloActual.traverse((child) => {
