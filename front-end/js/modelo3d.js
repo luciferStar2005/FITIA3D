@@ -2,6 +2,12 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+let datoRutina = {
+    musculo: "",
+    herramienta: "",
+    objetivo: "",
+}
+
 // --- CONFIGURACIÓN DE ESCENA ---
 const scene = new THREE.Scene();
 scene.background = new THREE.Color("#212723");
@@ -13,6 +19,9 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.domElement);
+
+//boton de rutina
+const generaRutinaBtn = document.getElementById('genera-rutina');
 
 // --- VARIABLES DE ANIMACIÓN ---
 let mixer = null;
@@ -143,21 +152,41 @@ function showMuscleInfo(mesh) {
     panel.classList.add('active');
     document.getElementById('ai-title').innerText = "Entrenamiento: " + name;
     
-    obtenerRutinaIA(name);
+   // obtenerRutinaIA(name);
+   datoRutina.musculo = name;
 }
 
+function obtenerEquipo(){
+    const checkboxesMarcados = document.querySelectorAll('#list-herramientas li input[type="checkbox"]:checked');
+    const equiposSeleccionados = Array.from(checkboxesMarcados).map(checkbox => checkbox.value);
+    datoRutina.herramienta = equiposSeleccionados;
+    
+
+}
+
+function obtenerObjetivo(){
+    const checkboxesMarcados = document.querySelectorAll('#list-objetivo li input[type="checkbox"]:checked');
+    const objetivosSeleccionados = Array.from(checkboxesMarcados).map(checkbox => checkbox.value);
+    datoRutina.objetivo = objetivosSeleccionados;
+}
+
+
+
+
+
 // --- INTEGRACIÓN CON n8n ---
-async function obtenerRutinaIA(nombreMusculo) {
+async function obtenerRutinaIA() {
+    
     const contentPanel = document.getElementById('ai-content');
     contentPanel.innerHTML = `<div class="loader"></div> Analizando fibras musculares...`;
 
-    const N8N_WEBHOOK_URL = "https://jsredondo.app.n8n.cloud/webhook/67ae595e-a53d-45ba-a0e1-2bad0e55d3e0";
+    const N8N_WEBHOOK_URL = "https://jsredondo897.app.n8n.cloud/webhook-test/67ae595e-a53d-45ba-a0e1-2bad0e55d3e0";
 
     try {
         const response = await fetch(N8N_WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ musculo: nombreMusculo })
+            body: JSON.stringify({ musculo: datoRutina.musculo, herramienta: datoRutina.herramienta, objetivo: datoRutina.objetivo })
         });
 
         const textoHTML = await response.text();
@@ -168,6 +197,13 @@ async function obtenerRutinaIA(nombreMusculo) {
         contentPanel.innerHTML = "Error al conectar con el cerebro de la IA.";
     }
 }
+
+generaRutinaBtn.addEventListener('click', () => {
+    obtenerEquipo();
+    obtenerObjetivo();
+    obtenerRutinaIA();
+});
+
 
 // --- LOOP DE ANIMACIÓN ---
 function animate() {
