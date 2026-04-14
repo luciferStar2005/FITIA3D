@@ -86,9 +86,7 @@ interface PlanHoyData {
 export default function Home(){
     return(
         <>
-            <header className="relative">
-                <Navbar />
-            </header>
+            <Navbar />
 
             <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-min gap-4 m-4 md:m-8 min-h-screen pt-20 lg:pt-10">
                 <div className="col-span-1 md:col-span-12 lg:col-span-8 bg-red-400 rounded-md">

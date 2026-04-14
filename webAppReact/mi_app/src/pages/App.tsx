@@ -10,6 +10,7 @@ function App() {
       <p>la carpeta assets contiene imagenes, iconos, etc.</p>
       <p>deben visualizar cada pagina dentro de una carpeta por ejemplo la vista de lading seria la carpeta lading y dentro de ella tendria los componentes necesarios tsx, y css</p>
     </div>
+  
   )
 }
 
