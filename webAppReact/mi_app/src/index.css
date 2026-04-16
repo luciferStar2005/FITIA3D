@@ -1,1 +1,49 @@
 @import 'tailwindcss';
+
+:root {
+  /* Colores Principales (Verdes) */
+  --verde-brillante: #36E077; /* Acentos y links activos */
+  --verde-oscuro:    #508C67; /* Navbar fondo */
+
+  /* Colores de Contraste (Rojos/Marrones) */
+  --rojo-destacado:  #E03E36; /* Elemento activo (nav-link) */
+  --marron-rojizo:   #A1534F; /* Hover y dropdowns */
+  --marron-oscuro:   #614948; /* Scrollspy fondo */
+
+  /* Colores Base */
+  --casi-negro:      #303632; /* Texto y fondo general */
+  --blanco-suave:    #F5F5F5; /* Útil para contraste sobre fondos oscuros */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden; /* Evita que aparezca una barra de scroll horizontal */
+}
+
+
+
+@keyframes latido {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); color: #A1534F; }
+  100% { transform: scale(1); }
+}
+
+@keyframes aparecerDesdeAbajo {
+    0% {
+        opacity: 0;
+        transform: translateY(50px); 
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);   
+    }
+}
