@@ -146,7 +146,6 @@ function App() {
                 <p>Racha diaria, recordatorios y gráficas para no parar nunca.</p>
             </div>      
         </div>
-
    </section>
 
    <section className="final">

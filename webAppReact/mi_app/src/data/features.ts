@@ -1,11 +1,11 @@
-export interface Feature {
+export interface Tarjeta {
   id: string;
   numero: string;
   titulo: string;
   descripcion: string;
 }
 
-export const featuresData: Feature[] = [
+export const featuresData: Tarjeta[] = [
     {
     id: '1',
     numero: '01',

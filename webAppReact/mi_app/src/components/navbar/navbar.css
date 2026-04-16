@@ -1,0 +1,58 @@
+.navPrincipal{
+    display: flex;
+    list-style: none; 
+    gap: 20px;
+    background-color: var(--casi-negro);
+    padding-top: 30px;
+    padding: 15px 40px;
+}
+
+.NombrePagina {
+    color: #36E077 ;
+    font-size: 50px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px; 
+    
+}
+.Parte2{
+    color:#36E077;
+    font-size: 50px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px; 
+    display: inline-block;
+    animation: latido 2s infinite;
+}
+
+.nav-links{
+    display: flex;
+    list-style: none; 
+    margin-left: auto;
+    align-items: center;
+    gap: 70px;
+
+}
+ .nav-links a { 
+    font-family:'DM Mono'; 
+    font-size:.80rem; 
+    letter-spacing:.18em; 
+    text-transform:uppercase; 
+    color :var(--blanco-suave); 
+    text-decoration:none; 
+    transition:color .2s; 
+}
+  .nav-links a:hover { color:var(--verde-brillante); }
+
+.btn-nav{
+    font-family: "DM Mono";
+    font-size: 20px;
+    background-color: var(--verde-brillante);
+    color: var(--casi-negro);
+    border: none;
+    padding: 15px 40px;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-nav:hover { opacity:.85; }
