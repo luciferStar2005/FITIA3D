@@ -83,6 +83,40 @@ function PruebaLanding() {
         
             </section>
 
+            <section className="proceso" id="proceso">
+                    <div className="procesoDiv">
+                        <p>
+                            proceso
+                        </p>
+                        <h2>
+                            De cero a en forma en 4 pasos.
+                        </h2>
+                    </div>
+
+                    <div className="box-pasos">
+                        <div className="pasos">
+                            <span className="numero-paso">01</span>
+                            <h3>CREA TU PERFIL</h3>
+                            <p>Ingresa tus datos, objetivos y equipo disponible. Nada mas.</p>
+                        </div>
+                        <div className="pasos">
+                            <span className="numero-paso">02</span>
+                            <h3>RECIBE TU RUTINA</h3>
+                            <p>La IA genera tu rutina semanal personalizada en segundos.</p>
+                        </div>    
+                        <div className="pasos">
+                            <span className="numero-paso">03</span>
+                            <h3>ENTRENA EN CASA</h3>
+                            <p>Sigue tu rutina, toca el cuerpo 3D para ver qué músculo trabajas.</p>
+                        </div>   
+                        <div className="pasos">
+                            <span className="numero-paso">04</span>
+                            <h3>CONTRUYE EL HABITO</h3>
+                            <p>Racha diaria, recordatorios y gráficas para no parar nunca.</p>
+                        </div>      
+                    </div>
+            </section>
+
             <section className="final">
                 <div className="finalDiv">
                     <h2>¿LISTO PARA DEJAR DE POSPONER EL TIEMPO?</h2>
