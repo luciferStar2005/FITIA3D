@@ -4,15 +4,24 @@ import { OrbitControls, Stage, ContactShadows } from '@react-three/drei';
 import { Model as MaleModel } from './Male_MuscleWiki'; 
 import './RutinaPage.css';
 
+
 const RutinaPage = () => {
   const [selectedMuscle, setSelectedMuscle] = useState("Toca la anatomía");
   const [showAiPanel, setShowAiPanel] = useState(false);
   const [aiContent, setAiContent] = useState("Selecciona un grupo muscular para generar recomendaciones personalizadas.");
 
-  const handleMuscleSelect = (name: string) => {
-    setSelectedMuscle(name);
-    setShowAiPanel(true);
-    // Aquí puedes disparar tu lógica de n8n o IA en el futuro
+  // --- UBICACIÓN EXACTA: DESPUÉS de tus estados y ANTES del return ---
+  const [selectedMuscles, setSelectedMuscles] = useState<string[]>([]);
+
+  const handleMuscleSelect = (muscles: string[]) => {
+    setSelectedMuscles(muscles);
+    if (muscles.length > 0) {
+      setShowAiPanel(true);
+      setAiContent(`Has seleccionado: <b>${muscles.join(', ')}</b>. Haz clic en 'Generar Rutina' para crear un entrenamiento combinado.`);
+    } else {
+      setShowAiPanel(false);
+      // Opcional: puedes resetear el texto individual aquí si quieres
+    }
   };
 
   return (
@@ -22,8 +31,10 @@ const RutinaPage = () => {
       <div id="ui">
         <h1>PERSONAL<span className="highlight">TRAINER</span> 3D</h1>
         <div id="muscle-display">
-          <small>Músculo Seleccionado</small>
-          <div id="muscle-name">{selectedMuscle}</div>
+          <small>Músculos Seleccionados</small>
+           <div id="muscle-name">
+              {selectedMuscles.length > 0 ? selectedMuscles.join(' + ') : "Selecciona uno o varios"}
+            </div>
         </div>
       </div>
 
@@ -31,7 +42,7 @@ const RutinaPage = () => {
       <Canvas shadows camera={{ position: [0, 1.6, 4], fov: 45 }} dpr={[1, 2]}>
         <Suspense fallback={null}>
           <Stage intensity={0.5} environment="city" adjustCamera={false} shadows="contact">
-            <MaleModel onSelectMuscle={handleMuscleSelect} />
+            <MaleModel onSelectMuscles={handleMuscleSelect} />
           </Stage>
           <ContactShadows opacity={0.4} scale={10} blur={2} far={4.5} />
         </Suspense>

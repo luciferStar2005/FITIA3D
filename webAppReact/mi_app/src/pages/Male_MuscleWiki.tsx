@@ -9,81 +9,88 @@ type GLTFResult = GLTF & {
   materials: any
 }
 
-export function Model({ onSelectMuscle, ...props }: any) {
-  // Asegúrate de que la ruta sea correcta
+export function Model({ onSelectMuscles, ...props }: any) {
   const { nodes } = useGLTF('/models/Male_MuscleWiki.glb') as unknown as GLTFResult
   
   const [hovered, setHovered] = useState<string | null>(null)
-  const [selected, setSelected] = useState<string | null>(null)
+  // CAMBIO: Ahora es una lista de músculos seleccionados
+  const [selectedMuscles, setSelectedMuscles] = useState<string[]>([])
 
-  // Lista de nombres que queremos ignorar (el cuerpo base por ejemplo)
   const ignoredNames = ['Cuerpo', 'Scene'];
+
+  const handlePointerClick = (e: any, name: string) => {
+    e.stopPropagation();
+    if (ignoredNames.includes(name)) return;
+
+    // Lógica de "Toggle" (Quitar si existe, agregar si no)
+    // Manejamos el antebrazo como una sola entidad
+    const targetName = (name === 'Antebrazo' || name === 'Antebrazo_1') ? 'Antebrazo' : name;
+
+    setSelectedMuscles((prev) => {
+      const isAlreadySelected = prev.includes(targetName);
+      const newSelection = isAlreadySelected
+        ? prev.filter((m) => m !== targetName) // Lo quitamos
+        : [...prev, targetName];              // Lo agregamos
+
+      // Notificamos a la página principal con la lista completa
+      if (onSelectMuscles) onSelectMuscles(newSelection);
+      
+      return newSelection;
+    });
+  };
 
   return (
     <group {...props} dispose={null}>
       {Object.keys(nodes).map((key) => {
         const node = nodes[key]
-        
-        // Solo procesamos si es una malla (Mesh)
         if (node.type === 'Mesh') {
-          
-          // --- NUEVA LÓGICA DE FUSIÓN DE ANTEBRAZOS ---
-          const isForearmNode = node.name === 'Antebrazo' || node.name === 'Antebrazo_1';
-          
-          // Hover: ¿Estamos sobre algún antebrazo?
-          const isHoveredGeneral = hovered === node.name;
-          const isForearmHovered = isForearmNode && (hovered === 'Antebrazo' || hovered === 'Antebrazo_1');
-          
-          // Selección: ¿Está seleccionado algún antebrazo?
-          const isSelectedGeneral = selected === node.name;
-          const isSelectedForearm = isForearmNode && (selected === 'Antebrazo' || selected === 'Antebrazo_1');
-
-          // El estado "final" que usará el material y la UI
-          const finalIsHovered = isForearmNode ? isForearmHovered : isHoveredGeneral;
-          const finalIsSelected = isForearmNode ? isSelectedForearm : isSelectedGeneral;
-          
           const isIgnored = ignoredNames.includes(node.name);
+          const isForearmNode = node.name === 'Antebrazo' || node.name === 'Antebrazo_1';
+          const targetName = isForearmNode ? 'Antebrazo' : node.name;
 
-          // Nombre limpio para la UI de la IA
-          const cleanName = isForearmNode ? 'Antebrazo' : node.name.replace(/_/g, ' ');
+          // Verificamos si este nodo específico (o su versión fusionada) está en la lista
+          const isSelected = selectedMuscles.includes(targetName);
+          const isHovered = hovered === node.name || (isForearmNode && hovered?.includes('Antebrazo'));
 
           return (
-            <mesh
+           <mesh
               key={key}
-              geometry={node.geometry}
-              name={node.name}
-              
-              // --- EVENTOS ---
-              onPointerOver={(e) => {
-                if (isIgnored) return
-                e.stopPropagation() 
-                setHovered(node.name) // Guardamos el nombre real
-                document.body.style.cursor = 'pointer'; // Cursor de mano pro
+               geometry={node.geometry}
+                // Solo permitimos clics y hovers si NO es una parte ignorada
+                onClick={(e) => !isIgnored && handlePointerClick(e, node.name)}
+                onPointerOver={(e) => {
+              if (isIgnored) return; // Si es la cabeza/pies, no hace nada
+                  e.stopPropagation();
+                  setHovered(node.name);
+                  document.body.style.cursor = 'pointer';
               }}
-              onPointerOut={() => {
-                setHovered(null);
-                document.body.style.cursor = 'default';
-              }}
-              onClick={(e) => {
-                if (isIgnored) return
-                e.stopPropagation() // El fix del pecho vs espalda sigue activo aquí
-                setSelected(node.name) // Guardamos el nombre real
-                
-                if (onSelectMuscle) {
-                  onSelectMuscle(cleanName) // Enviamos el nombre fusionado a la UI
-                }
-              }}
-            >
-              <meshStandardMaterial
-                // --- COLORES DINÁMICOS FUSIONADOS ---
-                // Si cualquiera de los antebrazos es seleccionado/hovered, ambos brillan
-                color={isIgnored ? '#333333' : finalIsSelected ? '#ff0000' : finalIsHovered ? '#882222' : '#444444'}
-                emissive={finalIsSelected ? '#ff0000' : '#000000'}
-                emissiveIntensity={finalIsSelected ? 1.5 : 0}
-                roughness={0.4}
-                metalness={0.3}
-              />
-            </mesh>
+                onPointerOut={() => {
+                    setHovered(null);
+                    document.body.style.cursor = 'default';
+                }}
+              > 
+                  <meshStandardMaterial
+                    // LÓGICA DE COLOR CORREGIDA:
+                    // Si es parte ignorada, mantenemos el color base siempre (#333 o similar)
+                    // Si no, aplicamos la lógica de selección/hover
+                    color={
+                      isIgnored 
+                        ? '#444444' // El color que tenían los músculos antes, ahora para cabeza/pies
+                        : isSelected 
+                          ? '#ff0000' 
+                          : isHovered 
+                            ? '#882222' 
+                            : '#444444' // Músculos en reposo vuelven a su color original
+                    }
+                      // Mantenemos el brillo solo para los músculos seleccionados
+                        emissive={(!isIgnored && isSelected) ? '#ff0000' : '#000000'}
+                        emissiveIntensity={(!isIgnored && isSelected) ? 0.8 : 0}
+
+                        // Ajustamos el acabado para que sea metálico pero oscuro
+                        metalness={0.7}     // Un poco menos que antes para que no parezca espejo
+                        roughness={0.3}     // Un poco más de rugosidad para ese efecto "acero cepillado"
+                  />
+              </mesh>
           )
         }
         return null
