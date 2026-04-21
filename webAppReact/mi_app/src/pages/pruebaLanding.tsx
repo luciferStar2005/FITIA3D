@@ -1,5 +1,5 @@
 import '@google/model-viewer';
-import './styleLanding.css';
+import '../styles/styleLanding.css';
 import { Navbar } from '../components/navbar/navbar';
 import { FeatureCard } from '../components/FeatureCard';
 import { featuresData } from '../data/features';

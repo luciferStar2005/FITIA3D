@@ -51,39 +51,7 @@ body {
 #ai-panel.active { right: 0; }
 
 
-.div-herramientas {
-    position: absolute;
-    top: 200px;
-    left: 30px;
-    background: var(--glass);
-    border-left: 4px solid var(--primary);
-    padding: 15px 25px;
-    backdrop-filter: blur(10px);
-    border-radius: 0 10px 10px 0;
-}
-
-.div-herramientas p {
-    margin-top: 0;
-    color: var(--primary);
-}
-
-.div-objetivo {
-    position: absolute;
-    top: 350px;
-    left: 30px;
-    background: var(--glass);
-    border-left: 4px solid var(--primary);
-    padding: 15px 25px;
-    backdrop-filter: blur(10px);
-    border-radius: 0 10px 10px 0;
-}
-
-.div-objetivo p {
-    margin-top: 0;
-    color: var(--primary);
-}
-
-#genera-rutina{
+.btn-siguiente{
     position: absolute;
     top: 85%;
     left: 50%;
@@ -96,7 +64,7 @@ body {
     border-radius: 33px;;
 }
 
-#genera-rutina:hover {
+.btn-siguiente:hover {
     background: rgb(255, 77, 77, 0.8);
 }
 

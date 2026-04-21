@@ -1,0 +1,44 @@
+.div-general{
+     background-color: var(--casi-negro);
+    padding-left: 15px;
+}
+
+.div-superior{
+    display: flex;
+    align-items: center;
+    padding-left: 35rem;
+}
+
+.tit-configuracion{
+    color:var(--verde-brillante);
+    text-align: center; 
+    font-size: 30px;
+    font-family:"DM Mono";
+}
+
+.btnvolver{
+    margin-top: 20px; 
+    border: 2px solid var(--rojo-destacado);
+    background-color: transparent;
+    color: var(--rojo-destacado); 
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 31rem;
+}
+
+.btnvolver:hover{
+    background: rgb(255, 77, 77, 0.8) ;
+    color: var(--casi-negro);
+    
+}
+
+
+
+.musculo-entrenar strong{
+    color: var(--verde-brillante);
+}
+
+
+
+

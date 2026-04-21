@@ -1,11 +1,13 @@
 import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage, ContactShadows } from '@react-three/drei';
-import { Model as MaleModel } from './Male_MuscleWiki'; 
-import './RutinaPage.css';
+import { Model as MaleModel } from '../components/threeModel/Male_MuscleWiki'; 
+import '../styles/RutinaPage.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const RutinaPage = () => {
+  const navigate = useNavigate();
   const [selectedMuscle, setSelectedMuscle] = useState("Toca la anatomía");
   const [showAiPanel, setShowAiPanel] = useState(false);
   const [aiContent, setAiContent] = useState("Selecciona un grupo muscular para generar recomendaciones personalizadas.");
@@ -16,6 +18,7 @@ const RutinaPage = () => {
   const handleMuscleSelect = (muscles: string[]) => {
     setSelectedMuscles(muscles);
     if (muscles.length > 0) {
+      setSelectedMuscle(muscles[muscles.length - 1]);
       setShowAiPanel(true);
       setAiContent(`Has seleccionado: <b>${muscles.join(', ')}</b>. Haz clic en 'Generar Rutina' para crear un entrenamiento combinado.`);
     } else {
@@ -23,6 +26,23 @@ const RutinaPage = () => {
       // Opcional: puedes resetear el texto individual aquí si quieres
     }
   };
+
+  const handleContinuar = () => {
+    console.log("Botón presionado, intentando navegar...");
+  if (selectedMuscles.length === 0) {
+    alert("Por favor, selecciona al menos un músculo en el modelo 3D.");
+    return;
+  }
+
+  // Navegamos a la ruta que definimos en App.tsx
+  // Pasamos los músculos como un objeto de estado
+  navigate('/configurar-rutina', { 
+    state: { 
+      muscles: selectedMuscles,
+      fechaSeleccion: new Date().toISOString() // Opcional: para saber cuándo se hizo
+    } 
+  });
+};
 
   return (
     <div className="rutinas-page" style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden', background: '#1f2220' }}>
@@ -60,30 +80,11 @@ const RutinaPage = () => {
         <button id="close-panel" onClick={() => setShowAiPanel(false)}>×</button>
         <h2 id="ai-title">Entrenamiento</h2>
         <div id="ai-content" dangerouslySetInnerHTML={{ __html: aiContent }} />
+        <button className='btn-siguiente' onClick={handleContinuar}>
+          Configurar Rutina
+        </button>
       </div>
 
-      {/* HERRAMIENTAS */}
-      <div className="div-herramientas">
-        <p>Herramientas Disponibles</p>
-        <ul>
-          {['Mancuernas', 'Barra', 'Peso Corporal', 'Bandas'].map(h => (
-            <li key={h}><label><input type="checkbox" /> {h}</label></li>
-          ))}
-        </ul>
-      </div>
-
-      {/* OBJETIVO */}
-      <div className="div-objetivo">
-        <p>Objetivo</p>
-        <ul>
-          {['Fuerza', 'Hipertrofia', 'Resistencia'].map(o => (
-            <li key={o}><label><input type="checkbox" /> {o}</label></li>
-          ))}
-        </ul>
-      </div>
-
-      <button id="genera-rutina">Generar Rutina</button>
-      
       <div className="controls-hint">Click: Seleccionar | Arrastrar: Rotar | Scroll: Zoom</div>
     </div>
   );
