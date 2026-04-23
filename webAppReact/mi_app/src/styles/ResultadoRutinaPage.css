@@ -1,0 +1,90 @@
+.resultado-container {
+  background-color: var(--casi-negro);
+  min-height: 100vh;
+  padding: 40px 5%;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.resultado-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.rutina-nombre {
+  color: var(--verde-brillante);
+  font-family: 'DM Mono';
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.rutina-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
+.ejercicio-card {
+  background: #222;
+  border-left: 4px solid var(--verde-brillante);
+  padding: 20px;
+  border-radius: 4px;
+  transition: transform 0.2s;
+}
+
+.ejercicio-card:hover {
+  transform: translateX(10px);
+  background: #282828;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: space-between;
+  margin: 15px 0;
+  padding: 10px 0;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  font-size: 0.9rem;
+}
+
+.ejercicio-tip {
+  font-size: 0.85rem;
+  color: #aaa;
+  font-style: italic;
+}
+
+/* AGENDA STYLES */
+.agenda-section {
+  background: #111;
+  padding: 30px;
+  border: 1px solid #333;
+  text-align: center;
+}
+
+.agenda-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.input-acero {
+  background: #222;
+  border: 1px solid #444;
+  color: white;
+  padding: 10px;
+  font-family: 'DM Mono';
+}
+
+.btn-confirmar {
+  background: var(--verde-brillante);
+  color: black;
+  border: none;
+  padding: 10px 30px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
