@@ -7,12 +7,16 @@ export function Navbar() {
     return (
         <header className="relative">
             <nav className="flex items-center justify-between fixed top-0 left-0 right-0 bg-neutral-800 p-4 z-50">
-                <ul className="hidden md:flex space-x-4">
-                    <li><Link to="/" className="text-red-300 hover:text-red-500 font-bold">Gym</Link></li>
-                    <li><Link to="/perfil" className="text-white hover:text-gray-300">Perfil</Link></li>
-                    <li><Link to="/rutina" className="text-white hover:text-gray-300">Rutina</Link></li>
-
-                </ul>
+                <div className="flex items-center gap-8">
+                    <Link to="/home" className="text-2xl font-['Bebas_Neue'] tracking-wider italic">
+                        FIT<span className="text-red-600">AI</span>3D
+                    </Link>
+                    <ul className="hidden md:flex space-x-6 items-center">
+                        <li><Link to="/home" className="text-white hover:text-red-400 font-bold uppercase text-xs tracking-widest transition-colors">Dashboard</Link></li>
+                        <li><Link to="/rutina" className="text-white hover:text-red-400 font-bold uppercase text-xs tracking-widest transition-colors">Entrenador</Link></li>
+                        <li><Link to="/perfil" className="text-white hover:text-red-400 font-bold uppercase text-xs tracking-widest transition-colors">Perfil</Link></li>
+                    </ul>
+                </div>
                 <div className="flex border-2 border-neutral-800 hover:border-red-950 rounded-md h-10 w-10 items-center justify-center cursor-pointer md:hidden">
                     <button className="text-white px-4 py-2" onClick={() => setIsOpen(!isOpen)}>
                         {/* Hamburguesa o X */}
@@ -22,10 +26,10 @@ export function Navbar() {
                     </button>
                 </div>
                 {isOpen && (
-                    <ul className="absolute top-full left-0 right-0 bg-neutral-800 md:hidden z-50 shadow-lg">
-                        <li><Link to="/" className="text-red-300 hover:text-red-500 block p-4 border-b border-neutral-700">Gym</Link></li>
-                        <li><Link to="/perfil" className="text-white hover:text-gray-300 block p-4 border-b border-neutral-700">Perfil</Link></li>
-                        <li><Link to="/rutina" className="text-white hover:text-gray-300 block p-4">Rutina</Link></li>
+                    <ul className="absolute top-full left-0 right-0 bg-neutral-800 md:hidden z-50 shadow-lg border-t border-neutral-700">
+                        <li><Link to="/home" className="text-white hover:text-red-400 block p-4 border-b border-neutral-700 font-bold uppercase text-xs tracking-widest">Dashboard</Link></li>
+                        <li><Link to="/rutina" className="text-white hover:text-red-400 block p-4 border-b border-neutral-700 font-bold uppercase text-xs tracking-widest">Entrenador</Link></li>
+                        <li><Link to="/perfil" className="text-white hover:text-red-400 block p-4 font-bold uppercase text-xs tracking-widest">Perfil</Link></li>
                     </ul>
                 )}
             </nav>
