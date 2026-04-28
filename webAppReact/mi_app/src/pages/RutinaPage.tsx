@@ -1,7 +1,7 @@
 import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage, ContactShadows } from '@react-three/drei';
-import { Model as MaleModel } from '../components/threeModel/Male_MuscleWiki'; 
+import { Model as MaleModel } from '../components/threeModel/Male_MuscleWiki';
 import '../styles/RutinaPage.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -29,32 +29,32 @@ const RutinaPage = () => {
 
   const handleContinuar = () => {
     console.log("Botón presionado, intentando navegar...");
-  if (selectedMuscles.length === 0) {
-    alert("Por favor, selecciona al menos un músculo en el modelo 3D.");
-    return;
-  }
+    if (selectedMuscles.length === 0) {
+      alert("Por favor, selecciona al menos un músculo en el modelo 3D.");
+      return;
+    }
 
-  // Navegamos a la ruta que definimos en App.tsx
-  // Pasamos los músculos como un objeto de estado
-  navigate('/configurar-rutina', { 
-    state: { 
-      muscles: selectedMuscles,
-      fechaSeleccion: new Date().toISOString() // Opcional: para saber cuándo se hizo
-    } 
-  });
-};
+    // Navegamos a la ruta que definimos en App.tsx
+    // Pasamos los músculos como un objeto de estado
+    navigate('/configurar-rutina', {
+      state: {
+        muscles: selectedMuscles,
+        fechaSeleccion: new Date().toISOString() // Opcional: para saber cuándo se hizo
+      }
+    });
+  };
 
   return (
     <div className="rutinas-page" style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden', background: '#1f2220' }}>
-      
+
       {/* UI Superior */}
       <div id="ui">
         <h1>PERSONAL<span className="highlight">TRAINER</span> 3D</h1>
         <div id="muscle-display">
           <small>Músculos Seleccionados</small>
-           <div id="muscle-name">
-              {selectedMuscles.length > 0 ? selectedMuscles.join(' + ') : "Selecciona uno o varios"}
-            </div>
+          <div id="muscle-name">
+            {selectedMuscles.length > 0 ? selectedMuscles.join(' + ') : "Selecciona uno o varios"}
+          </div>
         </div>
       </div>
 
@@ -66,12 +66,12 @@ const RutinaPage = () => {
           </Stage>
           <ContactShadows opacity={0.4} scale={10} blur={2} far={4.5} />
         </Suspense>
-        
-        <OrbitControls 
-          makeDefault 
-          enableDamping 
-          minPolarAngle={0} 
-          maxPolarAngle={Math.PI / 1.75} 
+
+        <OrbitControls
+          makeDefault
+          enableDamping
+          minPolarAngle={0}
+          maxPolarAngle={Math.PI / 1.75}
         />
       </Canvas>
 
