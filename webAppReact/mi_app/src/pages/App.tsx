@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 // Importamos las páginas desde sus nuevas ubicaciones
-import RutinaPage from './RutinaPage.tsx'; 
-import ConfiguracionPage from './ConfiguracionPage.tsx'; 
+import RutinaPage from './RutinaPage.tsx';
+import ConfiguracionPage from './ConfiguracionPage.tsx';
 import ResultadoRutinaPage from './ResultadoRutinaPage.tsx';
 
 function App() {

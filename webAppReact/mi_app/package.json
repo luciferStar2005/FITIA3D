@@ -11,14 +11,20 @@
   },
   "dependencies": {
     "@google/model-viewer": "^4.2.0",
+    "@heroicons/react": "^2.2.0",
+    "@hookform/resolvers": "^5.2.2",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.0",
     "@tailwindcss/vite": "^4.2.2",
     "@types/three": "^0.184.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-hook-form": "^7.72.1",
+    "react-is": "^19.2.5",
     "react-router-dom": "^7.14.1",
-    "three": "^0.184.0"
+    "recharts": "^3.8.1",
+    "three": "^0.184.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
