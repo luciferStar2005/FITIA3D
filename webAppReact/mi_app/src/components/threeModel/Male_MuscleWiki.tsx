@@ -23,8 +23,11 @@ export function Model({ onSelectMuscles, ...props }: any) {
     if (ignoredNames.includes(name)) return;
 
     // Lógica de "Toggle" (Quitar si existe, agregar si no)
-    // Manejamos el antebrazo como una sola entidad
-    const targetName = (name === 'Antebrazo' || name === 'Antebrazo_1') ? 'Antebrazo' : name;
+    // Si el nombre es 'Antebrazo' o 'Antebrazo_1', lo llamamos 'Antebrazo'
+    // Si el nombre es 'Pantorrillas', lo llamamos 'Isquiotibiales' (Corrección manual)
+    const targetName = (name === 'Antebrazo' || name === 'Antebrazo_1') 
+      ? 'Antebrazo' 
+      : (name === 'Pantorrillas') ? 'Isquiotibiales' : name;
 
     setSelectedMuscles((prev) => {
       const isAlreadySelected = prev.includes(targetName);
@@ -46,8 +49,7 @@ export function Model({ onSelectMuscles, ...props }: any) {
         if (node.type === 'Mesh') {
           const isIgnored = ignoredNames.includes(node.name);
           const isForearmNode = node.name === 'Antebrazo' || node.name === 'Antebrazo_1';
-          const targetName = isForearmNode ? 'Antebrazo' : node.name;
-
+          const targetName = isForearmNode ? 'Antebrazo' : (node.name === 'Pantorrillas') ? 'Isquiotibiales' : node.name;
           // Verificamos si este nodo específico (o su versión fusionada) está en la lista
           const isSelected = selectedMuscles.includes(targetName);
           const isHovered = hovered === node.name || (isForearmNode && hovered?.includes('Antebrazo'));
