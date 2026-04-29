@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link href="/front-end/css/styleLanding.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+   
+</head>
+<body>
+   <nav class="navPrincipal">
+    <div class="NombrePagina">PERSONAL<span class="Parte2">GYM</span></div>
+      <ul class="nav-links">
+        <li><a href="#funcionalidades">Funciones</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+    </ul>
+        <button class="btn-nav">Acceso Anticipado</button>
+   </nav>
+
+   <section class="pincipal">
+    <div class="p-izquierda">
+        <h1 class="encabezado">Tu Entrenador Personal en la Palma de tu Mano</h1>
+        <div class="letrasGrandes">
+            <p>Sin Gym.</p>
+            <p style="color: #36E077;">Sin Excusas.</p>
+            <p>Sin Tiempo.</p>
+             
+        </div>
+        <div class="informacion">
+            La app de ejercicios en casa para colombianos con agendas imposibles. 
+            IA que genera rutinas personalizadas y un cuerpo 3D que te muestra exactamente qué músculo trabajas.
+        </div>
+        <button class="btn-p-izquierda" onclick="window.location.href='registro.html'">Comienza Ahora</button>
+  </div>
+
+    <div class="p-derecha">
+        <model-viewer class="modelo3d" src="/front-end/models/Push_Up.glb" autoplay 
+            animation-name="Push_Up"
+            camera-controls
+            ar
+            style="width: 100%; height: 500px;">
+        </model-viewer>
+    </div>
+   </section>
+
+   <section class="problematica">
+        <div class="col-texto">
+            <span class="subtitulo">EL PROBLEMA REAL</span>
+            <h2 class="hProblema">COLOMBIA TIENE UN PROBLEMA DE MOVIMIENTO</h2>
+            <p style="color: gray; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 30px;">El trabajo remoto, las largas jornadas y la falta de espacios seguros han convertido el sedentarismo en una epidemia silenciosa.</p>
+        </div>
+
+        <div class="col-stats">
+            <div class="stat-item">
+                <span class="numero">90%</span>
+                <p class="inStats">de los jóvenes colombianos son físicamente inactivos según el MinSalud</p>
+                <span class="numero"> 3 de 5</span>
+                <p class="inStats">adultos tienen sobrepeso o malnutrición en el país.</p>
+                <span class="numero"> ↑72%</span>
+                <p class="inStats">aumento del trabajo remoto, reduciendo la actividad diaria</p>
+            </div>
+        </div>
+   </section>
+
+   <section class="funcionalidades" id="funcionalidades">
+        <div class="funEncabezado">
+            <p class="pFuncionalidades">Funcionalidades</p>
+            <h2 class="h2Funcionalidades">
+                Todo lo que necesitas para ponerte en forma, sin salir de casa. Rutinas personalizadas, seguimiento de progreso y un cuerpo 3D que te muestra exactamente qué músculo trabajas.
+            </h2>
+        </div>
+        
+    <div class="grid-cards">
+        <div class="card">
+        <span class="numero-card">01</span>
+        <h3>RUTINAS CON IA</h3>
+        <p>Gemini analiza tu perfil y genera una rutina semanal única. Si la IA falla, una plantilla de calidad te respalda.</p>
+        </div>
+
+        <div class="card">
+        <span class="numero-card">02</span>
+        <h3>CUERPO 3D INTERACTIVO</h3>
+        <p>Toca el músculo que quieres trabajar en el modelo 3D. Sin términos técnicos, perfecto para principiantes.</p>
+        </div>
+
+        <div class="card">
+        <span class="numero-card">03</span>
+        <h3>RACHA DIARIA</h3>
+        <p>Sistema de streak para mantenerte consistente. Gráficas de barras para visualizar tu progreso día a día.</p>
+        </div>
+
+        <div class="card">
+        <span class="numero-card">04</span>
+        <h3>PLANIFICADOR SEMANAL</h3>
+        <p>Organiza tu semana y recibe recordatorios vía navegador. Sin apps extra, sin fricción.</p>
+        </div>
+
+        <div class="card">
+        <span class="numero-card">05</span>
+        <h3>SEGUIMIENTO DE PROGRESO</h3>
+        <p>Registra cada sesión y observa tu evolución. Datos concretos, gráficas claras.</p>
+        </div>
+
+         <div class="card">
+        <span class="numero-card">06</span>
+        <h3>PERFIL Y OBJETIVO</h3>
+        <p>Configura metas, equipo disponible y ajusta tu perfil cuando cambien tus circunstancias.</p>
+        </div>
+  </div>
+   </section>
+
+   <section>
+
+   <section class="proceso" id="proceso">
+        <div class="procesoDiv">
+            <p>
+                proceso
+            </p>
+            <h2>
+                De cero a en forma en 4 pasos.
+            </h2>
+        </div>
+
+        <div class="box-pasos">
+            <div class="pasos">
+                <span class="numero-paso">01</span>
+                <h3>CREA TU PERFIL</h3>
+                <p>Ingresa tus datos, objetivos y equipo disponible. Nada mas.</p>
+            </div>
+            <div class="pasos">
+                <span class="numero-paso">02</span>
+                <h3>RECIBE TU RUTINA</h3>
+                <p>La IA genera tu rutina semanal personalizada en segundos.</p>
+            </div>    
+            <div class="pasos">
+                <span class="numero-paso">03</span>
+                <h3>ENTRENA EN CASA</h3>
+                <p>Sigue tu rutina, toca el cuerpo 3D para ver qué músculo trabajas.</p>
+            </div>   
+            <div class="pasos">
+                <span class="numero-paso">04</span>
+                <h3>CONTRUYE EL HABITO</h3>
+                <p>Racha diaria, recordatorios y gráficas para no parar nunca.</p>
+            </div>      
+        </div>
+
+   </section>
+
+   <section class="final">
+        <div class="finalDiv">
+            <h2>¿LISTO PARA DEJAR DE POSPONER EL TIEMPO?</h2>
+            <button>COMENZAR AHORA</button>
+           
+        </div>
+        <div class="infoFinalDiv">
+            <p>SIN TARJETA DE CRÉDITO</p>
+            <p>SIN DESCARGAR</p>
+            <p>SOLO TU NAVEGADOR</p>  
+        </div>
+   </section>
+
+
+   <footer>
+        <div class="foot-contenido">
+            <h2>PERSONALGYM - Tu Entrenador Personal en la Palma de tu Mano</h2>
+               <p class="pFoot">© 2026 PERSONALGYM. Todos los derechos reservados.</p>
+             <p class="pFoot">PRIVACIDAD.</p>
+             <p class="pFoot">TERMINOS</p>
+             <p class="pFoot">CONTACTO</p>
+        </div>
+
+        
+   </footer>
+
+</body>
+</html>

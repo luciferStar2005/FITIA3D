@@ -1,0 +1,23 @@
+.foot-contenido{
+     background-color: var(--casi-negro);
+    background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    display: flex;
+    padding: 30px;
+   padding-top: 5rem;
+    
+}
+
+.foot-contenido h2{
+    color: var(--verde-brillante);
+    margin-right: 20px;
+}
+
+.foot-contenido p{
+    margin-top: 7px;
+     margin-right: 20px;
+     color: var(--blanco-suave);
+     margin-bottom: 30px;
+}

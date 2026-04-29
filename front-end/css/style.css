@@ -1,0 +1,61 @@
+body{
+    margin:0;
+}
+
+/* contenedor general*/
+.pagina{
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+}
+
+/* zona donde estan menu y contenido(modelo 3d) */
+.principal{
+    display:flex;
+    flex:1;
+}
+
+/* menu lateral */
+.lateral{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    background: linear-gradient(135deg, #ff4d4d,#000000);
+    width:12%;
+    color:azure;
+    padding-top:25px;
+}
+
+/* enlaces del menu */
+a{
+    color:azure;
+    font-size:20px;
+    margin:10px;
+    text-decoration:none;
+}
+
+/* efecto */
+a:hover{
+    color:#ffaaaa;
+}
+
+/* contenido central(modelo 3d) */
+.contenido{
+    flex:1;
+    display:flex;
+}
+
+/* iframe donde se cargan las opciones */
+iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+/* pie de página */
+.abajo{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:15px;
+}

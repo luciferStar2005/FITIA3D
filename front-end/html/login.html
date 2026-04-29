@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/front-end/css/login.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="principal">
+        <div class="izquierda">
+            <div class="iz-logo">PERSONAL<span>GYM</span></div>
+            <div class="iz-centro">
+                <h2 class="iz-titulo">Muévete<br><span>Hoy.</span></h2>
+                <p class="iz-sub">Rutinas personalizadas con IA para personas con poco tiempo y muchas ganas.</p>
+            </div>
+            <div class="iz-stats">
+                <div class="stat"><div class="stat-n">15min</div><div class="stat-l">Rutina mínima</div></div>
+                <div class="stat"><div class="stat-n">IA</div><div class="stat-l">Personalización</div></div>
+                <div class="stat"><div class="stat-n">3D</div><div class="stat-l">Guía visual</div></div>
+            </div>
+        </div>
+        <div class="derecha">
+            <div class="d-info">
+                <p class="d-bien">Bienvenido de Nuevo</p>
+                <h1>Iniciar Sesión</h1>
+                <p class="d-question">¿Aún no tienes cuenta? <a href="#" class="href-Registro">Regístrate aquí</a></p>
+            </div>
+
+            <!-- MODIFICACIÓN: id al contenedor del form y novalidate -->
+            <div class="entrada" id="loginForm">
+                <p class="text-entrada">Correo Electrónico</p>
+                <input type="email" id="correo" class="inCorreo" placeholder="usuario@correo.com">
+                <span class="error-msg" id="error-correo"></span>
+
+                <p class="text-entrada">Contraseña</p>
+                <input type="password" id="contrasena" class="inContraseña" placeholder="Tu contraseña">
+                <span class="error-msg" id="error-contrasena"></span>
+
+                <br>
+                <button class="btn-olvid" id="btn-olvid" type="button">Olvidaste tu contraseña?</button>
+                <br>
+                <button type="button" id="btn-ingresar" class="btn-ingresar">INGRESAR</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/loginForm.js"></script>
+</body>
+</html>

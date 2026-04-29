@@ -1,0 +1,99 @@
+.div-general {
+    background-color: var(--casi-negro);
+    padding: 20px; /* Padding uniforme */
+    min-height: 100vh;
+}
+
+.div-superior {
+    display: flex;
+    justify-content: space-between; /* Empuja el título a la izquierda y el botón a la derecha */
+    align-items: center;            /* Los centra verticalmente entre sí */
+    width: 100%;
+    max-width: 1200px;             /* Evita que se peguen demasiado a los bordes en monitores muy anchos */
+    margin: 0 auto;                /* Centra todo el bloque en la pantalla */
+    padding: 20px 40px;            /* Espaciado interno para que no toquen el borde del navegador */
+    box-sizing: border-box;
+}
+
+.tit-configuracion {
+    color: var(--verde-brillante);
+    font-size: 32px;
+    font-family: "DM Mono", monospace;
+    margin: 0;                     /* Quita márgenes por defecto */
+    text-align: left;              /* Ahora el título nace desde la izquierda */
+}
+
+.btnvolver {
+    /* Eliminamos el margin-top y margin-left previos */
+    border: 2px solid var(--rojo-destacado);
+    background-color: transparent;
+    color: var(--rojo-destacado); 
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btnvolver:hover {
+    background: var(--rojo-destacado);
+    color: var(--casi-negro);
+}
+
+/* BOTÓN GENERAR  */
+.btn-generar-final {
+    background: var(--verde-brillante);
+    color: #000;
+    border: none;
+    padding: 18px 50px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    border-radius: 0px; /* Rectangular total  */
+    cursor: pointer;
+    margin: 60px auto;
+    display: block;
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 6px 6px 0px rgba(0, 255, 136, 0.2); /* Sombra sólida, no difuminada */
+}
+
+.btn-generar-final:hover {
+    transform: translate(-3px, -3px); /* Efecto de presionar */
+    box-shadow: 10px 10px 0px rgba(0, 255, 136, 0.3);
+    filter: brightness(1.1);
+}
+
+.btn-generar-final:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0px rgba(0, 255, 136, 0.5);
+}
+
+/* Estilo cuando el botón está cargando */
+.btn-generar-final.loading {
+    cursor: not-allowed;
+    opacity: 0.8;
+    filter: grayscale(0.5);
+}
+
+.spinner-contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* El Spinner de Neón */
+.spinner-neon {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 255, 136, 0.2);
+    border-top: 3px solid var(--verde-brillante); /* Tu verde brillante */
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

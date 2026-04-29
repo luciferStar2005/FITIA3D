@@ -1,0 +1,17 @@
+# --- Reglas Globales (Raíz) ---
+# Ignora configuraciones de editores para TODO el proyecto
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Archivos de sistema y logs
+.DS_Store
+*.log
+*.tmp
+
+# Archivos de compilación generales
+target/
+out/
+bin/

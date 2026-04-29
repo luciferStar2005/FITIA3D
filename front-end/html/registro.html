@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/front-end/css/registroStyle.css">
+    <title>Document</title>
+</head>
+<body>
+   <div class="registro-container">
+    <p class="registro-tag">COMIENZA HOY</p>
+    <h1 class="registro-title">ACCESO ANTICIPADO</h1>
+    <p class="registro-subtitle">Únete a la lista de espera para ser de los primeros en entrenar con IA.</p>
+
+    <!-- ÚNICA MODIFICACIÓN AL FORM: se agrega id="registroForm" y novalidate -->
+    <form class="registro-form" id="registroForm" novalidate>
+        <div class="input-group">
+            <input type="text" id="nombre" placeholder="NOMBRE" required>
+            <span class="error-msg" id="error-nombre"></span>
+        </div>
+        <div class="input-group">
+            <input type="text" id="apellido" placeholder="APELLIDO" required>
+            <span class="error-msg" id="error-apellido"></span>
+        </div>
+        <div class="input-group">
+            <input type="number" id="edad" placeholder="EDAD" required>
+            <span class="error-msg" id="error-edad"></span>
+        </div>
+        <div class="input-group">
+            <input type="number" id="peso" placeholder="PESO" required>
+            <span class="error-msg" id="error-peso"></span>
+        </div>
+        <div class="input-group">
+            <input type="number" id="estatura" placeholder="ESTATURA(CM)" required>
+            <span class="error-msg" id="error-estatura"></span>
+        </div>
+        <div class="input-group">
+            <input type="email" id="correo" placeholder="CORREO ELECTRÓNICO" required>
+            <span class="error-msg" id="error-correo"></span>
+        </div>
+        <div class="input-group">
+            <input type="password" id="contrasena" placeholder="CONTRASEÑA" required>
+            <span class="error-msg" id="error-contrasena"></span>
+        </div>
+        <button type="submit" class="btn-submit">ENVIAR SOLICITUD</button>
+    </form>
+    <p class="registro-footer">SIN TARJETA · SIN DESCARGAS</p>
+</div>
+
+<!-- Script de validación -->
+<script src="../js/formularioRegistro.js"></script>
+</body>
+</html>
