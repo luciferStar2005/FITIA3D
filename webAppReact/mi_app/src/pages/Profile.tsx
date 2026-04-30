@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "../components/Nav/Navbar.tsx";
 import ProfileEditForm from "../components/ProfileEditForm/ProfileEditForm";
+import RegistroEntreno from "../components/training/RegistroEntreno.tsx";
+import { getTrainings } from "../data/trainingStorage.ts";
+import type { TrainingRecord } from "../types/index.ts";
+import TrainingHistory from "../components/training/TrainingHistory.tsx";
 
 import { perfilData as initialPerfil, rachaData as racha } from '../data/mockData';
 import { calcularIMC } from '../utils/helpers';
@@ -11,8 +15,17 @@ const hoy = new Date().toISOString().slice(0, 10);
 export default function Profile() {
   const [perfil, setPerfil] = useState(initialPerfil);
   const [isEditing, setIsEditing] = useState(false);
+  const [trainings, setTrainings] = useState<TrainingRecord[]>([]);
 
   const currentProfile = perfil[0];
+
+  const loadTrainings = () => {
+    setTrainings(getTrainings());
+  };
+
+  useEffect(() => {
+    loadTrainings();
+  },[]);
 
   const handleSave = (data: any) => {
     const updatedPerfil = [...perfil];
@@ -144,6 +157,14 @@ export default function Profile() {
             </div>
           </>
         )}
+
+        <div className="col-span-1 md:col-span-2 lg:col-span-2">
+          <RegistroEntreno onTrainingSaved={loadTrainings}></RegistroEntreno>
+        </div>
+
+        <div className="col-span-1 md:col-span-2 lg:col-span-2">
+          <TrainingHistory trainings={trainings}></TrainingHistory>
+        </div>
       </div>
     </>
   );
