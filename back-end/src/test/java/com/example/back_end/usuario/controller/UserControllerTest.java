@@ -54,7 +54,7 @@ public class UserControllerTest {
                 .password("password")
                 .stature(170)
                 .weight(70)
-                .gender('M')
+                .gender("M")
                 .birthDate(LocalDate.of(2005, 5, 1))
                 .build();
 
@@ -63,9 +63,9 @@ public class UserControllerTest {
                 "Ortiz",
                 "test@example.com",
                 "password",
-                170,
-                70,
-                'M',
+                1.70f,
+                70.0f,
+                "M",
                 LocalDate.of(2005, 5, 1));
 
         Mockito.when(service.registerUser(Mockito.any(RegisterUserRequest.class)))
@@ -76,7 +76,7 @@ public class UserControllerTest {
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.email").value("test@example.com")) // Verificamos el contenido
+                .andExpect(jsonPath("$.email").value("test@example.com"))
                 .andExpect(jsonPath("$.id").exists());
     }
 }

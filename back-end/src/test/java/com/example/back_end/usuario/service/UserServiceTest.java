@@ -37,7 +37,7 @@ public class UserServiceTest {
                 .password("password")
                 .stature(170)
                 .weight(70)
-                .gender('M')
+                .gender("M")
                 .birthDate(java.time.LocalDate.of(2005, 5, 1))
                 .build();
 

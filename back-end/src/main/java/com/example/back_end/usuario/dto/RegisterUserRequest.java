@@ -14,8 +14,8 @@ public class RegisterUserRequest {
     private String lastName;
     private String email;
     private String password;
-    private int stature;
-    private int weight;
-    private char gender;
+    private float stature;
+    private float weight;
+    private String gender;
     private LocalDate birthDate;
 }
