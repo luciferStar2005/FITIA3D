@@ -1,6 +1,5 @@
 package com.example.back_end.usuario.service;
 
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,35 +21,39 @@ public class UserService {
     private final UserRepository repository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserEntity registerUser(RegisterUserRequest rq){
+    public UserEntity registerUser(RegisterUserRequest rq) {
         repository.findByEmail(rq.getEmail())
-        .ifPresent(u->{
-            throw new EntityNotFoundException("this email already exist");
-        });
+                .ifPresent(u -> {
+                    throw new EntityNotFoundException("this email already exist");
+                });
 
-        UserEntity newUser= UserEntity.builder()
-        .firtsName(rq.getFirtsName())
-        .lastname(rq.getLastName())
-        .email(rq.getEmail())
-        .passsword(passwordEncoder.encode(rq.getPassword()))
-        .build();
+        UserEntity newUser = UserEntity.builder()
+                .firtsName(rq.getFirtsName())
+                .lastname(rq.getLastName())
+                .email(rq.getEmail())
+                .passsword(passwordEncoder.encode(rq.getPassword()))
+                .stature(rq.getStature())
+                .weight(rq.getWeight())
+                .gender(rq.getGender())
+                .birthDate(rq.getBirthDate())
+                .build();
 
         repository.save(newUser);
 
         return newUser;
     }
 
-    public ProfileResponse getProfileFromDatabase(String email){
+    public ProfileResponse getProfileFromDatabase(String email) {
         UserEntity user = repository.findByEmail(email)
-            .orElseThrow(() -> new EntityNotFoundException("user not found: " + email));
+                .orElseThrow(() -> new EntityNotFoundException("user not found: " + email));
         ProfileResponse response = new ProfileResponse(user.getFirtsName(), user.getLastname(), user.getEmail());
         return response;
 
     }
 
-    public Mensaje modifyUser(String email, UpdateUserResquest rq){
-        UserEntity user= repository.findByEmail(email)
-        .orElseThrow(()-> new EntityNotFoundException("user not found"));
+    public Mensaje modifyUser(String email, UpdateUserResquest rq) {
+        UserEntity user = repository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("user not found"));
 
         user.setFirtsName(rq.getFirtsName());
         user.setLastname(rq.getLastName());

@@ -28,8 +28,8 @@ public class UserController {
     private final UserService service;
 
     @PostMapping("/register")
-    public ResponseEntity<UserEntity> register(@RequestBody RegisterUserRequest rq){
-        UserEntity user=service.registerUser(rq);
+    public ResponseEntity<UserEntity> register(@RequestBody RegisterUserRequest rq) {
+        UserEntity user = service.registerUser(rq);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
@@ -41,19 +41,17 @@ public class UserController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<Mensaje> modify(@RequestBody UpdateUserResquest rq){
-        String username=getUsernameContext();
+    public ResponseEntity<Mensaje> modify(@RequestBody UpdateUserResquest rq) {
+        String username = getUsernameContext();
 
-        Mensaje mensaje=service.modifyUser(username, rq);
+        Mensaje mensaje = service.modifyUser(username, rq);
 
         return new ResponseEntity<>(mensaje, HttpStatus.OK);
     }
 
-    
-
-    private String getUsernameContext(){
-        Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null || !auth.isAuthenticated()){
+    private String getUsernameContext() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No autenticado");
         }
 

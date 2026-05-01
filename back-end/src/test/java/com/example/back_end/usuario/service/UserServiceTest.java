@@ -28,24 +28,31 @@ public class UserServiceTest {
     @InjectMocks
     private UserService service;
 
-    
     @Test
     void testRegisterUser() {
         RegisterUserRequest request = RegisterUserRequest.builder()
-        .firtsName("Calet")
-        .lastName("Ortiz")
-        .email("test@example.com")
-        .password("password")
-        .build();
+                .firtsName("Calet")
+                .lastName("Ortiz")
+                .email("test@example.com")
+                .password("password")
+                .stature(170)
+                .weight(70)
+                .gender('M')
+                .birthDate(java.time.LocalDate.of(2005, 5, 1))
+                .build();
 
-        UserEntity usuarioCreado= UserEntity.builder()
-        .firtsName(request.getFirtsName())
-        .lastname(request.getLastName())
-        .email(request.getEmail())
-        .build();
+        UserEntity usuarioCreado = UserEntity.builder()
+                .firtsName(request.getFirtsName())
+                .lastname(request.getLastName())
+                .email(request.getEmail())
+                .stature(request.getStature())
+                .weight(request.getWeight())
+                .gender(request.getGender())
+                .birthDate(request.getBirthDate())
+                .build();
         when(repository.save(any(UserEntity.class))).thenReturn(usuarioCreado);
 
-        UserEntity result= service.registerUser(request);
+        UserEntity result = service.registerUser(request);
         verify(passwordEncoder, times(1)).encode("password");
         assertNotNull(result);
         assertEquals(usuarioCreado, result);
