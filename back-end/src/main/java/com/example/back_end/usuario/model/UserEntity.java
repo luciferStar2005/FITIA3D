@@ -36,13 +36,13 @@ public class UserEntity {
     private String passsword;
 
     @Column(name = "info_estatura")
-    private int stature;
+    private float stature;
 
     @Column(name = "info_peso")
-    private int weight;
+    private float weight;
 
     @Column(name = "info_genero")
-    private char gender;
+    private String gender;
 
     @Column(name = "info_nacimiento")
     private LocalDate birthDate;
