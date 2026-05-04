@@ -60,7 +60,7 @@ const handleEquipamientoSelect = (id: string) => {
         Equipo: ${equipos.join(', ')}.
         Formato: JSON estricto.
     `;
-    const N8N_WEBHOOK_URL = "https://juansemodelo3d.app.n8n.cloud/webhook-test/67ae595e-a53d-45ba-a0e1-2bad0e55d3e0";
+    const N8N_WEBHOOK_URL = "https://juanredondorodriguez7gma.app.n8n.cloud/webhook-test/67ae595e-a53d-45ba-a0e1-2bad0e55d3e0";
    
   
     try {
