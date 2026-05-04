@@ -21,7 +21,7 @@ export default function RegisterForm() {
         if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const newErrors: Record<string, string> = {};
 
@@ -74,8 +74,35 @@ export default function RegisterForm() {
         }
 
         // Lógica de registro o llamada a la API
-        console.log("Registrando con los siguientes datos", formData);
-        alert("¡Registro validado exitosamente!");
+       const dataParaBackend = {
+            firtsName: formData.nombre,    // nombre -> firtsName
+            lastName: formData.apellido,   // apellido -> lastName
+            email: formData.email,
+            password: formData.password,
+            stature: parseInt(formData.estatura), // texto -> número
+            weight: parseInt(formData.peso),      // texto -> número
+            gender: 'M',                          // valor por defecto 
+            birthDate: formData.fecha             // fecha -> birthDate
+        };
+        try {
+                // ACTUALIZACIÓN DE LA RUTA REAL
+                const response = await fetch('http://localhost:8080/api/v2/user/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataParaBackend),
+                });
+
+                if (response.ok) {
+                    alert("¡Usuario creado con éxito (201 Created)!");
+                } else {
+                    alert("Error al registrar: " + response.status);
+                }
+            } catch (error) {
+                alert("Error: No se pudo conectar con el backend de Java.");
+            }
+
     };
 
     return (
