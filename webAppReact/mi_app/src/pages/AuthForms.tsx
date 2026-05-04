@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button/Button.tsx";
 
 const passwordRegex = /^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
 // Helper para determinar las clases del input dependiendo de si hay error
 const getInputClass = (hasError: boolean) =>
-    `h-8 px-2 bg-neutral-900 border ${hasError ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-800 focus:border-neutral-500'} transition-all outline-none rounded-sm w-full text-white`;
+    `h-11 px-4 bg-neutral-900 border ${hasError ? 'border-red-500' : 'border-neutral-800 focus:border-neutral-500'} transition-all outline-none rounded-xl w-full text-white placeholder-gray-500 text-sm`;
 
 export default function RegisterForm() {
     const [formData, setFormData] = useState({
@@ -106,74 +107,76 @@ export default function RegisterForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
             <div className="flex flex-col">
-                <label className="opacity-70 text-sm mb-1 text-neutral-300">Nombres</label>
-                <div className="md:flex md:justify-between md:gap-2">
-                    <div className="w-full mb-2 md:mb-0">
+                <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Nombres</label>
+                <div className="md:flex md:justify-between md:gap-3">
+                    <div className="w-full mb-4 md:mb-0">
                         <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} className={getInputClass(!!errors.nombre)} placeholder="Primer nombre" />
-                        {errors.nombre && <p className="text-red-500 text-xs mt-1 font-medium">{errors.nombre}</p>}
+                        {errors.nombre && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.nombre}</p>}
                     </div>
                     <div className="w-full">
                         <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} className={getInputClass(!!errors.apellido)} placeholder="Primer apellido" />
-                        {errors.apellido && <p className="text-red-500 text-xs mt-1 font-medium">{errors.apellido}</p>}
+                        {errors.apellido && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.apellido}</p>}
                     </div>
                 </div>
             </div>
 
             <div className="flex flex-col">
-                <label className="opacity-70 text-sm mb-1 text-neutral-300">Email</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} className={getInputClass(!!errors.email)} placeholder="@ejemplo.com" />
-                {errors.email && <p className="text-red-500 text-xs mt-1 font-medium">{errors.email}</p>}
+                <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Email</label>
+                <input type="email" name="email" value={formData.email} onChange={handleChange} className={getInputClass(!!errors.email)} placeholder="correo@ejemplo.com" />
+                {errors.email && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.email}</p>}
             </div>
 
             <div className="flex flex-col">
-                <label className="opacity-70 text-sm mb-1 text-neutral-300">Contraseña</label>
-                <input type="password" name="password" value={formData.password} onChange={handleChange} className={getInputClass(!!errors.password)} />
-                {errors.password && <p className="text-red-500 text-xs mt-1 font-medium">{errors.password}</p>}
+                <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Contraseña</label>
+                <input type="password" name="password" value={formData.password} onChange={handleChange} className={getInputClass(!!errors.password)} placeholder="••••••••" />
+                {errors.password && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.password}</p>}
             </div>
 
             <div className="flex flex-col">
-                <label className="opacity-70 text-sm mb-1 text-neutral-300">Confirmar contraseña</label>
-                <input type="password" name="confirm" value={formData.confirm} onChange={handleChange} className={getInputClass(!!errors.confirm)} />
-                {errors.confirm && <p className="text-red-500 text-xs mt-1 font-medium">{errors.confirm}</p>}
+                <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Confirmar contraseña</label>
+                <input type="password" name="confirm" value={formData.confirm} onChange={handleChange} className={getInputClass(!!errors.confirm)} placeholder="••••••••" />
+                {errors.confirm && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.confirm}</p>}
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-3">
                 <div className="flex flex-col w-full">
-                    <label className="opacity-70 text-sm mb-1 text-neutral-300">Estatura (cm)</label>
-                    <input type="number" name="estatura" value={formData.estatura} onChange={handleChange} className={getInputClass(!!errors.estatura)} />
-                    {errors.estatura && <p className="text-red-500 text-xs mt-1 font-medium">{errors.estatura}</p>}
+                    <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Estatura (cm)</label>
+                    <input type="number" name="estatura" value={formData.estatura} onChange={handleChange} className={getInputClass(!!errors.estatura)} placeholder="Ej: 175" />
+                    {errors.estatura && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.estatura}</p>}
                 </div>
                 <div className="flex flex-col w-full">
-                    <label className="opacity-70 text-sm mb-1 text-neutral-300">Peso (kg)</label>
-                    <input type="number" name="peso" value={formData.peso} onChange={handleChange} className={getInputClass(!!errors.peso)} />
-                    {errors.peso && <p className="text-red-500 text-xs mt-1 font-medium">{errors.peso}</p>}
+                    <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Peso (kg)</label>
+                    <input type="number" name="peso" value={formData.peso} onChange={handleChange} className={getInputClass(!!errors.peso)} placeholder="Ej: 70" />
+                    {errors.peso && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.peso}</p>}
                 </div>
             </div>
 
             <div className="flex flex-col w-full">
-                <label className="opacity-70 text-sm mb-1 text-neutral-300">Fecha de nacimiento</label>
+                <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Fecha de nacimiento</label>
                 <input type="date" name="fecha" value={formData.fecha} onChange={handleChange} className={getInputClass(!!errors.fecha)} />
-                {errors.fecha && <p className="text-red-500 text-xs mt-1 font-medium">{errors.fecha}</p>}
+                {errors.fecha && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.fecha}</p>}
             </div>
 
-            <div className="flex flex-col gap-1 mt-2">
+            <div className="flex flex-col gap-2 mt-2">
                 <div className="flex items-center">
-                    <input type="checkbox" name="politica" checked={formData.politica} onChange={handleChange} className="mr-2" />
-                    <label className="font-medium text-neutral-400 text-sm">Acepto la Política de privacidad</label>
+                    <input type="checkbox" name="politica" checked={formData.politica} onChange={handleChange} className="mr-3 w-4 h-4 accent-red-500 rounded border-white/[0.1] bg-white/[0.04]" />
+                    <label className="font-medium text-gray-400 text-sm">Acepto la Política de privacidad</label>
                 </div>
-                {errors.politica && <p className="text-red-500 text-xs font-medium">{errors.politica}</p>}
+                {errors.politica && <p className="text-red-400 text-xs ml-7 font-medium">{errors.politica}</p>}
 
                 <div className="flex items-center">
-                    <input type="checkbox" name="terminos" checked={formData.terminos} onChange={handleChange} className="mr-2" />
-                    <label className="font-medium text-neutral-400 text-sm">Acepto los Términos y condiciones</label>
+                    <input type="checkbox" name="terminos" checked={formData.terminos} onChange={handleChange} className="mr-3 w-4 h-4 accent-red-500 rounded border-white/[0.1] bg-white/[0.04]" />
+                    <label className="font-medium text-gray-400 text-sm">Acepto los Términos y condiciones</label>
                 </div>
-                {errors.terminos && <p className="text-red-500 text-xs font-medium">{errors.terminos}</p>}
+                {errors.terminos && <p className="text-red-400 text-xs ml-7 font-medium">{errors.terminos}</p>}
             </div>
 
-            <div className="flex w-full mt-4 justify-end">
-                <Button accion="Registrarse" tipo="submit" />
+            <div className="flex w-full mt-6">
+                <button type="submit" className="w-full bg-red-600 hover:bg-red-500 text-white font-['Bebas_Neue'] text-xl tracking-[0.15em] py-3.5 rounded-xl transition-colors">
+                    CREAR CUENTA
+                </button>
             </div>
         </form>
     );
@@ -182,6 +185,8 @@ export default function RegisterForm() {
 export function Login() {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [submitData, setSubmitData] = useState<{email: string, password: string} | null>(null);
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -196,8 +201,6 @@ export function Login() {
         if (!formData.email.trim()) newErrors.email = 'Debe ingresar su email';
         if (!formData.password.trim()) {
             newErrors.password = 'La contraseña es obligatoria';
-        } else if (!passwordRegex.test(formData.password)) {
-            newErrors.password = 'La contraseña debe cumplir los requisitos de seguridad.';
         }
 
         if (Object.keys(newErrors).length > 0) {
@@ -205,25 +208,64 @@ export function Login() {
             return;
         }
 
-        console.log("Iniciando sesión", formData);
-        alert("Validación de login correcta");
+        setSubmitData(formData);
     };
 
+    useEffect(() => {
+        if (!submitData) return;
+
+        const performLogin = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/api/v1/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(submitData),
+                });
+
+                if (response.ok) {
+                    const token = await response.text();
+                    localStorage.setItem('token', token);
+                    navigate('/home');
+                } else {
+                    setErrors({ general: 'Credenciales incorrectas o error en el servidor.' });
+                }
+            } catch (error) {
+                setErrors({ general: 'No se pudo conectar con el backend.' });
+            } finally {
+                setSubmitData(null);
+            }
+        };
+
+        performLogin();
+    }, [submitData, navigate]);
+
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full mt-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full mt-2">
+            {errors.general && (
+                <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl font-medium flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 shrink-0">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                    </svg>
+                    {errors.general}
+                </div>
+            )}
             <div className="flex flex-col">
-                <label className="opacity-70 text-sm mb-1 text-neutral-300">Email</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} className={getInputClass(!!errors.email)} placeholder="@ejemplo.com" />
-                {errors.email && <p className="text-red-500 text-xs mt-1 font-medium">{errors.email}</p>}
+                <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Email</label>
+                <input type="email" name="email" value={formData.email} onChange={handleChange} className={getInputClass(!!errors.email)} placeholder="correo@ejemplo.com" />
+                {errors.email && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.email}</p>}
             </div>
             <div className="flex flex-col">
-                <label className="opacity-70 text-sm mb-1 text-neutral-300">Contraseña</label>
-                <input type="password" name="password" value={formData.password} onChange={handleChange} className={getInputClass(!!errors.password)} />
-                {errors.password && <p className="text-red-500 text-xs mt-1 font-medium">{errors.password}</p>}
+                <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Contraseña</label>
+                <input type="password" name="password" value={formData.password} onChange={handleChange} className={getInputClass(!!errors.password)} placeholder="••••••••" />
+                {errors.password && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.password}</p>}
             </div>
 
-            <div className="flex w-full mt-4 justify-end">
-                <Button accion="Iniciar Sesion" tipo="submit" />
+            <div className="flex w-full mt-6">
+                <button type="submit" className="w-full bg-red-600 hover:bg-red-500 text-white font-['Bebas_Neue'] text-xl tracking-[0.15em] py-3.5 rounded-xl transition-colors">
+                    INICIAR SESIÓN
+                </button>
             </div>
         </form>
     );
