@@ -75,7 +75,7 @@ export default function RegisterForm() {
         }
 
         // Lógica de registro o llamada a la API
-       const dataParaBackend = {
+        const dataParaBackend = {
             firtsName: formData.nombre,    // nombre -> firtsName
             lastName: formData.apellido,   // apellido -> lastName
             email: formData.email,
@@ -86,23 +86,23 @@ export default function RegisterForm() {
             birthDate: formData.fecha             // fecha -> birthDate
         };
         try {
-                // ACTUALIZACIÓN DE LA RUTA REAL
-                const response = await fetch('http://localhost:8080/api/v2/user/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(dataParaBackend),
-                });
+            // ACTUALIZACIÓN DE LA RUTA REAL
+            const response = await fetch('http://localhost:8080/api/v2/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataParaBackend),
+            });
 
-                if (response.ok) {
-                    alert("¡Usuario creado con éxito (201 Created)!");
-                } else {
-                    alert("Error al registrar: " + response.status);
-                }
-            } catch (error) {
-                alert("Error: No se pudo conectar con el backend de Java.");
+            if (response.ok) {
+                alert("¡Usuario creado con éxito (201 Created)!");
+            } else {
+                alert("Error al registrar: " + response.status);
             }
+        } catch (error) {
+            alert("Error: No se pudo conectar con el backend de Java.");
+        }
 
     };
 
@@ -185,7 +185,7 @@ export default function RegisterForm() {
 export function Login() {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [errors, setErrors] = useState<Record<string, string>>({});
-    const [submitData, setSubmitData] = useState<{email: string, password: string} | null>(null);
+    const [submitData, setSubmitData] = useState<{ email: string, password: string } | null>(null);
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
