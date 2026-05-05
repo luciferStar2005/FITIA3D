@@ -1,5 +1,5 @@
 import { Navbar } from "../components/Nav/Navbar.tsx";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { format } from 'date-fns';
@@ -22,10 +22,31 @@ const tileContent = ({ date, view }: { date: Date; view: string }) => {
 export default function Home() {
     const [fecha, setFecha] = useState<Date>(new Date());
     const [completados, setCompletados] = useState<number[]>([]);
-    
-    // Simulating empty data for the dashboard
-    const planHoyData: PlanHoyData[] = []; 
+    const [planHoyData, setPlanHoyData] = useState<PlanHoyData[]>([]);
     const rachaActual = 0;
+
+    useEffect(() => {
+        const fetchPlanHoy = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) return;
+
+                const response = await fetch('http://localhost:8080/api/v1/rutinas/obtener', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setPlanHoyData(data);
+                }
+            } catch (error) {
+                console.error("Error al obtener el plan de hoy:", error);
+            }
+        };
+        fetchPlanHoy();
+    }, []);
 
     const toggleCompletado = (id: number) => {
         setCompletados(prev =>
@@ -72,11 +93,10 @@ export default function Home() {
                                         >
                                             <div className="flex-1 min-w-0">
                                                 <h2
-                                                    className={`font-bold text-base mb-2 truncate transition-all duration-300 ${
-                                                        hecho
-                                                            ? 'text-red-300 line-through opacity-60'
-                                                            : 'text-gray-200'
-                                                    }`}
+                                                    className={`font-bold text-base mb-2 truncate transition-all duration-300 ${hecho
+                                                        ? 'text-red-300 line-through opacity-60'
+                                                        : 'text-gray-200'
+                                                        }`}
                                                 >
                                                     {ejercicio.nombre}
                                                 </h2>
