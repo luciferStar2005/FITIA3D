@@ -10,17 +10,19 @@ import com.example.back_end.rutina.model.RutinaEntity;
 import com.example.back_end.usuario.data.UserRepository;
 import com.example.back_end.usuario.model.UserEntity;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class RutinaService {
 
     private final RutinaRepository rutinaRepository;
     private final UserRepository usuarioRepository;
 
-    public RutinaEntity getRutinaActual(int usuarioId, String objetivo) {
-        return rutinaRepository.findTop1ByUserAndObjetivoOrderByCreateddAtDesc(usuarioId, objetivo)
+    public RutinaEntity getRutinaActual(int usuarioId, String dia) {
+        return rutinaRepository.findTop1ByUsuarioIdAndDiaOrderByCreatedAtDesc(usuarioId, dia)
                 .orElseThrow(() -> new RuntimeException("No se encontró rutina"));
     }
 
@@ -42,7 +44,7 @@ public class RutinaService {
 
         RutinaEntity nuevaRutina = RutinaEntity.builder()
                 .usuarioId(usuarioId)
-                .objetivo(rutina.getObjetivo())
+                .dia(rutina.getDia())
                 .ejercicios(rutina.getEjercicios())
                 .build();
         rutinaRepository.save(nuevaRutina);

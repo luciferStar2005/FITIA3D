@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { format } from 'date-fns';
-import { planHoyData } from '../data/mockData';
 import type { PlanHoyData } from '../types';
 
 const diasConRutina = ['2026-05-04', '2026-05-06', '2026-05-08'];
@@ -23,6 +22,10 @@ const tileContent = ({ date, view }: { date: Date; view: string }) => {
 export default function Home() {
     const [fecha, setFecha] = useState<Date>(new Date());
     const [completados, setCompletados] = useState<number[]>([]);
+    
+    // Simulating empty data for the dashboard
+    const planHoyData: PlanHoyData[] = []; 
+    const rachaActual = 0;
 
     const toggleCompletado = (id: number) => {
         setCompletados(prev =>
@@ -53,65 +56,75 @@ export default function Home() {
 
                         {/* Lista vertical con scroll */}
                         <div className="flex flex-col gap-3 overflow-y-auto pr-1 flex-1" style={{ maxHeight: 'calc(100vh - 220px)' }}>
-                            {planHoyData.map((ejercicio: PlanHoyData) => {
-                                const hecho = completados.includes(ejercicio.id);
-                                return (
-                                    <div
-                                        key={ejercicio.id}
-                                        className={`
-                                            flex flex-row justify-between items-center rounded-xl p-4 transition-colors
-                                            ${hecho
-                                                ? 'bg-neutral-800/80 border border-red-500/30'
-                                                : 'bg-neutral-800/40 border border-neutral-800 hover:bg-neutral-800 hover:border-neutral-700'
-                                            }
-                                        `}
-                                    >
-                                        <div className="flex-1 min-w-0">
-                                            <h2
-                                                className={`font-bold text-base mb-2 truncate transition-all duration-300 ${
-                                                    hecho
-                                                        ? 'text-red-300 line-through opacity-60'
-                                                        : 'text-gray-200'
-                                                }`}
-                                            >
-                                                {ejercicio.nombre}
-                                            </h2>
-                                            <div className="flex gap-2 flex-wrap">
-                                                <span className="bg-white/[0.07] rounded-md px-2 py-0.5 text-[11px] text-gray-400 font-semibold">
-                                                    {ejercicio.series} series
-                                                </span>
-                                                <span className="bg-white/[0.07] rounded-md px-2 py-0.5 text-[11px] text-gray-400 font-semibold">
-                                                    {ejercicio.repeticiones} reps
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <button
-                                            onClick={() => toggleCompletado(ejercicio.id)}
-                                            title={hecho ? 'Desmarcar' : 'Completar'}
+                            {planHoyData.length > 0 ? (
+                                planHoyData.map((ejercicio: PlanHoyData) => {
+                                    const hecho = completados.includes(ejercicio.id);
+                                    return (
+                                        <div
+                                            key={ejercicio.id}
                                             className={`
-                                                ml-3 shrink-0 w-9 h-9 rounded-full flex items-center justify-center
-                                                border transition-colors cursor-pointer
+                                                flex flex-row justify-between items-center rounded-xl p-4 transition-colors
                                                 ${hecho
-                                                    ? 'bg-red-500 border-red-500'
-                                                    : 'bg-red-500/10 border-red-500/40 hover:bg-red-500/20'
+                                                    ? 'bg-neutral-800/80 border border-red-500/30'
+                                                    : 'bg-neutral-800/40 border border-neutral-800 hover:bg-neutral-800 hover:border-neutral-700'
                                                 }
                                             `}
                                         >
-                                            {hecho ? (
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="size-4">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                                </svg>
-                                            ) : (
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="#f87171" className="size-4">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" />
-                                                </svg>
-                                            )}
-                                        </button>
-                                    </div>
-                                );
-                            })}
+                                            <div className="flex-1 min-w-0">
+                                                <h2
+                                                    className={`font-bold text-base mb-2 truncate transition-all duration-300 ${
+                                                        hecho
+                                                            ? 'text-red-300 line-through opacity-60'
+                                                            : 'text-gray-200'
+                                                    }`}
+                                                >
+                                                    {ejercicio.nombre}
+                                                </h2>
+                                                <div className="flex gap-2 flex-wrap">
+                                                    <span className="bg-white/[0.07] rounded-md px-2 py-0.5 text-[11px] text-gray-400 font-semibold">
+                                                        {ejercicio.series} series
+                                                    </span>
+                                                    <span className="bg-white/[0.07] rounded-md px-2 py-0.5 text-[11px] text-gray-400 font-semibold">
+                                                        {ejercicio.repeticiones} reps
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <button
+                                                onClick={() => toggleCompletado(ejercicio.id)}
+                                                title={hecho ? 'Desmarcar' : 'Completar'}
+                                                className={`
+                                                    ml-3 shrink-0 w-9 h-9 rounded-full flex items-center justify-center
+                                                    border transition-colors cursor-pointer
+                                                    ${hecho
+                                                        ? 'bg-red-500 border-red-500'
+                                                        : 'bg-red-500/10 border-red-500/40 hover:bg-red-500/20'
+                                                    }
+                                                `}
+                                            >
+                                                {hecho ? (
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="size-4">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                    </svg>
+                                                ) : (
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="#f87171" className="size-4">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" />
+                                                    </svg>
+                                                )}
+                                            </button>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className="flex-1 flex flex-col items-center justify-center opacity-30 mt-12">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-16 h-16 mb-4">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                    </svg>
+                                    <h2 className="font-['Bebas_Neue'] text-3xl tracking-wider">DÍA DE DESCANSO</h2>
+                                    <p className="text-sm font-semibold uppercase tracking-widest mt-2">No hay rutinas programadas</p>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -167,30 +180,32 @@ export default function Home() {
 
                         {/* RACHA — debajo del calendario */}
                         <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 shadow-lg flex flex-row items-center gap-6 px-8">
-                            <span className="text-5xl leading-none">🔥</span>
+                            <span className={`text-5xl leading-none ${rachaActual === 0 ? 'opacity-30 grayscale' : ''}`}>🔥</span>
                             <div className="flex flex-col">
                                 <h3 className="font-['Bebas_Neue'] text-2xl tracking-wider text-purple-200 leading-none">
                                     Racha
                                 </h3>
-                                <span className="font-['Bebas_Neue'] text-6xl text-yellow-400 leading-none">
-                                    7
+                                <span className={`font-['Bebas_Neue'] text-6xl leading-none ${rachaActual === 0 ? 'text-gray-500 opacity-50' : 'text-yellow-400'}`}>
+                                    {rachaActual}
                                 </span>
                                 <p className="text-gray-500 text-[11px] font-bold uppercase tracking-widest mt-1">
                                     días seguidos
                                 </p>
                             </div>
                             {/* Mini racha visual */}
-                            <div className="ml-auto flex gap-1.5 flex-wrap justify-end max-w-[140px]">
-                                {Array.from({ length: 7 }).map((_, i) => (
-                                    <div
-                                        key={i}
-                                        className="w-6 h-6 rounded-md bg-yellow-400/20 border border-yellow-400/40 flex items-center justify-center text-[10px]"
-                                        title={`Día ${i + 1}`}
-                                    >
-                                        🔥
-                                    </div>
-                                ))}
-                            </div>
+                            {rachaActual > 0 && (
+                                <div className="ml-auto flex gap-1.5 flex-wrap justify-end max-w-[140px]">
+                                    {Array.from({ length: Math.min(rachaActual, 7) }).map((_, i) => (
+                                        <div
+                                            key={i}
+                                            className="w-6 h-6 rounded-md bg-yellow-400/20 border border-yellow-400/40 flex items-center justify-center text-[10px]"
+                                            title={`Día ${i + 1}`}
+                                        >
+                                            🔥
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
 

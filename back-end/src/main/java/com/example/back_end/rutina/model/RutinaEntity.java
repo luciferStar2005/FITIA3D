@@ -1,8 +1,10 @@
 package com.example.back_end.rutina.model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,23 +22,25 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
+@Table(name = "rutina")
 public class RutinaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String objetivo;
+    @Column(name = "dia")
+    private String dia;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> ejercicios;
+    private List<Map<String, Object>> ejercicios;
 
-    @Column(name = "usuario_id")
+    @Column(name = "usuario")
     private int usuarioId;
 
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
 
     protected RutinaEntity() {
     }
-
 }

@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.back_end.rutina.model.RutinaEntity;
 
 public interface RutinaRepository extends JpaRepository<RutinaEntity, Integer> {
-    Optional<RutinaEntity> findTop1ByUserAndObjetivoOrderByCreateddAtDesc(Integer usuario, String objetivo);
+    Optional<RutinaEntity> findTop1ByUsuarioIdAndDiaOrderByCreatedAtDesc(Integer usuarioId, String dia);
 }
