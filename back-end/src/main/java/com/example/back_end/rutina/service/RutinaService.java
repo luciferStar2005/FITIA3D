@@ -25,7 +25,7 @@ public class RutinaService {
     private final UserRepository usuarioRepository;
 
     public RutinaEntity getRutinaActual(int usuarioId, String dia) {
-        return rutinaRepository.findTop1ByUsuarioIdAndDiaOrderByCreatedAtDesc(usuarioId, dia)
+        return rutinaRepository.findByUsuarioIdAndDia(usuarioId, dia)
                 .orElseThrow(() -> new RuntimeException("No se encontró rutina"));
     }
 
@@ -43,7 +43,7 @@ public class RutinaService {
         String hoy = dias[dayIndex % 7];
 
         try {
-            RutinaEntity rutina = rutinaRepository.findTop1ByUsuarioIdAndDiaOrderByCreatedAtDesc(usuario.getId(), hoy)
+            RutinaEntity rutina = rutinaRepository.findByUsuarioIdAndDia(usuario.getId(), hoy)
                     .orElse(null);
             if (rutina == null)
                 return java.util.List.of();
@@ -87,7 +87,5 @@ public class RutinaService {
                 .build();
         rutinaRepository.save(nuevaRutina);
     }
-
-
 
 }
