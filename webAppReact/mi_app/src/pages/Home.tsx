@@ -5,30 +5,55 @@ import 'react-calendar/dist/Calendar.css';
 import { format } from 'date-fns';
 import type { PlanHoyData } from '../types';
 
-const diasConRutina = ['2026-05-04', '2026-05-06', '2026-05-08'];
-
-const tileContent = ({ date, view }: { date: Date; view: string }) => {
-    if (view === 'month') {
-        const fechaFormateada = format(date, 'yyyy-MM-dd');
-        if (diasConRutina.includes(fechaFormateada)) {
-            return (
-                <div className="w-1.5 h-1.5 bg-red-500 rounded-full mx-auto mt-0.5" />
-            );
-        }
-    }
-    return null;
-};
 
 export default function Home() {
     const [fecha, setFecha] = useState<Date>(new Date());
     const [completados, setCompletados] = useState<number[]>([]);
     const [planHoyData, setPlanHoyData] = useState<PlanHoyData[]>([]);
+    const [diasConRutina, setDiasConRutina] = useState<string[]>([]);
     const rachaActual = 0;
+    const token = localStorage.getItem('token');
+    const tileContent = ({ date, view }: { date: Date; view: string }) => {
+        if (view === 'month') {
+            const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            const nombreDia = diasSemana[date.getDay()];
+
+            if (diasConRutina.includes(nombreDia)) {
+                return <div className="w-1.5 h-1.5 bg-red-500 rounded-full mx-auto mt-0.5" />;
+            }
+        }
+        return null;
+    };
+
+    useEffect(() => {
+        const fetchFechasConRutina = async () => {
+            try {
+                if (!token) return;
+
+                const response = await fetch('http://localhost:8080/api/v1/rutinas/misRutinas', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setDiasConRutina(data.dias);
+
+                    console.log(data.dias)
+                }
+            }
+            catch (error) {
+                console.error("Error al obtener las fechas con rutina", error);
+            }
+        }
+        fetchFechasConRutina();
+    }, [])
 
     useEffect(() => {
         const fetchPlanHoy = async () => {
             try {
-                const token = localStorage.getItem('token');
+
                 if (!token) return;
 
                 const response = await fetch('http://localhost:8080/api/v1/rutinas/obtener', {

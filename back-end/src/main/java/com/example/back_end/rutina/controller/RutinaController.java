@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.back_end.rutina.dto.DiasConRutinaResponse;
 import com.example.back_end.rutina.dto.RutinaDashBoard;
 import com.example.back_end.rutina.dto.RutinaEjercicios;
 import com.example.back_end.rutina.service.RutinaService;
@@ -35,4 +36,8 @@ public class RutinaController {
         return ResponseEntity.ok(service.getRutinaHoy());
     }
 
+    @GetMapping("/misRutinas")
+    public ResponseEntity<DiasConRutinaResponse> obtenerHistorial() {
+        return ResponseEntity.ok(service.getDiasConRutina());
+    }
 }

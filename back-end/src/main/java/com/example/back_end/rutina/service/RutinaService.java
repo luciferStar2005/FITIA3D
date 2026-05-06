@@ -1,5 +1,6 @@
 package com.example.back_end.rutina.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.example.back_end.rutina.data.RutinaRepository;
+import com.example.back_end.rutina.dto.DiasConRutinaResponse;
 import com.example.back_end.rutina.dto.RutinaDashBoard;
 import com.example.back_end.rutina.dto.RutinaEjercicios;
 import com.example.back_end.rutina.model.RutinaEntity;
@@ -46,9 +48,9 @@ public class RutinaService {
             RutinaEntity rutina = rutinaRepository.findByUsuarioIdAndDia(usuario.getId(), hoy)
                     .orElse(null);
             if (rutina == null)
-                return java.util.List.of();
+                return List.of();
 
-            java.util.List<com.example.back_end.rutina.dto.RutinaEjercicios> result = new java.util.ArrayList<>();
+            List<RutinaEjercicios> result = new ArrayList<>();
             int id = 1;
             for (java.util.Map<String, Object> ej : rutina.getEjercicios()) {
                 result.add(com.example.back_end.rutina.dto.RutinaEjercicios.builder()
@@ -86,6 +88,18 @@ public class RutinaService {
                 .ejercicios(rutina.getEjercicios())
                 .build();
         rutinaRepository.save(nuevaRutina);
+    }
+
+    public DiasConRutinaResponse getDiasConRutina() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = principal instanceof UserDetails ? ((UserDetails) principal).getUsername()
+                : principal.toString();
+
+        UserEntity usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        return new DiasConRutinaResponse(
+                rutinaRepository.findDiasConRutinaByUsuarioId(usuario.getId()));
     }
 
 }
