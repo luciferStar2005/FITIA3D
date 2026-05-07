@@ -38,8 +38,8 @@ const ConfiguracionPage = () => {
   const handleEquipamientoSelect = (id: string) => {
     setEquipos(prev =>
       prev.includes(id)
-        ? prev.filter(item => item !== id) 
-        : [...prev, id] 
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
     );
   };
 
@@ -64,7 +64,7 @@ const ConfiguracionPage = () => {
         body: JSON.stringify({ prompt: instruccionesIA })
       });
       const data = await response.json();
-      
+
       setTimeout(() => {
         setIsLoading(false);
         navigate('/resultado-rutina', { state: { rutina: data } });
@@ -82,7 +82,7 @@ const ConfiguracionPage = () => {
       <Navbar />
       <div className="min-h-screen bg-neutral-900 pt-24 pb-12">
         <div className="max-w-[1100px] mx-auto px-4 md:px-8">
-          
+
           <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.4)] mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-t-4 border-t-red-600">
             <div>
               <h1 className="font-['Bebas_Neue'] text-4xl tracking-wider text-white leading-none">
@@ -96,8 +96,8 @@ const ConfiguracionPage = () => {
                 <p className="text-red-400 mt-2 text-sm">No has seleccionado músculos todavía.</p>
               )}
             </div>
-            <button 
-              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white/[0.06] border border-white/[0.1] text-white hover:bg-white/[0.1] hover:border-white/[0.2] transition-all text-xs font-bold uppercase tracking-widest cursor-pointer w-full md:w-auto" 
+            <button
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white/[0.06] border border-white/[0.1] text-white hover:bg-white/[0.1] hover:border-white/[0.2] transition-all text-xs font-bold uppercase tracking-widest cursor-pointer w-full md:w-auto"
               onClick={() => navigate('/')}
             >
               ← Volver al Modelo
@@ -153,7 +153,7 @@ const ConfiguracionPage = () => {
                     key={e.id}
                     id={e.id}
                     title={e.title}
-                    description="" 
+                    description=""
                     color={e.color}
                     isSelected={equipos.includes(e.id)}
                     onSelect={handleEquipamientoSelect}

@@ -1,9 +1,9 @@
-import { exp } from 'three/tsl';
+import { Navbar } from "../components/Nav/Navbar.tsx";
 import '../styles/BibliotecaPage.css';
 import { useState } from 'react';
 
 
- const BibliotecaPage = () => {
+const BibliotecaPage = () => {
    
 
         const ejerciciosAnimados = [
@@ -50,9 +50,12 @@ import { useState } from 'react';
 
 
     return (
-        <div className="biblioteca-page">
-            <h1>Biblioteca de Ejercicios</h1>
-            <p>Aquí encontrarás una colección de ejercicios animados para ayudarte a visualizar la ejecución correcta de cada movimiento.</p>
+        <>
+            <Navbar />
+            <div className="min-h-screen bg-neutral-900 pt-20">
+                <div className="biblioteca-page max-w-7xl mx-auto px-6">
+                    <h1 className="font-['Bebas_Neue'] text-5xl tracking-wider text-red-500 mb-4">Biblioteca de Ejercicios</h1>
+                    <p className="text-gray-400 mb-8">Aquí encontrarás una colección de ejercicios animados para ayudarte a visualizar la ejecución correcta de cada movimiento.</p>
             <div className='buscador-container'>
                 <input 
                     type="text" 
@@ -91,7 +94,9 @@ import { useState } from 'react';
             )}
                
             </div>
-        </div>
+                </div>
+            </div>
+        </>
     );
 }
 

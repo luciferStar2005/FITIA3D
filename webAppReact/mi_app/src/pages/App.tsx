@@ -6,6 +6,7 @@ import LandingPage from './LandingPage.tsx';
 import AuthPage from './AuthPage.tsx';
 import Home from './Home.tsx';
 import Profile from './Profile.tsx';
+import BibliotecaPage from './BibliotecaPage.tsx';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       {/* Dashboard y Perfil */}
       <Route path="/home" element={<Home />} />
       <Route path="/perfil" element={<Profile />} />
+      <Route path="/biblioteca" element={<BibliotecaPage />} />
 
       {/* Flujo de Generación de Rutina */}
       <Route path="/rutina" element={<RutinaPage />} />
