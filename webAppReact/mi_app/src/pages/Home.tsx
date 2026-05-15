@@ -140,24 +140,51 @@ export default function Home() {
 
                                             <button
                                                 onClick={() => toggleCompletado(ejercicio.id)}
-                                                title={hecho ? 'Desmarcar' : 'Completar'}
+                                                title={hecho ? 'Desmarcar ejercicio' : 'Marcar como completado'}
                                                 className={`
-                                                    ml-3 shrink-0 w-9 h-9 rounded-full flex items-center justify-center
-                                                    border transition-colors cursor-pointer
+                                                    ml-3 shrink-0 w-10 h-10 rounded-full flex items-center justify-center
+                                                    border transition-all duration-300 cursor-pointer
+                                                    transform hover:scale-110 active:scale-95
                                                     ${hecho
-                                                        ? 'bg-red-500 border-red-500'
+                                                        ? 'bg-green-500 border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.5)]'
                                                         : 'bg-red-500/10 border-red-500/40 hover:bg-red-500/20'
                                                     }
                                                 `}
                                             >
                                                 {hecho ? (
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="size-4">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={3}
+                                                        stroke="white"
+                                                        className="size-5"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="m4.5 12.75 6 6 9-13.5"
+                                                        />
                                                     </svg>
                                                 ) : (
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="#f87171" className="size-4">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" />
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={2}
+                                                        stroke="#f87171"
+                                                        className="size-5"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M12 6v6l4 2"
+                                                        />
+                                                        <circle
+                                                            cx="12"
+                                                            cy="12"
+                                                            r="9"
+                                                        />
                                                     </svg>
                                                 )}
                                             </button>
