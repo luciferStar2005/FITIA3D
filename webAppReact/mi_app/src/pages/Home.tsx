@@ -12,6 +12,12 @@ export default function Home() {
     const [planHoyData, setPlanHoyData] = useState<PlanHoyData[]>([]);
     const [diasConRutina, setDiasConRutina] = useState<string[]>([]);
     const rachaActual = 0;
+
+    const porcentajeCompletado =
+        planHoyData.length > 0
+            ? (completados.length / planHoyData.length) * 100
+            : 0;
+
     const token = localStorage.getItem('token');
     const tileContent = ({ date, view }: { date: Date; view: string }) => {
         if (view === 'month') {
@@ -80,6 +86,33 @@ export default function Home() {
         setCompletados(prev =>
             prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
         );
+    };
+
+    const finalizarRutina = () => {
+
+        if (planHoyData.length === 0) {
+
+            alert("No hay rutina programada para este día.");
+
+            return;
+        }
+
+        const porcentaje = Math.round(porcentajeCompletado);
+
+        const cumplioMeta = porcentaje >= 60;
+
+        const mensaje = cumplioMeta
+            ? `🔥 ¡Excelente trabajo!\n\nCompletaste el ${porcentaje}% de tu rutina.\nTu racha se mantendrá activa.`
+            : `😅 Completaste el ${porcentaje}% de la rutina.\n\nNecesitas al menos 60% para mantener la racha.`;
+
+        alert(mensaje);
+
+        console.log({
+            ejerciciosTotales: planHoyData.length,
+            completados: completados.length,
+            porcentaje,
+            rachaValida: cumplioMeta
+        });
     };
 
     return (
@@ -201,6 +234,26 @@ export default function Home() {
                                 </div>
                             )}
                         </div>
+
+                        <button
+                            onClick={finalizarRutina}
+                            disabled={planHoyData.length === 0}
+                            className={`
+                                mt-5 w-full py-4 rounded-2xl font-black uppercase tracking-[0.15em]
+                                transition-all duration-300 cursor-pointer
+                                border
+                                ${planHoyData.length === 0
+                                    ? 'bg-neutral-800 border-neutral-700 text-gray-500 cursor-not-allowed'
+                                    : porcentajeCompletado >= 60
+                                        ? 'bg-green-500/20 border-green-500/40 text-green-300 hover:bg-green-500/30'
+                                        : 'bg-red-500/10 border-red-500/30 text-red-300 hover:bg-red-500/20'
+                                }
+                             `}
+                        >Finalizar Rutina
+                            <span className="ml-2 opacity-70">
+                                ({Math.round(porcentajeCompletado)}%)
+                            </span>
+                        </button>
                     </div>
 
                     {/* ──────────── COL 2: CALENDARIO + RACHA ──────────── */}
