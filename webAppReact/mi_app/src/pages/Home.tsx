@@ -12,6 +12,12 @@ export default function Home() {
     const [planHoyData, setPlanHoyData] = useState<PlanHoyData[]>([]);
     const [diasConRutina, setDiasConRutina] = useState<string[]>([]);
     const rachaActual = 0;
+
+    const porcentajeCompletado =
+        planHoyData.length > 0
+            ? (completados.length / planHoyData.length) * 100
+            : 0;
+
     const token = localStorage.getItem('token');
     const tileContent = ({ date, view }: { date: Date; view: string }) => {
         if (view === 'month') {
@@ -51,32 +57,62 @@ export default function Home() {
     }, [])
 
     useEffect(() => {
-        const fetchPlanHoy = async () => {
+        const fetchRutinaPorFecha = async () => {
             try {
-
                 if (!token) return;
-
-                const response = await fetch('http://localhost:8080/api/v1/rutinas/obtener', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
+                const fechaFormateada = format(fecha, 'yyyy-MM-dd');
+                const response = await fetch(
+                    `http://localhost:8080/api/v1/rutinas/obtener?fecha=${fechaFormateada}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
                     }
-                });
+                );
 
                 if (response.ok) {
                     const data = await response.json();
                     setPlanHoyData(data);
+                    setCompletados([]);
                 }
             } catch (error) {
-                console.error("Error al obtener el plan de hoy:", error);
+                console.error("Error al obtener rutina:", error);
             }
         };
-        fetchPlanHoy();
-    }, []);
+        fetchRutinaPorFecha();
+    }, [fecha]);
 
     const toggleCompletado = (id: number) => {
         setCompletados(prev =>
             prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
         );
+    };
+
+    const finalizarRutina = () => {
+
+        if (planHoyData.length === 0) {
+
+            alert("No hay rutina programada para este día.");
+
+            return;
+        }
+
+        const porcentaje = Math.round(porcentajeCompletado);
+
+        const cumplioMeta = porcentaje >= 60;
+
+        const mensaje = cumplioMeta
+            ? `🔥 ¡Excelente trabajo!\n\nCompletaste el ${porcentaje}% de tu rutina.\nTu racha se mantendrá activa.`
+            : `😅 Completaste el ${porcentaje}% de la rutina.\n\nNecesitas al menos 60% para mantener la racha.`;
+
+        alert(mensaje);
+
+        console.log({
+            ejerciciosTotales: planHoyData.length,
+            completados: completados.length,
+            porcentaje,
+            rachaValida: cumplioMeta
+        });
     };
 
     return (
@@ -137,24 +173,51 @@ export default function Home() {
 
                                             <button
                                                 onClick={() => toggleCompletado(ejercicio.id)}
-                                                title={hecho ? 'Desmarcar' : 'Completar'}
+                                                title={hecho ? 'Desmarcar ejercicio' : 'Marcar como completado'}
                                                 className={`
-                                                    ml-3 shrink-0 w-9 h-9 rounded-full flex items-center justify-center
-                                                    border transition-colors cursor-pointer
+                                                    ml-3 shrink-0 w-10 h-10 rounded-full flex items-center justify-center
+                                                    border transition-all duration-300 cursor-pointer
+                                                    transform hover:scale-110 active:scale-95
                                                     ${hecho
-                                                        ? 'bg-red-500 border-red-500'
+                                                        ? 'bg-green-500 border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.5)]'
                                                         : 'bg-red-500/10 border-red-500/40 hover:bg-red-500/20'
                                                     }
                                                 `}
                                             >
                                                 {hecho ? (
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="size-4">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={3}
+                                                        stroke="white"
+                                                        className="size-5"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="m4.5 12.75 6 6 9-13.5"
+                                                        />
                                                     </svg>
                                                 ) : (
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="#f87171" className="size-4">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" />
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={2}
+                                                        stroke="#f87171"
+                                                        className="size-5"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M12 6v6l4 2"
+                                                        />
+                                                        <circle
+                                                            cx="12"
+                                                            cy="12"
+                                                            r="9"
+                                                        />
                                                     </svg>
                                                 )}
                                             </button>
@@ -171,6 +234,26 @@ export default function Home() {
                                 </div>
                             )}
                         </div>
+
+                        <button
+                            onClick={finalizarRutina}
+                            disabled={planHoyData.length === 0}
+                            className={`
+                                mt-5 w-full py-4 rounded-2xl font-black uppercase tracking-[0.15em]
+                                transition-all duration-300 cursor-pointer
+                                border
+                                ${planHoyData.length === 0
+                                    ? 'bg-neutral-800 border-neutral-700 text-gray-500 cursor-not-allowed'
+                                    : porcentajeCompletado >= 60
+                                        ? 'bg-green-500/20 border-green-500/40 text-green-300 hover:bg-green-500/30'
+                                        : 'bg-red-500/10 border-red-500/30 text-red-300 hover:bg-red-500/20'
+                                }
+                             `}
+                        >Finalizar Rutina
+                            <span className="ml-2 opacity-70">
+                                ({Math.round(porcentajeCompletado)}%)
+                            </span>
+                        </button>
                     </div>
 
                     {/* ──────────── COL 2: CALENDARIO + RACHA ──────────── */}

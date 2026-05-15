@@ -2,6 +2,7 @@ package com.example.back_end.rutina.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,8 @@ public class RutinaController {
     }
 
     @GetMapping("/obtener")
-    public ResponseEntity<List<RutinaEjercicios>> obtenerRutinaActual() {
-        return ResponseEntity.ok(service.getRutinaHoy());
+    public ResponseEntity<List<RutinaEjercicios>> obtenerRutina(@RequestParam String fecha) {
+        return ResponseEntity.ok(service.getRutinaPorFecha(fecha));
     }
 
     @GetMapping("/misRutinas")
