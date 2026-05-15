@@ -51,27 +51,30 @@ export default function Home() {
     }, [])
 
     useEffect(() => {
-        const fetchPlanHoy = async () => {
+        const fetchRutinaPorFecha = async () => {
             try {
-
                 if (!token) return;
-
-                const response = await fetch('http://localhost:8080/api/v1/rutinas/obtener', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
+                const fechaFormateada = format(fecha, 'yyyy-MM-dd');
+                const response = await fetch(
+                    `http://localhost:8080/api/v1/rutinas/obtener?fecha=${fechaFormateada}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
                     }
-                });
+                );
 
                 if (response.ok) {
                     const data = await response.json();
                     setPlanHoyData(data);
+                    setCompletados([]);
                 }
             } catch (error) {
-                console.error("Error al obtener el plan de hoy:", error);
+                console.error("Error al obtener rutina:", error);
             }
         };
-        fetchPlanHoy();
-    }, []);
+        fetchRutinaPorFecha();
+    }, [fecha]);
 
     const toggleCompletado = (id: number) => {
         setCompletados(prev =>

@@ -7,6 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Map;
 import com.example.back_end.rutina.data.RutinaRepository;
 import com.example.back_end.rutina.dto.DiasConRutinaResponse;
 import com.example.back_end.rutina.dto.RutinaDashBoard;
@@ -64,6 +66,54 @@ public class RutinaService {
         } catch (Exception e) {
             return java.util.List.of();
         }
+    }
+
+    public List<RutinaEjercicios> getRutinaPorFecha(String fecha) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String email = principal instanceof UserDetails
+                ? ((UserDetails) principal).getUsername()
+                : principal.toString();
+
+        UserEntity usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        LocalDate localDate = LocalDate.parse(fecha);
+
+        String[] dias = {
+                "Domingo",
+                "Lunes",
+                "Martes",
+                "Miércoles",
+                "Jueves",
+                "Viernes",
+                "Sábado"
+        };
+
+        String nombreDia = dias[localDate.getDayOfWeek().getValue() % 7];
+
+        RutinaEntity rutina = rutinaRepository
+                .findByUsuarioIdAndDia(usuario.getId(), nombreDia)
+                .orElse(null);
+
+        if (rutina == null)
+            return List.of();
+
+        List<RutinaEjercicios> result = new ArrayList<>();
+
+        int id = 1;
+
+        for (Map<String, Object> ej : rutina.getEjercicios()) {
+
+            result.add(RutinaEjercicios.builder()
+                    .id(id++)
+                    .nombre((String) ej.get("nombre"))
+                    .series(String.valueOf(ej.get("series")))
+                    .repeticiones(String.valueOf(ej.get("reps")))
+                    .build());
+        }
+
+        return result;
     }
 
     public void crearRutina(RutinaDashBoard rutina) {
