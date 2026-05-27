@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Registro, { Login } from "./AuthForms";
 
@@ -10,18 +10,13 @@ export default function AuthPage() {
         return location.pathname === '/login';
     });
 
-    // Si la ruta cambia desde el Navbar (LandingPage), forzar sync
-    useEffect(() => {
-        setIsLoginView(location.pathname === '/login');
-    }, [location.pathname]);
-
     return (
-        <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center p-4">
-            <div className="w-full max-w-sm md:max-w-xl bg-neutral-900/50 border border-neutral-800 rounded-lg p-6 md:p-8 shadow-xl">
+        <div className="min-h-screen bg-neutral-900 flex flex-col items-center justify-center p-4">
+            <div className="w-full max-w-sm md:max-w-xl bg-neutral-900 border border-neutral-800 rounded-3xl p-6 md:p-10 shadow-lg relative z-10">
 
-                {/* Título dinámico que no recarga todo */}
-                <h1 className="font-bold text-white mb-6 text-3xl text-center tracking-tight">
-                    {isLoginView ? "Iniciar Sesión" : "Crear cuenta"}
+                {/* Título dinámico */}
+                <h1 className="font-['Bebas_Neue'] text-white mb-8 text-4xl md:text-5xl text-center tracking-wider">
+                    {isLoginView ? "Iniciar Sesión" : "Crear Cuenta"}
                 </h1>
 
                 {/* Contenedor estático, contenido dinámico */}

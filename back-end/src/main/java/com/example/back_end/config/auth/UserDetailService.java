@@ -11,16 +11,16 @@ import com.example.back_end.usuario.data.UserRepository;
 import com.example.back_end.usuario.model.UserEntity;
 
 @Service
-public class UserDetailService implements UserDetailsService{
-    
+public class UserDetailService implements UserDetailsService {
+
     @Autowired
     private UserRepository repository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity user = repository.findByEmail(email)
-        .orElseThrow(()-> new UsernameNotFoundException("The user doesn't exist"));
-        
+                .orElseThrow(() -> new UsernameNotFoundException("The user doesn't exist"));
+
         return User.builder()
                 .username(user.getEmail())
                 .password(user.getPasssword())

@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Definimos qué "piezas" necesita recibir la tarjeta
 interface infoTarjetas {
   numero: string;

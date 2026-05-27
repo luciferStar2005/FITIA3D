@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stage, ContactShadows } from '@react-three/drei';
+import { OrbitControls, ContactShadows } from '@react-three/drei';
 import { Suspense } from 'react';
 import { Model as MaleModel } from '../components/threeModel/Male_MuscleWiki';
 
@@ -85,18 +85,27 @@ function LandingPage() {
                             <div className="w-10 h-10 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
                         </div>
                     }>
-                        <Canvas shadows camera={{ position: [0, 1.6, 4], fov: 45 }} dpr={[1, 2]}>
-                            <Stage intensity={0.5} environment="city" adjustCamera={false} shadows="contact">
-                                <MaleModel />
-                            </Stage>
-                            <ContactShadows opacity={0.4} scale={10} blur={2.5} far={4} />
+                        <Canvas
+                            shadows
+                            camera={{ position: [0, 0.35, 5.8], fov: 34 }}
+                            dpr={[1, 2]}
+                            gl={{ alpha: true, antialias: true }}
+                            style={{ background: 'transparent' }}
+                        >
+                            <ambientLight intensity={0.8} />
+                            <directionalLight position={[3, 5, 4]} intensity={2.2} castShadow />
+                            <directionalLight position={[-4, 2, -3]} intensity={1.1} />
+                            <pointLight position={[0, 1.5, 2.5]} intensity={1.8} color="#ff4d4d" />
+                            <MaleModel position={[0, -0.85, 0]} scale={1.05} />
+                            <ContactShadows position={[0, -1.02, 0]} opacity={0.35} scale={4} blur={2.5} far={4} />
                             <OrbitControls 
                                 enableZoom={false} 
                                 autoRotate 
                                 autoRotateSpeed={0.8}
                                 enablePan={false}
+                                target={[0, -0.1, 0]}
                                 minPolarAngle={Math.PI / 2.5}
-                                maxPolarAngle={Math.PI / 2}
+                                maxPolarAngle={Math.PI / 1.8}
                             />
                         </Canvas>
                     </Suspense>

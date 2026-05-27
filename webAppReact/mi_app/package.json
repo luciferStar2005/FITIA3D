@@ -17,13 +17,17 @@
     "@react-three/fiber": "^9.6.0",
     "@tailwindcss/vite": "^4.2.2",
     "@types/three": "^0.184.0",
+    "@use-gesture/react": "^10.3.1",
+    "date-fns": "^4.1.0",
     "react": "^19.2.4",
+    "react-calendar": "^6.0.1",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.72.1",
     "react-is": "^19.2.5",
     "react-router-dom": "^7.14.1",
     "recharts": "^3.8.1",
     "three": "^0.184.0",
+    "to": "^0.2.9",
     "zod": "^4.3.6"
   },
   "devDependencies": {

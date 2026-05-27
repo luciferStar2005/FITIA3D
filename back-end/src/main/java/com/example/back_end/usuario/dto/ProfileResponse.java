@@ -9,4 +9,7 @@ public class ProfileResponse {
     private String firtsName;
     private String lastName;
     private String email;
+    private Float weight;
+    private Float stature;
+    private Integer age;
 }

@@ -1,15 +1,19 @@
-import * as THREE from 'three'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import type { ThreeElements, ThreeEvent } from '@react-three/fiber'
+import { Mesh } from 'three'
 import type { GLTF } from 'three-stdlib'
 
 // 1. Interfaz flexible
 type GLTFResult = GLTF & {
-  nodes: any
-  materials: any
+  nodes: Record<string, unknown>
 }
 
-export function Model({ onSelectMuscles, ...props }: any) {
+type ModelProps = ThreeElements['group'] & {
+  onSelectMuscles?: (muscles: string[]) => void
+}
+
+export function Model({ onSelectMuscles, ...props }: ModelProps) {
   const { nodes } = useGLTF('/models/Male_MuscleWiki.glb') as unknown as GLTFResult
   
   const [hovered, setHovered] = useState<string | null>(null)
@@ -18,13 +22,18 @@ export function Model({ onSelectMuscles, ...props }: any) {
 
   const ignoredNames = ['Cuerpo', 'Scene'];
 
-  const handlePointerClick = (e: any, name: string) => {
+  const handlePointerClick = (e: ThreeEvent<MouseEvent>, name: string) => {
     e.stopPropagation();
     if (ignoredNames.includes(name)) return;
 
     // Lógica de "Toggle" (Quitar si existe, agregar si no)
     // Manejamos el antebrazo como una sola entidad
-    const targetName = (name === 'Antebrazo' || name === 'Antebrazo_1') ? 'Antebrazo' : name;
+      let targetName = name;
+      if (name === 'Antebrazo' || name === 'Antebrazo_1') {
+        targetName = 'Antebrazo';
+      } else if (name === 'Pantorrillas') { 
+        targetName = 'Isquiotibiales';
+      }
 
     setSelectedMuscles((prev) => {
       const isAlreadySelected = prev.includes(targetName);
@@ -43,10 +52,15 @@ export function Model({ onSelectMuscles, ...props }: any) {
     <group {...props} dispose={null}>
       {Object.keys(nodes).map((key) => {
         const node = nodes[key]
-        if (node.type === 'Mesh') {
+        if (node instanceof Mesh) {
           const isIgnored = ignoredNames.includes(node.name);
           const isForearmNode = node.name === 'Antebrazo' || node.name === 'Antebrazo_1';
-          const targetName = isForearmNode ? 'Antebrazo' : node.name;
+          let targetName = node.name;
+          if (node.name === 'Antebrazo' || node.name === 'Antebrazo_1') {
+            targetName = 'Antebrazo';
+          } else if (node.name === 'Pantorrillas') { // <--- Aquí también
+            targetName = 'Isquiotibiales';
+          }
 
           // Verificamos si este nodo específico (o su versión fusionada) está en la lista
           const isSelected = selectedMuscles.includes(targetName);
@@ -55,7 +69,10 @@ export function Model({ onSelectMuscles, ...props }: any) {
           return (
            <mesh
               key={key}
-               geometry={node.geometry}
+                geometry={node.geometry}
+                position={node.position}
+                rotation={node.rotation}
+                scale={node.scale}
                 // Solo permitimos clics y hovers si NO es una parte ignorada
                 onClick={(e) => !isIgnored && handlePointerClick(e, node.name)}
                 onPointerOver={(e) => {

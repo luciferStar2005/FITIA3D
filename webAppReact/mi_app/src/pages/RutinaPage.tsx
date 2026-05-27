@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage, ContactShadows } from '@react-three/drei';
 import { Model as MaleModel } from '../components/threeModel/Male_MuscleWiki';
@@ -78,7 +78,7 @@ const RutinaPage = () => {
       {/* PANEL IA */}
       <div id="ai-panel" className={showAiPanel ? 'active' : ''}>
         <button id="close-panel" onClick={() => setShowAiPanel(false)}>×</button>
-        <h2 id="ai-title">Entrenamiento</h2>
+        <h2 id="ai-title">Entrenamiento: {selectedMuscle}</h2>
         <div id="ai-content" dangerouslySetInnerHTML={{ __html: aiContent }} />
         <button className='btn-siguiente' onClick={handleContinuar}>
           Configurar Rutina

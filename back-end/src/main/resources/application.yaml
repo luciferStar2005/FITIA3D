@@ -6,6 +6,9 @@ spring:
     username: postgres.qakojyucncuuyjxdyvuo
     password: qA86tJufEJ7aCHEd
     driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 logging:
   level:
@@ -16,4 +19,3 @@ security:
   jwt:
     secret-key: Qar58+NaZJGbjJpeinGNIwrcaLvvCO0UeLxKojEHxJA=
     expiration: 86400000
-

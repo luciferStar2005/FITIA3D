@@ -26,10 +26,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
             throws ServletException, IOException, java.io.IOException{
                 String path= request.getServletPath();
 
-                if (path.equals("/api/user/register") || path.startsWith("/api/auth/")) {
+                if (path.equals("/api/v2/user/register") || path.startsWith("/api/v1/auth/")) {
                     filterChain.doFilter(request, response);
                     return;
-                }
+                 }
 
                 final String authHeader = request.getHeader("Authorization");
                 final String jwt;
