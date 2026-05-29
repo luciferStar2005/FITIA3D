@@ -54,7 +54,7 @@ const ConfiguracionPage = () => {
         Equipo: ${equipos.join(', ')}.
         Formato: JSON estricto.
     `;
-    const N8N_WEBHOOK_URL = "https://juanredondorodriguez7gma.app.n8n.cloud/webhook/67ae595e-a53d-45ba-a0e1-2bad0e55d3e0";
+    const N8N_WEBHOOK_URL = "https://juanredondonunil.app.n8n.cloud/webhook/67ae595e-a53d-45ba-a0e1-2bad0e55d3e0";
 
     try {
       console.log("Instrucciones para IA:", instruccionesIA);
@@ -72,6 +72,7 @@ const ConfiguracionPage = () => {
       }, 2000);
 
     } catch (error) {
+       navigate('/resultado-rutina', { state: null });
       console.error("Error al generar:", error);
       setIsLoading(false);
     }

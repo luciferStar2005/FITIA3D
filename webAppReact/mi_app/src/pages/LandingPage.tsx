@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage, ContactShadows } from '@react-three/drei';
 import { Suspense } from 'react';
-import { Model as MaleModel } from '../components/threeModel/Male_MuscleWiki';
+//import { Model as MaleModel } from '../components/threeModel/Male_MuscleWiki';
+import Push_Up from '../components/threeModel/Push_Up';
 
 function LandingPage() {
     return (
@@ -85,19 +86,21 @@ function LandingPage() {
                             <div className="w-10 h-10 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
                         </div>
                     }>
-                        <Canvas shadows camera={{ position: [0, 1.6, 4], fov: 45 }} dpr={[1, 2]}>
-                            <Stage intensity={0.5} environment="city" adjustCamera={false} shadows="contact">
-                                <MaleModel />
-                            </Stage>
-                            <ContactShadows opacity={0.4} scale={10} blur={2.5} far={4} />
-                            <OrbitControls 
-                                enableZoom={false} 
-                                autoRotate 
-                                autoRotateSpeed={0.8}
-                                enablePan={false}
-                                minPolarAngle={Math.PI / 2.5}
-                                maxPolarAngle={Math.PI / 2}
+                        <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
+
+                            <ambientLight intensity={3} />
+
+                            <directionalLight
+                                position={[5, 5, 5]}
+                                intensity={5}
                             />
+
+                            <Suspense fallback={null}>
+                                <Push_Up />
+                            </Suspense>
+
+                            <OrbitControls />
+
                         </Canvas>
                     </Suspense>
 

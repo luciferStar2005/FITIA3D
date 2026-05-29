@@ -14,6 +14,7 @@ export function Navbar() {
                     <ul className="hidden md:flex space-x-6 items-center">
                         <li><Link to="/home" className="text-white hover:text-red-400 font-bold uppercase text-xs tracking-widest transition-colors">Dashboard</Link></li>
                         <li><Link to="/rutina" className="text-white hover:text-red-400 font-bold uppercase text-xs tracking-widest transition-colors">Entrenador</Link></li>
+                         <li><Link to="/biblioteca-animaciones" className="text-white hover:text-red-400 font-bold uppercase text-xs tracking-widest transition-colors">Biblioteca De Ejercicios</Link></li>
                         <li><Link to="/perfil" className="text-white hover:text-red-400 font-bold uppercase text-xs tracking-widest transition-colors">Perfil</Link></li>
                     </ul>
                 </div>
@@ -29,6 +30,7 @@ export function Navbar() {
                     <ul className="absolute top-full left-0 right-0 bg-neutral-800 md:hidden z-50 shadow-lg border-t border-neutral-700">
                         <li><Link to="/home" className="text-white hover:text-red-400 block p-4 border-b border-neutral-700 font-bold uppercase text-xs tracking-widest">Dashboard</Link></li>
                         <li><Link to="/rutina" className="text-white hover:text-red-400 block p-4 border-b border-neutral-700 font-bold uppercase text-xs tracking-widest">Entrenador</Link></li>
+                        <li><Link to="/biblioteca-animaciones" className="text-white hover:text-red-400 font-bold uppercase text-xs tracking-widest transition-colors">Biblioteca De Ejercicios</Link></li>
                         <li><Link to="/perfil" className="text-white hover:text-red-400 block p-4 font-bold uppercase text-xs tracking-widest">Perfil</Link></li>
                     </ul>
                 )}

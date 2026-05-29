@@ -6,6 +6,7 @@ import LandingPage from './LandingPage.tsx';
 import AuthPage from './AuthPage.tsx';
 import Home from './Home.tsx';
 import Profile from './Profile.tsx';
+import BibliotecaPage from './BibliotecaPage.tsx';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/rutina" element={<RutinaPage />} />
       <Route path="/configurar-rutina" element={<ConfiguracionPage />} />
       <Route path="/resultado-rutina" element={<ResultadoRutinaPage />} />
+      <Route path='/biblioteca-animaciones' element={<BibliotecaPage/>}/>
     </Routes>
   );
 }
