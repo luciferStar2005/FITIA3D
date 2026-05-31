@@ -11,7 +11,43 @@ export default function Home() {
     const [completados, setCompletados] = useState<number[]>([]);
     const [planHoyData, setPlanHoyData] = useState<PlanHoyData[]>([]);
     const [diasConRutina, setDiasConRutina] = useState<string[]>([]);
-    const rachaActual = 0;
+    const [rachaActual, setRachaActual] = useState(0);
+
+    useEffect(() => {
+        const fetchRacha = async () => {
+
+            try {
+
+                if (!token) return;
+
+                const response = await fetch(
+                    'http://localhost:8080/api/v1/progreso/racha',
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                if (response.ok) {
+
+                    const data = await response.json();
+
+                    setRachaActual(data.racha);
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Error obteniendo la racha",
+                    error
+                );
+            }
+        };
+
+        fetchRacha();
+
+    }, []);
 
     const porcentajeCompletado =
         planHoyData.length > 0
@@ -88,8 +124,7 @@ export default function Home() {
         );
     };
 
-    const finalizarRutina = () => {
-
+    const finalizarRutina = async () => {
         if (planHoyData.length === 0) {
 
             alert("No hay rutina programada para este día.");
@@ -101,18 +136,59 @@ export default function Home() {
 
         const cumplioMeta = porcentaje >= 60;
 
-        const mensaje = cumplioMeta
-            ? `🔥 ¡Excelente trabajo!\n\nCompletaste el ${porcentaje}% de tu rutina.\nTu racha se mantendrá activa.`
-            : `😅 Completaste el ${porcentaje}% de la rutina.\n\nNecesitas al menos 60% para mantener la racha.`;
+        const token = localStorage.getItem("token");
 
-        alert(mensaje);
+        if (!token) {
 
-        console.log({
-            ejerciciosTotales: planHoyData.length,
-            completados: completados.length,
-            porcentaje,
-            rachaValida: cumplioMeta
-        });
+            alert("Debes iniciar sesión.");
+
+            return;
+        }
+
+        try {
+
+            const response = await fetch(
+                "http://localhost:8080/api/v1/progreso/guardar",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        ejerciciosTotales: planHoyData.length,
+                        ejerciciosCompletados: completados.length,
+                        porcentaje,
+                        rachaValida: cumplioMeta,
+                        fecha: fecha.toISOString().split("T")[0]
+                    })
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error guardando progreso");
+            }
+
+            const mensaje = cumplioMeta
+                ? `🔥 ¡Excelente trabajo!\n\nCompletaste el ${porcentaje}% de tu rutina.\nTu racha se mantendrá activa.`
+                : `😅 Completaste el ${porcentaje}% de la rutina.\n\nNecesitas al menos 60% para mantener la racha.`;
+
+            alert(mensaje);
+
+            console.log({
+                ejerciciosTotales: planHoyData.length,
+                completados: completados.length,
+                porcentaje,
+                rachaValida: cumplioMeta
+            });
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Error al guardar el progreso");
+
+        }
     };
 
     return (
