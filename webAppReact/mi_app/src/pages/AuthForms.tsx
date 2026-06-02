@@ -80,8 +80,8 @@ export default function RegisterForm() {
             lastName: formData.apellido,   // apellido -> lastName
             email: formData.email,
             password: formData.password,
-            stature: parseInt(formData.estatura), // texto -> número
-            weight: parseInt(formData.peso),      // texto -> número
+            stature: parseFloat(formData.estatura), // texto -> número
+            weight: parseFloat(formData.peso),      // texto -> número
             gender: 'M',                          // valor por defecto 
             birthDate: formData.fecha             // fecha -> birthDate
         };
