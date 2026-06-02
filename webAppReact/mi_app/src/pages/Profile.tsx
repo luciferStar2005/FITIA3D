@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Nav/Navbar.tsx";
 import ProfileEditForm from "../components/ProfileEditForm/ProfileEditForm";
 import { perfilData as initialPerfil } from '../data/mockData';
@@ -25,6 +26,12 @@ function clasificarIMC(imc: number) {
 export default function Profile() {
     const [perfil, setPerfil] = useState(initialPerfil);
     const [isEditing, setIsEditing] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -158,6 +165,18 @@ export default function Profile() {
                                         </div>
                                     ))}
                                 </div>
+
+                                {/* Botón Cerrar Sesión */}
+                                <div className="w-full border-t border-white/[0.06] mt-2 pt-5" />
+                                <button
+                                    onClick={handleLogout}
+                                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white transition-all text-sm font-bold uppercase tracking-widest cursor-pointer"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                                    </svg>
+                                    Cerrar Sesión
+                                </button>
                             </div>
 
                             {/* ────── COL DERECHA ────── */}
