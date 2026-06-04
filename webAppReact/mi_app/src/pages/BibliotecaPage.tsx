@@ -26,7 +26,7 @@ const BibliotecaPage = () => {
     { nombre: "Conventional Deadlift", id: "fa15b0be93c5482690bca0ce4a30df2b", musculoObjetivo: "Cuádriceps", herramienta: "Barra" },
     { nombre: "The Sumo Deadlift", id: "ca6825d04b09478e8ac8f2810167c9e8", musculoObjetivo: "Cuádriceps / Glúteos", herramienta: "Barra" },
     { nombre: "Kettlebell RDL", id: "6f6ee459008e4f76b6495c476b180e17", musculoObjetivo: "Isquiotibiales", herramienta: "Kettlebell" },
-    { nombre: "Goblet Squat", id: "6f6ee459008e4f76b6495c476b180e17", musculoObjetivo: "Cuádriceps", herramienta: "Mancuerna" },
+    { nombre: "Kettlebell Squat", id: "18f5be3f531942c4a65a692efdd6324e", musculoObjetivo: "Cuádriceps", herramienta: "Mancuerna" },
     {nombre: "The HIP Hyperextension", id: "9337e8427375494fb378bf231793e6b5", musculoObjetivo: "Glúteos", herramienta: "Peso Corporal" },
     {nombre: "The Barbell Hip Thrust Gym Bench", id: "8776442444d448348cc4688b54faa3db", musculoObjetivo: "Glúteos", herramienta: "Barra" },
     {nombre: "Single Leg hip Thrust", id: "ddab28796fc346de9bd4d623986b5780", musculoObjetivo: "Glúteos", herramienta: "Peso Corporal" },
