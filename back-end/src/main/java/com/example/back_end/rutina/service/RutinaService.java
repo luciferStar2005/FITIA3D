@@ -152,4 +152,17 @@ public class RutinaService {
                 rutinaRepository.findDiasConRutinaByUsuarioId(usuario.getId()));
     }
 
+    public void eliminarRutina(String dia) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = principal instanceof UserDetails ? ((UserDetails) principal).getUsername()
+                : principal.toString();
+
+        UserEntity usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        RutinaEntity rutina = rutinaRepository.findByUsuarioIdAndDia(usuario.getId(), dia)
+                .orElseThrow(() -> new RuntimeException("Rutina no encontrada para el día: " + dia));
+
+        rutinaRepository.delete(rutina);
+    }
 }

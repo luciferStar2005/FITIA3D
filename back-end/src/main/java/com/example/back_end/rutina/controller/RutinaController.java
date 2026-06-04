@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.back_end.rutina.dto.DiasConRutinaResponse;
 import com.example.back_end.rutina.dto.RutinaDashBoard;
@@ -40,5 +42,11 @@ public class RutinaController {
     @GetMapping("/misRutinas")
     public ResponseEntity<DiasConRutinaResponse> obtenerHistorial() {
         return ResponseEntity.ok(service.getDiasConRutina());
+    }
+
+    @DeleteMapping("/eliminar/{dia}")
+    public ResponseEntity<?> eliminarRutina(@PathVariable String dia) {
+        service.eliminarRutina(dia);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
