@@ -27,6 +27,7 @@ function App() {
       <Route path="/rutina" element={<RutinaPage />} />
       <Route path="/configurar-rutina" element={<ConfiguracionPage />} />
       <Route path="/resultado-rutina" element={<ResultadoRutinaPage />} />
+      <Route path='/biblioteca-animaciones' element={<BibliotecaPage/>}/>
     </Routes>
   );
 }
