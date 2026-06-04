@@ -73,7 +73,7 @@ export default function ProfileEditForm({ initialData, onSave, onCancel }: Profi
         </div>
 
         <div className="flex flex-col w-full">
-          <label className="opacity-70 text-sm mb-1 text-white">Estatura (m)</label>
+          <label className="opacity-70 text-sm mb-1 text-white">Estatura (metros)</label>
           <input
             type="number"
             step="0.01"

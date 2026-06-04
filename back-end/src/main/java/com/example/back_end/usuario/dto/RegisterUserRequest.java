@@ -18,4 +18,5 @@ public class RegisterUserRequest {
     private float weight;
     private String gender;
     private LocalDate birthDate;
+    private String bodyType;
 }

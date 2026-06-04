@@ -12,4 +12,5 @@ public class ProfileResponse {
     private Float weight;
     private Float stature;
     private Integer age;
+    private String bodyType;
 }

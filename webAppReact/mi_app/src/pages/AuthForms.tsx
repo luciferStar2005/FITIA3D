@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/Button/Button.tsx";
 
 const passwordRegex = /^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
@@ -10,7 +9,7 @@ const getInputClass = (hasError: boolean) =>
 
 export default function RegisterForm() {
     const [formData, setFormData] = useState({
-        nombre: '', apellido: '', email: '', password: '', confirm: '', estatura: '', peso: '', fecha: '',
+        nombre: '', apellido: '', email: '', password: '', confirm: '', estatura: '', peso: '', fecha: '', tipoCuerpo: 'mesomorfo',
         terminos: false, politica: false
     });
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -83,7 +82,8 @@ export default function RegisterForm() {
             stature: parseFloat(formData.estatura), // texto -> número
             weight: parseFloat(formData.peso),      // texto -> número
             gender: 'M',                          // valor por defecto 
-            birthDate: formData.fecha             // fecha -> birthDate
+            birthDate: formData.fecha,             // fecha -> birthDate
+            bodyType: formData.tipoCuerpo         // nuevo campo
         };
         try {
             // ACTUALIZACIÓN DE LA RUTA REAL
@@ -157,6 +157,33 @@ export default function RegisterForm() {
                 <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Fecha de nacimiento</label>
                 <input type="date" name="fecha" value={formData.fecha} onChange={handleChange} className={getInputClass(!!errors.fecha)} />
                 {errors.fecha && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.fecha}</p>}
+            </div>
+
+            <div className="flex flex-col w-full mt-2">
+                <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Tipo de Cuerpo</label>
+                <div className="grid grid-cols-3 gap-3">
+                    {[
+                        { id: 'ectomorfo', label: 'Flaco', img: '/ectomorfo.png' },
+                        { id: 'mesomorfo', label: 'Intermedio', img: '/mesomorfo.png' },
+                        { id: 'endomorfo', label: 'Robusto', img: '/endomorfo.png' },
+                    ].map((type) => (
+                        <label 
+                            key={type.id} 
+                            className={`flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 cursor-pointer transition-all ${formData.tipoCuerpo === type.id ? 'border-red-500 bg-red-500/10' : 'border-neutral-800 hover:border-neutral-700 bg-neutral-900'}`}
+                        >
+                            <input
+                                type="radio"
+                                name="tipoCuerpo"
+                                value={type.id}
+                                checked={formData.tipoCuerpo === type.id}
+                                onChange={handleChange}
+                                className="hidden"
+                            />
+                            <img src={type.img} alt={type.label} className="w-full h-24 object-cover rounded-lg" />
+                            <span className="text-gray-300 text-[10px] font-bold uppercase tracking-wider text-center">{type.label}</span>
+                        </label>
+                    ))}
+                </div>
             </div>
 
             <div className="flex flex-col gap-2 mt-2">

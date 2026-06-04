@@ -39,6 +39,7 @@ public class UserService {
                 .weight(rq.getWeight())
                 .gender(rq.getGender())
                 .birthDate(rq.getBirthDate())
+                .bodyType(rq.getBodyType())
                 .build();
 
         repository.save(newUser);
@@ -51,13 +52,13 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("user not found: " + email));
         Integer age = user.getBirthDate() != null ? Period.between(user.getBirthDate(), LocalDate.now()).getYears() : 0;
         ProfileResponse response = new ProfileResponse(
-                user.getFirtsName(), 
-                user.getLastname(), 
+                user.getFirtsName(),
+                user.getLastname(),
                 user.getEmail(),
                 user.getWeight(),
                 user.getStature(),
-                age
-        );
+                age,
+                user.getBodyType());
         return response;
 
     }
@@ -66,8 +67,24 @@ public class UserService {
         UserEntity user = repository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("user not found"));
 
-        user.setFirtsName(rq.getFirtsName());
-        user.setLastname(rq.getLastName());
+        if (rq.getFirtsName() != null && !rq.getFirtsName().trim().isEmpty()) {
+            user.setFirtsName(rq.getFirtsName());
+        }
+        if (rq.getLastName() != null && !rq.getLastName().trim().isEmpty()) {
+            user.setLastname(rq.getLastName());
+        }
+        if (rq.getWeight() != null) {
+            user.setWeight(rq.getWeight());
+        }
+        if (rq.getStature() != null) {
+            user.setStature(rq.getStature());
+        }
+        if (rq.getGender() != null && !rq.getGender().trim().isEmpty()) {
+            user.setGender(rq.getGender());
+        }
+        if (rq.getBirthDate() != null) {
+            user.setBirthDate(rq.getBirthDate());
+        }
 
         repository.save(user);
 

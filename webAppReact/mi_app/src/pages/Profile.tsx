@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Nav/Navbar.tsx";
 import ProfileEditForm from "../components/ProfileEditForm/ProfileEditForm";
@@ -23,8 +23,18 @@ function clasificarIMC(imc: number) {
     return { label: 'Obesidad', color: 'text-red-400' };
 }
 
+interface PerfilState {
+    id: string;
+    nombre: string;
+    email: string;
+    peso: string;
+    altura: string;
+    edad: string;
+    tipoCuerpo?: string;
+}
+
 export default function Profile() {
-    const [perfil, setPerfil] = useState(initialPerfil);
+    const [perfil, setPerfil] = useState<PerfilState[]>(initialPerfil as PerfilState[]);
     const [isEditing, setIsEditing] = useState(false);
     const navigate = useNavigate();
 
@@ -54,6 +64,7 @@ export default function Profile() {
                         peso: data.weight ? data.weight.toString() : initialPerfil[0].peso,
                         altura: data.stature ? data.stature.toString() : initialPerfil[0].altura,
                         edad: data.age ? data.age.toString() : initialPerfil[0].edad,
+                        tipoCuerpo: data.bodyType || '',
                     }]);
                 } else {
                     console.error("Error al obtener el perfil:", await response.text());
@@ -70,12 +81,42 @@ export default function Profile() {
     const imc = parseFloat(calcularIMC(p.peso, p.altura) as string);
     const { label: imcLabel, color: imcColor } = clasificarIMC(imc);
 
-    const handleSave = (data: any) => {
-        setPerfil([{ ...perfil[0], ...data }]);
-        setIsEditing(false);
+    const handleSave = async (data: any) => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            const [firtsName, ...lastNameArr] = data.nombre.split(' ');
+            const lastName = lastNameArr.join(' ');
+
+            const body = {
+                firtsName: firtsName,
+                lastName: lastName,
+                weight: parseFloat(data.peso),
+                stature: parseFloat(data.altura),
+            };
+
+            const response = await fetch('http://localhost:8080/api/v2/user/modify', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (response.ok) {
+                setPerfil([{ ...perfil[0], ...data }]);
+                setIsEditing(false);
+            } else {
+                console.error("Error al actualizar perfil");
+            }
+        } catch (error) {
+            console.error("Error de red:", error);
+        }
     };
 
-    const statIcons: Record<string, JSX.Element> = {
+    const statIcons: Record<string, React.ReactNode> = {
         peso: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4 text-gray-500"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v.75m0 0a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm0 .75H9.75M12 3.75H14.25M3 9.75h18M4.5 9.75v9a2.25 2.25 0 0 0 2.25 2.25h10.5A2.25 2.25 0 0 0 19.5 18.75v-9" /></svg>,
         altura: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4 text-gray-500"><path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" /></svg>,
         edad: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4 text-gray-500"><path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>,
@@ -234,6 +275,7 @@ export default function Profile() {
                                             { label: 'Altura', valor: `${p.altura} m`, iconKey: 'altura' },
                                             { label: 'Edad', valor: `${p.edad} años`, iconKey: 'edad' },
                                             { label: 'IMC', valor: isNaN(imc) ? '—' : imc.toFixed(1), iconKey: 'imc' },
+                                            { label: 'Tipo', valor: p.tipoCuerpo ? p.tipoCuerpo.charAt(0).toUpperCase() + p.tipoCuerpo.slice(1) : 'No definido', iconKey: 'nombre' }
                                         ].map(({ label, valor, iconKey }) => (
                                             <div
                                                 key={label}

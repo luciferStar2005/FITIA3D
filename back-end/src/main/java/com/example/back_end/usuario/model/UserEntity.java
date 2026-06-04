@@ -47,6 +47,9 @@ public class UserEntity {
     @Column(name = "info_nacimiento")
     private LocalDate birthDate;
 
+    @Column(name = "info_tipo_cuerpo")
+    private String bodyType;
+
     protected UserEntity() {
     }
 }
