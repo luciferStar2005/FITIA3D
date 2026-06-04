@@ -4,6 +4,8 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { format } from 'date-fns';
 import type { PlanHoyData } from '../types';
+import PlanModal from "../components/PlanModal.tsx";
+
 
 
 export default function Home() {
@@ -12,6 +14,11 @@ export default function Home() {
     const [planHoyData, setPlanHoyData] = useState<PlanHoyData[]>([]);
     const [diasConRutina, setDiasConRutina] = useState<string[]>([]);
     const [rachaActual, setRachaActual] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+
+
+  
 
     useEffect(() => {
         const fetchRacha = async () => {
@@ -83,6 +90,12 @@ export default function Home() {
                     setDiasConRutina(data.dias);
 
                     console.log(data.dias)
+
+                    const yaVisto = sessionStorage.getItem('plan_modal_visto');
+                    if (data.dias && data.dias.length === 0 && !yaVisto) {
+                        setIsModalOpen(true);
+                    }
+
                 }
             }
             catch (error) {
@@ -117,6 +130,17 @@ export default function Home() {
         };
         fetchRutinaPorFecha();
     }, [fecha]);
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        sessionStorage.setItem('plan_modal_visto', 'true'); // Evita que salte de nuevo al recargar pestañas internas
+    };
+
+    const handleNavigateToPlanes = () => {
+        setIsModalOpen(false);
+        sessionStorage.setItem('plan_modal_visto', 'true');
+        window.location.href = '/planes'; // Redirección a tu nueva página
+    };
 
     const toggleCompletado = (id: number) => {
         setCompletados(prev =>
@@ -415,6 +439,12 @@ export default function Home() {
 
                 </div>
             </div>
+             <PlanModal 
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onNavigateToPlanes={handleNavigateToPlanes}
+            />                   
+
         </>
     );
 }

@@ -1,0 +1,353 @@
+[
+  {
+    "id_plan": "push-pull-legs-hipertrofia",
+    "nombre": "Push / Pull / Legs (Hipertrofia)",
+    "descripcion": "Una de las divisiones más eficientes para ganar masa muscular. Divide el cuerpo en patrones de movimiento: empujes (pecho/hombro/tríceps), tirones (espalda/bíceps) y miembro inferior.",
+    "objetivo": "Hipertrofia",
+    "dias": [
+      {
+        "nombre_dia": "Lunes: Empuje (Pecho, Hombro y Tríceps)",
+        "ejercicios": [
+          {
+            "nombre": "Press de Banca con Barra (Agarre Medio)",
+            "series": 4,
+            "reps": "8-12 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Mantén los omóplatos retraídos y deprimidos durante todo el movimiento para estabilizar los hombros y maximizar la activación pectoral. Realiza una fase excéntrica controlada (bajada de 2-3 segundos) y empuja con potencia."
+          },
+          {
+            "nombre": "Press Inclinado con Mancuernas",
+            "series": 3,
+            "reps": "8-12 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Ajusta el banco a un ángulo de 30-45 grados para enfocarte en la porción clavicular del pectoral. En la fase concéntrica, concéntrate en juntar los codos y contraer la parte superior del pecho."
+          },
+          {
+            "nombre": "Fondos en Paralelas (Dips) con Énfasis en Pecho",
+            "series": 3,
+            "reps": "8-12 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Para enfatizar el pecho, inclínate ligeramente hacia adelante y permite que tus codos se abran un poco hacia los lados. Desciende hasta sentir un estiramiento profundo."
+          },
+          {
+            "nombre": "Aperturas en Polea Alta (Cable Crossovers)",
+            "series": 3,
+            "reps": "12-15 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Colócate ligeramente inclinado hacia adelante con una ligera flexión en los codos. El objetivo es llevar las manos hacia el centro y ligeramente hacia abajo, buscando una contracción pico."
+          },
+          {
+            "nombre": "Press Militar con Mancuernas (Sentado)",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Sube las mancuernas en un ligero arco sobre la cabeza sin llegar a bloquear los codos bruscamente arriba. Mantén el abdomen tenso para proteger la espalda baja."
+          },
+          {
+            "nombre": "Extensiones de Tríceps en Polea Alta (Cuerda)",
+            "series": 4,
+            "reps": "12-15 repeticiones",
+            "descanso": "60 segundos",
+            "tip": "Mantén los codos pegados a los costados del cuerpo y extiende los brazos hacia abajo, abriendo la cuerda al final del movimiento para una contracción máxima."
+          }
+        ]
+      },
+      {
+        "nombre_dia": "Miércoles: Tirón (Espalda, Deltoides Posterior y Bíceps)",
+        "ejercicios": [
+          {
+            "nombre": "Dominadas (Pronas o Supinas) o Jalón al Pecho",
+            "series": 4,
+            "reps": "8-10 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Concéntrate en tirar desde los codos y no con las manos para maximizar el estímulo en los dorsales. Lleva el pecho hacia la barra, no la barbilla."
+          },
+          {
+            "nombre": "Remo con Barra Activo (Pendlay o Convencional)",
+            "series": 4,
+            "reps": "8-10 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Mantén la espalda recta y paralela o semi-paralela al suelo. Tira de la barra hacia la parte baja del abdomen contrayendo fuertemente las escápulas."
+          },
+          {
+            "nombre": "Remo Sentado en Polea (Grip Estrecho)",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Estira completamente los brazos en la fase negativa permitiendo que la espalda se abra, y luego tira llevando el manillar al ombligo sin balancear el torso."
+          },
+          {
+            "nombre": "Pájaros con Mancuernas (Vuelos Posteriores)",
+            "series": 3,
+            "reps": "12-15 repeticiones",
+            "descanso": "60 segundos",
+            "tip": "Inclina el torso hacia adelante casi paralelo al suelo. Eleva las mancuernas hacia los lados liderando con los codos para aislar el deltoides posterior."
+          },
+          {
+            "nombre": "Curl de Bíceps Alterno con Mancuernas",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "60 segundos",
+            "tip": "Sube la mancuerna girando la muñeca hacia afuera (supinación) en la parte alta. Evita mover el codo hacia adelante para que el hombro no robe el esfuerzo."
+          },
+          {
+            "nombre": "Curl de Bíceps en Banco Inclinado",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Sientate en un banco inclinado a 45 grados. Deja caer los brazos verticalmente; esta posición estira la cabeza larga del bíceps proporcionando un estímulo brutal."
+          }
+        ]
+      },
+      {
+        "nombre_dia": "Viernes: Pierna (Cuádriceps, Isquios, Glúteos y Pantorrillas)",
+        "ejercicios": [
+          {
+            "nombre": "Sentadilla Libre con Barra (Back Squat)",
+            "series": 4,
+            "reps": "6-10 repeticiones",
+            "descanso": "120 segundos",
+            "tip": "Baja de forma controlada rompiendo el paralelo (90 grados) si tu movilidad lo permite. Mantén los talones firmes en el suelo y empuja hacia arriba activando el core."
+          },
+          {
+            "nombre": "Prensa de Piernas (Leg Press 45°)",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Coloca los pies a la anchura de los hombros. Baja controlando la plataforma sin despegar la pelvis del respaldo del asiento. No bloquees las rodillas arriba."
+          },
+          {
+            "nombre": "Peso Muerto Rumano con Barra o Mancuernas",
+            "series": 4,
+            "reps": "8-10 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Empuja la cadera hacia atrás como si quisieras tocar la pared con los glúteos. Mantén la barra pegada a tus piernas y la columna completamente neutra."
+          },
+          {
+            "nombre": "Curl de Piernas Tumbado (Femoral en Máquina)",
+            "series": 3,
+            "reps": "12-15 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Sujeta los agarres firmemente para evitar que la cadera se levante del banco. Contrae con fuerza los isquiotibiales en la parte concéntrica y controla la bajada."
+          },
+          {
+            "nombre": "Elevaciones de Talones de Pie (Pantorrillas)",
+            "series": 4,
+            "reps": "15-20 repeticiones",
+            "descanso": "60 segundos",
+            "tip": "Haz una pausa de 2 segundos abajo en el estiramiento máximo para eliminar el rebote elástico del tendón de Aquiles, luego sube explosivo y contrae."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id_plan": "torso-pierna-fuerza-hipertrofia",
+    "nombre": "Torso / Pierna (Intermedio)",
+    "descripcion": "Ideal para optimizar la frecuencia de entrenamiento (Frecuencia 2 por grupo muscular). Este bloque cubre la mitad de la rutina semanal enfocada en un balance de fuerza y estética.",
+    "objetivo": "Fuerza Estructural",
+    "dias": [
+      {
+        "nombre_dia": "Lunes: Torso Enfoque Empuje",
+        "ejercicios": [
+          {
+            "nombre": "Press de Banca con Barra",
+            "series": 4,
+            "reps": "6-8 repeticiones",
+            "descanso": "120 segundos",
+            "tip": "Día enfocado en fuerza. Usa un peso retador pero controlable. Asegura un buen arco plantar apoyando los pies con fuerza en el suelo."
+          },
+          {
+            "nombre": "Remo con Barra con Agarre Prono",
+            "series": 4,
+            "reps": "8-10 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Mantén el torso estable y jala con los codos apuntando ligeramente hacia atrás, llevando la barra a la base del esternón."
+          },
+          {
+            "nombre": "Press Militar de Pie con Barra (OHP)",
+            "series": 3,
+            "reps": "6-8 repeticiones",
+            "descanso": "120 segundos",
+            "tip": "Aprieta los glúteos y el abdomen al máximo para evitar la hiperextensión lumbar. Contrae los trapecios arriba cuando bloquees el peso."
+          },
+          {
+            "nombre": "Jalón al Pecho con Agarre Neutro",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "El agarre neutro (palmas mirándose) reduce el estrés en el hombro y permite un rango de movimiento profundo enfatizando los dorsales inferiores."
+          },
+          {
+            "nombre": "Curl de Bíceps con Barra Z",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "60 segundos",
+            "tip": "La barra Z es más amigable con las muñecas. Mantén una postura erguida y no uses el impulso del cuerpo para levantar la barra."
+          }
+        ]
+      },
+      {
+        "nombre_dia": "Miércoles: Pierna Enfoque Cuádriceps",
+        "ejercicios": [
+          {
+            "nombre": "Sentadilla Trasera con Barra (Back Squat)",
+            "series": 4,
+            "reps": "6-8 repeticiones",
+            "descanso": "120 segundos",
+            "tip": "Mantén la tensión en el abdomen (maniobra de Valsalva) antes de iniciar el descenso para estabilizar la columna bajo la carga pesada."
+          },
+          {
+            "nombre": "Prensa de Piernas",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Coloca los pies un poco más abajo en la plataforma para aumentar el rango de flexión de la rodilla y dar mayor estímulo a los cuádriceps."
+          },
+          {
+            "nombre": "Zancadas Caminando con Mancuernas (Lunges)",
+            "series": 3,
+            "reps": "10-12 pasos por pierna",
+            "descanso": "75 segundos",
+            "tip": "Da pasos amplios manteniendo el torso ligeramente hacia adelante. Controla que la rodilla delantera no se colapse hacia adentro (valgo)."
+          },
+          {
+            "nombre": "Extensión de Cuádriceps en Máquina",
+            "series": 3,
+            "reps": "12-15 repeticiones",
+            "descanso": "60 segundos",
+            "tip": "Mantén un segundo de contracción estática arriba (bloqueo muscular) antes de iniciar la fase excéntrica lenta."
+          }
+        ]
+      },
+      {
+        "nombre_dia": "Viernes: Torso Enfoque Tirón",
+        "ejercicios": [
+          {
+            "nombre": "Remo con Mancuerna a una Mano",
+            "series": 4,
+            "reps": "8-10 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Lleva la mancuerna hacia la cadera en un movimiento de arco, manteniendo el hombro abajo y lejos de la oreja."
+          },
+          {
+            "nombre": "Press de Banca Inclinado con Barra",
+            "series": 3,
+            "reps": "8-10 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Controla la bajada de la barra guiándola al tercio superior del pecho. Mantén los codos metidos en un ángulo de 45 grados."
+          },
+          {
+            "nombre": "Jalón al Pecho (Agarre Ancho Prono)",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Inclina sutilmente el torso hacia atrás (10-15 grados) y jala la barra fluidamente hasta tocar la parte superior del pectoral."
+          },
+          {
+            "nombre": "Elevaciones Laterales con Mancuernas",
+            "series": 4,
+            "reps": "12-15 repeticiones",
+            "descanso": "60 grams",
+            "tip": "Eleva las mancuernas en el plano escapular (un poco hacia adelante, no totalmente laterales). Imagina que quieres tocar las paredes de los lados."
+          },
+          {
+            "nombre": "Fondos en Paralelas para Tríceps",
+            "series": 3,
+            "reps": "8-12 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Mantén el torso lo más vertical posible y los codos pegados al cuerpo para desviar la mayor parte de la carga de trabajo hacia los tríceps."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id_plan": "fullbody-acondicionamiento",
+    "nombre": "Full Body (Dos Días por Semana)",
+    "descripcion": "Excelente opción para principiantes, personas con poco tiempo o atletas que buscan optimizar la quema calórica global entrenando todo el cuerpo en cada sesión.",
+    "objetivo": "Acondicionamiento",
+    "dias": [
+      {
+        "nombre_dia": "Lunes: Cuerpo Completo - Sesión A",
+        "ejercicios": [
+          {
+            "nombre": "Sentadilla Goblet con Mancuerna",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Sujeta la mancuerna verticalmente pegada al pecho. Mantén el torso erguido y desciende empujando las rodillas hacia la dirección de las puntas de los pies."
+          },
+          {
+            "nombre": "Press de Banca con Mancuernas",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Las mancuernas permiten un rango de movimiento más profundo y natural que la barra. Junta los pesos arriba sin que choquen ruidosamente."
+          },
+          {
+            "nombre": "Remo Sentado en Máquina o Polea",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Mantén la espalda erguida, evita encorvar la zona lumbar al estirar los brazos y jala concentrándote en juntar las escápulas por detrás."
+          },
+          {
+            "nombre": "Flexión de Piernas Acostado (Mina / Camilla)",
+            "series": 3,
+            "reps": "12-15 repeticiones",
+            "descanso": "60 segundos",
+            "tip": "Aísla la parte trasera de la pierna controlando el movimiento. No des tirones con el cuerpo; mantén los muslos pegados al cojín."
+          },
+          {
+            "nombre": "Plancha Abdominal Estándar (Plank)",
+            "series": 3,
+            "reps": "30-45 segundos sostenido",
+            "descanso": "60 segundos",
+            "tip": "Coloca los antebrazos en el suelo alineados con los hombros. Empuja el suelo, aprieta los glúteos y el abdomen evitando que la pelvis caiga."
+          }
+        ]
+      },
+      {
+        "nombre_dia": "Miércoles: Cuerpo Completo - Sesión B",
+        "ejercicios": [
+          {
+            "nombre": "Prensa de Piernas Horizontal o inclinada",
+            "series": 3,
+            "reps": "12-15 repeticiones",
+            "descanso": "90 segundos",
+            "tip": "Empuja uniformemente utilizando toda la planta del pie, asegurando que los talones jamás se despeguen de la plataforma de hierro."
+          },
+          {
+            "nombre": "Jalón al Pecho en Polea Alta",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Ajusta las almohadillas de las rodillas para que queden firmes. Jala la barra controladamente hasta la altura de tu barbilla/pecho."
+          },
+          {
+            "nombre": "Press de Hombros con Mancuernas Sentado",
+            "series": 3,
+            "reps": "10-12 repeticiones",
+            "descanso": "75 segundos",
+            "tip": "Alinea los codos ligeramente hacia adelante respecto a los hombros para proteger el manguito rotador durante el empuje vertical."
+          },
+          {
+            "nombre": "Elevación de Pelvis en Suelo (Gris Bridge)",
+            "series": 3,
+            "reps": "15 repeticiones",
+            "descanso": "60 segundos",
+            "tip": "Apoya la espalda alta en el suelo, eleva la pelvis apretando fuertemente los glúteos arriba. Puedes añadir un disco sobre la pelvis."
+          },
+          {
+            "nombre": "Curl de Bíceps con Mancuernas de Pie",
+            "series": 3,
+            "reps": "12 repeticiones",
+            "descanso": "60 segundos",
+            "tip": "Controla el descenso (fase excéntrica) del peso. No balancees el cuerpo hacia adelante ni hacia atrás para subir las mancuernas."
+          }
+        ]
+      }
+    ]
+  }
+]

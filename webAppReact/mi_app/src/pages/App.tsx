@@ -7,6 +7,7 @@ import AuthPage from './AuthPage.tsx';
 import Home from './Home.tsx';
 import Profile from './Profile.tsx';
 import BibliotecaPage from './BibliotecaPage.tsx';
+import PlanesPage from './PlanesPage.tsx';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/perfil" element={<Profile />} />
       <Route path="/biblioteca" element={<BibliotecaPage />} />
+      <Route path="/planes" element={<PlanesPage />} />
 
       {/* Flujo de Generación de Rutina */}
       <Route path="/rutina" element={<RutinaPage />} />
