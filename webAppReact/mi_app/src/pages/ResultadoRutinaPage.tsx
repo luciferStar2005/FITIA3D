@@ -10,7 +10,6 @@ const ResultadoRutinaPage = () => {
   const { rutina } = location.state || { rutina: null };
 
   const [fecha, setFecha] = useState('');
-  const [hora, setHora] = useState('');
   const [esRecurrente, setEsRecurrente] = useState(false);
 
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -31,8 +30,8 @@ const ResultadoRutinaPage = () => {
   };
 
   const handleAgendar = async () => {
-    if (!fecha || !hora) {
-      showModal("Aviso", "Por favor selecciona fecha y hora para agendar.", "info");
+    if (!fecha) {
+      showModal("Aviso", "Por favor selecciona una fecha para agendar.", "info");
       return;
     }
     const token = localStorage.getItem('token');
@@ -44,16 +43,7 @@ const ResultadoRutinaPage = () => {
 
     const nombreDelDia = obtenerNombreDia(fecha);
 
-    const eventoCargado = {
-      ...rutina,
-      fecha,
-      hora,
-      esRecurrente,
-      diaSemna: nombreDelDia,
-      idAgendamiento: Date.now() // ID único para este evento
-    };
-
-    console.log("Guardando en el calendario:", eventoCargado);
+    console.log("Guardando en el calendario:", { rutina, fecha, esRecurrente, dia: nombreDelDia });
 
     // Guardado en API
     try {
@@ -81,8 +71,8 @@ const ResultadoRutinaPage = () => {
     }
 
     const mensajeFinal = esRecurrente
-      ? `✅ Rutina programada para todos los ${nombreDelDia} a las ${hora}.`
-      : `✅ Rutina agendada únicamente para el ${fecha} a las ${hora}.`;
+      ? `✅ Rutina programada para todos los ${nombreDelDia}.`
+      : `✅ Rutina agendada para el ${fecha}.`;
     showModal("Rutina Agendada", mensajeFinal, "success");
   };
 
@@ -151,16 +141,6 @@ const ResultadoRutinaPage = () => {
                   type="date"
                   value={fecha}
                   onChange={(e) => setFecha(e.target.value)}
-                  className="bg-neutral-800 border border-white/[0.1] text-white rounded-lg px-4 py-3 focus:outline-none focus:border-red-500 transition-colors w-full"
-                />
-              </div>
-
-              <div className="flex flex-col w-full md:w-auto flex-1">
-                <label className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2">Hora</label>
-                <input
-                  type="time"
-                  value={hora}
-                  onChange={(e) => setHora(e.target.value)}
                   className="bg-neutral-800 border border-white/[0.1] text-white rounded-lg px-4 py-3 focus:outline-none focus:border-red-500 transition-colors w-full"
                 />
               </div>

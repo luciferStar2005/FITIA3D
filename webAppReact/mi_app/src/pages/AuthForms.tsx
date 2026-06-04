@@ -11,7 +11,7 @@ const getInputClass = (hasError: boolean) =>
 export default function RegisterForm() {
     const { modal, showModal, closeModal } = useModal();
     const [formData, setFormData] = useState({
-        nombre: '', apellido: '', email: '', password: '', confirm: '', estatura: '', peso: '', fecha: '', tipoCuerpo: 'mesomorfo',
+        nombre: '', apellido: '', email: '', password: '', confirm: '', estatura: '', peso: '', fecha: '', genero: '', tipoCuerpo: 'mesomorfo',
         terminos: false, politica: false
     });
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -77,15 +77,15 @@ export default function RegisterForm() {
 
         // Lógica de registro o llamada a la API
         const dataParaBackend = {
-            firtsName: formData.nombre,    // nombre -> firtsName
-            lastName: formData.apellido,   // apellido -> lastName
+            firtsName: formData.nombre,
+            lastName: formData.apellido,
             email: formData.email,
             password: formData.password,
-            stature: parseFloat(formData.estatura), // texto -> número
-            weight: parseFloat(formData.peso),      // texto -> número
-            gender: 'M',                          // valor por defecto 
-            birthDate: formData.fecha,             // fecha -> birthDate
-            bodyType: formData.tipoCuerpo         // nuevo campo
+            stature: parseFloat(formData.estatura),
+            weight: parseFloat(formData.peso),
+            gender: formData.genero,
+            birthDate: formData.fecha,
+            bodyType: formData.tipoCuerpo
         };
         try {
             const response = await fetch('http://localhost:8080/api/v2/user/register', {
@@ -157,6 +157,36 @@ export default function RegisterForm() {
                 <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Fecha de nacimiento</label>
                 <input type="date" name="fecha" value={formData.fecha} onChange={handleChange} className={getInputClass(!!errors.fecha)} />
                 {errors.fecha && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.fecha}</p>}
+            </div>
+
+            <div className="flex flex-col w-full mt-2">
+                <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Género</label>
+                <div className="grid grid-cols-2 gap-3">
+                    {[
+                        { value: 'M', label: 'Masculino', icon: '♂️' },
+                        { value: 'F', label: 'Femenino',  icon: '♀️' },
+                    ].map((g) => (
+                        <label
+                            key={g.value}
+                            className={`flex items-center justify-center gap-3 py-3 px-4 rounded-xl border-2 cursor-pointer transition-all
+                                ${ formData.genero === g.value
+                                    ? 'border-red-500 bg-red-500/10 text-red-300'
+                                    : 'border-neutral-800 hover:border-neutral-700 bg-neutral-900 text-gray-400' }`}
+                        >
+                            <input
+                                type="radio"
+                                name="genero"
+                                value={g.value}
+                                checked={formData.genero === g.value}
+                                onChange={handleChange}
+                                className="hidden"
+                            />
+                            <span className="text-2xl">{g.icon}</span>
+                            <span className="font-bold text-sm uppercase tracking-widest">{g.label}</span>
+                        </label>
+                    ))}
+                </div>
+                {errors.genero && <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium">{errors.genero}</p>}
             </div>
 
             <div className="flex flex-col w-full mt-2">
