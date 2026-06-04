@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Navbar } from '../components/Nav/Navbar';
+import Modal, { useModal } from '../components/Modal/Modal';
 
 const ResultadoRutinaPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
-  // Recuperamos la rutina enviada desde ConfiguracionPage
+
   const { rutina } = location.state || { rutina: null };
 
-  // Estados para la agenda
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
   const [esRecurrente, setEsRecurrente] = useState(false);
-  
-  // Estado para modal de autenticación
+
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const { modal, showModal, closeModal } = useModal();
 
   if (!rutina) {
     return <div className="min-h-screen bg-neutral-900 flex items-center justify-center text-white">No se encontró ninguna rutina. Regresa al inicio.</div>;
   }
 
   const obtenerNombreDia = (fechaInput: string) => {
-    if (!fechaInput) return "semana"; 
+    if (!fechaInput) return "semana";
     const dias = [
-      'Domingo', 'Lunes', 'Martes', 'Miércoles', 
+      'Domingo', 'Lunes', 'Martes', 'Miércoles',
       'Jueves', 'Viernes', 'Sábado'
     ];
     const fechaObj = new Date(fechaInput + 'T00:00:00');
@@ -33,11 +32,11 @@ const ResultadoRutinaPage = () => {
 
   const handleAgendar = async () => {
     if (!fecha || !hora) {
-      alert("Por favor selecciona fecha y hora para agendar.");
+      showModal("Aviso", "Por favor selecciona fecha y hora para agendar.", "info");
       return;
     }
     const token = localStorage.getItem('token');
-    
+
     if (!token) {
       setShowAuthModal(true);
       return;
@@ -62,7 +61,7 @@ const ResultadoRutinaPage = () => {
         dia: nombreDelDia,
         ejercicios: rutina.ejercicios
       };
-      
+
       const response = await fetch('http://localhost:8080/api/v1/rutinas/crear', {
         method: 'POST',
         headers: {
@@ -71,7 +70,7 @@ const ResultadoRutinaPage = () => {
         },
         body: JSON.stringify(payload)
       });
-      
+
       if (response.ok) {
         console.log("Rutina guardada en el backend");
       } else {
@@ -81,10 +80,10 @@ const ResultadoRutinaPage = () => {
       console.error("Error en la petición para guardar la rutina:", error);
     }
 
-    const mensajeFinal = esRecurrente 
-    ? `✅ Rutina programada para todos los ${nombreDelDia} a las ${hora}.`
-    : `✅ Rutina agendada únicamente para el ${fecha} a las ${hora}.`;
-    alert(mensajeFinal);
+    const mensajeFinal = esRecurrente
+      ? `✅ Rutina programada para todos los ${nombreDelDia} a las ${hora}.`
+      : `✅ Rutina agendada únicamente para el ${fecha} a las ${hora}.`;
+    showModal("Rutina Agendada", mensajeFinal, "success");
   };
 
   const diaTexto = obtenerNombreDia(fecha);
@@ -94,7 +93,7 @@ const ResultadoRutinaPage = () => {
       <Navbar />
       <div className="min-h-screen bg-neutral-900 pt-24 pb-12">
         <div className="max-w-[1100px] mx-auto px-4 md:px-8">
-          
+
           {/* Header */}
           <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.4)] mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-t-4 border-t-red-600">
             <div>
@@ -103,8 +102,8 @@ const ResultadoRutinaPage = () => {
               </h1>
               <p className="text-gray-400 mt-2 text-sm">{rutina.rutina_nombre || "Rutina Generada"}</p>
             </div>
-            <button 
-              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white/[0.06] border border-white/[0.1] text-white hover:bg-white/[0.1] hover:border-white/[0.2] transition-all text-xs font-bold uppercase tracking-widest cursor-pointer w-full md:w-auto" 
+            <button
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white/[0.06] border border-white/[0.1] text-white hover:bg-white/[0.1] hover:border-white/[0.2] transition-all text-xs font-bold uppercase tracking-widest cursor-pointer w-full md:w-auto"
               onClick={() => navigate(-1)}
             >
               ← Ajustar Selección
@@ -116,7 +115,7 @@ const ResultadoRutinaPage = () => {
             {rutina.ejercicios.map((ej: any, index: number) => (
               <div key={index} className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] border-t-4 border-t-orange-500 rounded-2xl p-6 shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex flex-col gap-5">
                 <h3 className="font-['Bebas_Neue'] text-2xl tracking-wider text-white leading-none">{ej.nombre}</h3>
-                
+
                 <div className="grid grid-cols-3 gap-3">
                   <div className="bg-white/[0.03] rounded-lg p-2 text-center border border-white/[0.06]">
                     <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">Series</p>
@@ -131,7 +130,7 @@ const ResultadoRutinaPage = () => {
                     <p className="text-white font-bold text-lg leading-none">{ej.descanso}</p>
                   </div>
                 </div>
-                
+
                 <div className="mt-auto bg-orange-500/10 border border-orange-500/20 rounded-lg p-3">
                   <p className="text-xs text-orange-200"><strong>* Tip:</strong> {ej.tip}</p>
                 </div>
@@ -144,33 +143,33 @@ const ResultadoRutinaPage = () => {
             <h2 className="font-['Bebas_Neue'] text-3xl tracking-wider text-red-200 leading-none mb-6">
               📅 ¿Cuándo vas a realizar esta rutina?
             </h2>
-            
+
             <div className="flex flex-col md:flex-row gap-6 items-end">
               <div className="flex flex-col w-full md:w-auto flex-1">
                 <label className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2">Fecha</label>
-                <input 
-                  type="date" 
-                  value={fecha} 
-                  onChange={(e) => setFecha(e.target.value)} 
+                <input
+                  type="date"
+                  value={fecha}
+                  onChange={(e) => setFecha(e.target.value)}
                   className="bg-neutral-800 border border-white/[0.1] text-white rounded-lg px-4 py-3 focus:outline-none focus:border-red-500 transition-colors w-full"
                 />
               </div>
-              
+
               <div className="flex flex-col w-full md:w-auto flex-1">
                 <label className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2">Hora</label>
-                <input 
-                  type="time" 
-                  value={hora} 
-                  onChange={(e) => setHora(e.target.value)} 
+                <input
+                  type="time"
+                  value={hora}
+                  onChange={(e) => setHora(e.target.value)}
                   className="bg-neutral-800 border border-white/[0.1] text-white rounded-lg px-4 py-3 focus:outline-none focus:border-red-500 transition-colors w-full"
                 />
               </div>
-              
+
               <div className="flex items-center gap-3 w-full md:w-auto pb-3 flex-1">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   id="recurrente"
-                  checked={esRecurrente} 
+                  checked={esRecurrente}
                   onChange={(e) => setEsRecurrente(e.target.checked)}
                   className="w-5 h-5 accent-red-600 rounded cursor-pointer"
                 />
@@ -178,8 +177,8 @@ const ResultadoRutinaPage = () => {
                   Repetir cada <strong className="text-white">{diaTexto}</strong> esta rutina
                 </label>
               </div>
-              
-              <button 
+
+              <button
                 className="mt-4 md:mt-0 w-full md:w-auto px-8 py-3 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg uppercase tracking-widest text-sm transition-colors cursor-pointer"
                 onClick={handleAgendar}
               >
@@ -194,7 +193,7 @@ const ResultadoRutinaPage = () => {
       {showAuthModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <div className="bg-neutral-900 border border-white/[0.1] rounded-2xl p-8 max-w-md w-full shadow-[0_8px_32px_rgba(0,0,0,0.8)] relative">
-            <button 
+            <button
               onClick={() => setShowAuthModal(false)}
               className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors cursor-pointer"
             >
@@ -209,14 +208,14 @@ const ResultadoRutinaPage = () => {
               Para guardar esta rutina en tu calendario y llevar un registro de tu progreso, necesitas crear una cuenta o iniciar sesión.
             </p>
             <div className="flex flex-col gap-3">
-              <button 
-                onClick={() => navigate('/login')} 
+              <button
+                onClick={() => navigate('/login')}
                 className="w-full py-3 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg uppercase tracking-widest text-sm transition-colors cursor-pointer"
               >
                 Registrarme / Iniciar Sesión
               </button>
-              <button 
-                onClick={() => setShowAuthModal(false)} 
+              <button
+                onClick={() => setShowAuthModal(false)}
                 className="w-full py-3 bg-white/[0.05] hover:bg-white/[0.1] text-white font-bold rounded-lg uppercase tracking-widest text-sm transition-colors cursor-pointer"
               >
                 Continuar sin guardar
@@ -225,6 +224,7 @@ const ResultadoRutinaPage = () => {
           </div>
         </div>
       )}
+      <Modal {...modal} onClose={closeModal} />
     </>
   );
 };

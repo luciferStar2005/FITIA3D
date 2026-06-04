@@ -4,6 +4,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { format } from 'date-fns';
 import type { PlanHoyData } from '../types';
+import Modal, { useModal } from '../components/Modal/Modal';
 
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
     const [planHoyData, setPlanHoyData] = useState<PlanHoyData[]>([]);
     const [diasConRutina, setDiasConRutina] = useState<string[]>([]);
     const [rachaActual, setRachaActual] = useState(0);
+    const { modal, showModal, closeModal } = useModal();
 
     useEffect(() => {
         const fetchRacha = async () => {
@@ -126,27 +128,20 @@ export default function Home() {
 
     const finalizarRutina = async () => {
         if (planHoyData.length === 0) {
-
-            alert("No hay rutina programada para este día.");
-
+            showModal("Aviso", "No hay rutina programada para este día.", "info");
             return;
         }
 
         const porcentaje = Math.round(porcentajeCompletado);
-
         const cumplioMeta = porcentaje >= 60;
-
         const token = localStorage.getItem("token");
 
         if (!token) {
-
-            alert("Debes iniciar sesión.");
-
+            showModal("Error", "Debes iniciar sesión.", "info");
             return;
         }
 
         try {
-
             const response = await fetch(
                 "http://localhost:8080/api/v1/progreso/guardar",
                 {
@@ -173,21 +168,50 @@ export default function Home() {
                 ? `🔥 ¡Excelente trabajo!\n\nCompletaste el ${porcentaje}% de tu rutina.\nTu racha se mantendrá activa.`
                 : `😅 Completaste el ${porcentaje}% de la rutina.\n\nNecesitas al menos 60% para mantener la racha.`;
 
-            alert(mensaje);
-
-            console.log({
-                ejerciciosTotales: planHoyData.length,
-                completados: completados.length,
-                porcentaje,
-                rachaValida: cumplioMeta
-            });
+            showModal(cumplioMeta ? "¡Felicidades!" : "Atención", mensaje, "info");
 
         } catch (error) {
-
             console.error(error);
+            showModal("Error", "Error al guardar el progreso", "info");
+        }
+    };
 
-            alert("Error al guardar el progreso");
+    const confirmarEliminarRutina = () => {
+        showModal(
+            "Eliminar Rutina",
+            "¿Estás seguro de que deseas eliminar la rutina de este día?",
+            "confirm",
+            () => {
+                eliminarRutina();
+            }
+        );
+    };
 
+    const eliminarRutina = async () => {
+        if (!token) return;
+
+        const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const nombreDia = diasSemana[fecha.getDay()];
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/rutinas/eliminar/${nombreDia}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                showModal("Éxito", "Rutina eliminada correctamente", "info");
+                setPlanHoyData([]);
+                setCompletados([]);
+                setDiasConRutina(prev => prev.filter(dia => dia !== nombreDia));
+            } else {
+                showModal("Error", "Error al eliminar la rutina", "info");
+            }
+        } catch (error) {
+            console.error("Error al eliminar la rutina:", error);
+            showModal("Error", "Error al eliminar la rutina", "info");
         }
     };
 
@@ -311,25 +335,36 @@ export default function Home() {
                             )}
                         </div>
 
-                        <button
-                            onClick={finalizarRutina}
-                            disabled={planHoyData.length === 0}
-                            className={`
-                                mt-5 w-full py-4 rounded-2xl font-black uppercase tracking-[0.15em]
-                                transition-all duration-300 cursor-pointer
-                                border
-                                ${planHoyData.length === 0
-                                    ? 'bg-neutral-800 border-neutral-700 text-gray-500 cursor-not-allowed'
-                                    : porcentajeCompletado >= 60
-                                        ? 'bg-green-500/20 border-green-500/40 text-green-300 hover:bg-green-500/30'
-                                        : 'bg-red-500/10 border-red-500/30 text-red-300 hover:bg-red-500/20'
-                                }
-                             `}
-                        >Finalizar Rutina
-                            <span className="ml-2 opacity-70">
-                                ({Math.round(porcentajeCompletado)}%)
-                            </span>
-                        </button>
+                        <div className="flex gap-4 mt-5">
+                            {planHoyData.length > 0 && (
+                                <button
+                                    onClick={confirmarEliminarRutina}
+                                    className="px-6 py-4 rounded-2xl font-black uppercase tracking-[0.15em] transition-all duration-300 cursor-pointer border bg-red-500/10 border-red-500/40 text-red-400 hover:bg-red-500/20"
+                                >
+                                    Eliminar
+                                </button>
+                            )}
+                            
+                            <button
+                                onClick={finalizarRutina}
+                                disabled={planHoyData.length === 0}
+                                className={`
+                                    flex-1 py-4 rounded-2xl font-black uppercase tracking-[0.15em]
+                                    transition-all duration-300 cursor-pointer
+                                    border
+                                    ${planHoyData.length === 0
+                                        ? 'bg-neutral-800 border-neutral-700 text-gray-500 cursor-not-allowed'
+                                        : porcentajeCompletado >= 60
+                                            ? 'bg-green-500/20 border-green-500/40 text-green-300 hover:bg-green-500/30'
+                                            : 'bg-red-500/10 border-red-500/30 text-red-300 hover:bg-red-500/20'
+                                    }
+                                 `}
+                            >Finalizar Rutina
+                                <span className="ml-2 opacity-70">
+                                    ({Math.round(porcentajeCompletado)}%)
+                                </span>
+                            </button>
+                        </div>
                     </div>
 
                     {/* ──────────── COL 2: CALENDARIO + RACHA ──────────── */}
@@ -415,6 +450,8 @@ export default function Home() {
 
                 </div>
             </div>
+
+            <Modal {...modal} onClose={closeModal} />
         </>
     );
 }

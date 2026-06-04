@@ -4,10 +4,12 @@ import { OrbitControls, Stage, ContactShadows } from '@react-three/drei';
 import { Model as MaleModel } from '../components/threeModel/Male_MuscleWiki';
 import '../styles/RutinaPage.css';
 import { useNavigate } from 'react-router-dom';
+import Modal, { useModal } from '../components/Modal/Modal';
 
 
 const RutinaPage = () => {
   const navigate = useNavigate();
+  const { modal, showModal, closeModal } = useModal();
   const [selectedMuscle, setSelectedMuscle] = useState("Toca la anatomía");
   const [showAiPanel, setShowAiPanel] = useState(false);
   const [aiContent, setAiContent] = useState("Selecciona un grupo muscular para generar recomendaciones personalizadas.");
@@ -30,7 +32,7 @@ const RutinaPage = () => {
   const handleContinuar = () => {
     console.log("Botón presionado, intentando navegar...");
     if (selectedMuscles.length === 0) {
-      alert("Por favor, selecciona al menos un músculo en el modelo 3D.");
+      showModal("Aviso", "Por favor, selecciona al menos un músculo en el modelo 3D.", "info");
       return;
     }
 
@@ -86,6 +88,7 @@ const RutinaPage = () => {
       </div>
 
       <div className="controls-hint">Click: Seleccionar | Arrastrar: Rotar | Scroll: Zoom</div>
+      <Modal {...modal} onClose={closeModal} />
     </div>
   );
 };

@@ -58,15 +58,18 @@ public class UserControllerTest {
                                 .birthDate(LocalDate.of(2005, 5, 1))
                                 .build();
 
-                UserEntity usuarioCreado = new UserEntity(1,
-                                "Calet",
-                                "Ortiz",
-                                "test@example.com",
-                                "password",
-                                1.70f,
-                                70.0f,
-                                "M",
-                                LocalDate.of(2005, 5, 1));
+                UserEntity usuarioCreado = UserEntity.builder()
+                                .id(1)
+                                .firtsName("Calet")
+                                .lastname("Ortiz")
+                                .email("test@example.com")
+                                .passsword("password")
+                                .stature(1.70f)
+                                .weight(70.0f)
+                                .gender("M")
+                                .birthDate(LocalDate.of(2005, 5, 1))
+                                .bodyType("Mesomorfo")
+                                .build();
 
                 Mockito.when(service.registerUser(Mockito.any(RegisterUserRequest.class)))
                                 .thenReturn(usuarioCreado);

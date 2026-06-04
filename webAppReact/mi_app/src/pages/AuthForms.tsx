@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal, { useModal } from "../components/Modal/Modal";
 
 const passwordRegex = /^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
@@ -8,6 +9,7 @@ const getInputClass = (hasError: boolean) =>
     `h-11 px-4 bg-neutral-900 border ${hasError ? 'border-red-500' : 'border-neutral-800 focus:border-neutral-500'} transition-all outline-none rounded-xl w-full text-white placeholder-gray-500 text-sm`;
 
 export default function RegisterForm() {
+    const { modal, showModal, closeModal } = useModal();
     const [formData, setFormData] = useState({
         nombre: '', apellido: '', email: '', password: '', confirm: '', estatura: '', peso: '', fecha: '', tipoCuerpo: 'mesomorfo',
         terminos: false, politica: false
@@ -86,27 +88,25 @@ export default function RegisterForm() {
             bodyType: formData.tipoCuerpo         // nuevo campo
         };
         try {
-            // ACTUALIZACIÓN DE LA RUTA REAL
             const response = await fetch('http://localhost:8080/api/v2/user/register', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dataParaBackend),
             });
 
             if (response.ok) {
-                alert("¡Usuario creado con éxito (201 Created)!");
+                showModal("¡Bienvenido!", "¡Tu cuenta fue creada exitosamente! Ya puedes iniciar sesión.", "success");
             } else {
-                alert("Error al registrar: " + response.status);
+                showModal("Error al registrar", `No fue posible crear la cuenta. Código: ${response.status}`, "error");
             }
         } catch (error) {
-            alert("Error: No se pudo conectar con el backend de Java.");
+            showModal("Error de conexión", "No se pudo conectar con el servidor. Intenta de nuevo más tarde.", "error");
         }
 
     };
 
     return (
+        <>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
             <div className="flex flex-col">
                 <label className="text-[10px] mb-1.5 text-gray-400 font-bold uppercase tracking-widest pl-1">Nombres</label>
@@ -206,6 +206,8 @@ export default function RegisterForm() {
                 </button>
             </div>
         </form>
+        <Modal {...modal} onClose={closeModal} />
+        </>
     );
 }
 
