@@ -40,29 +40,40 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) {
         return config.getAuthenticationManager();
     }
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+            .cors(Customizer.withDefaults())
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                    // 1. SILENCIAR EL FAVICON Y LA RAÍZ (Para que Ngrok y el móvil pasen de largo sin romper nada)
+                    .requestMatchers("/", "/favicon.ico").permitAll()
+                    
+                    // 2. PERMITIR MÉTODOS OPTIONS (CORS)
+                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                    
+                    // 3. PERMITIR TUS ENDPOINTS PÚBLICOS DE LA API
+                    .requestMatchers("/api/v2/user/register", "/api/v1/auth/**").permitAll()
+                    
+                    // CUALQUIER OTRA RUTA REQUIERE JWT
+                    .anyRequest().authenticated())
+            .exceptionHandling(exception -> exception
+                    .authenticationEntryPoint(restAuthenticationEntryPoint))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/api/v2/user/register", "/api/v1/auth/**").permitAll()
-                        .anyRequest().authenticated())
-                .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint(restAuthenticationEntryPoint))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
+    return http.build();
+}
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
+        // Permitimos localhost para tu PC Y cualquier subdominio de Ngrok para tu teléfono
         config.setAllowedOriginPatterns(List.of(
-                "http://localhost:5173"));
+                "http://localhost:5173",
+                "https://*.ngrok-free.app",
+                "https://*.ngrok-free.dev"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(false);

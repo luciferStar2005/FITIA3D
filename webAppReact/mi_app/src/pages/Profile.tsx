@@ -49,7 +49,7 @@ export default function Profile() {
                 const token = localStorage.getItem('token');
                 if (!token) return;
 
-                const response = await fetch('http://localhost:8080/api/v2/user/me', {
+                const response = await fetch('https://quentin-semipreserved-kaci.ngrok-free.dev/api/v2/user/me', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -96,7 +96,7 @@ export default function Profile() {
                 stature: parseFloat(data.altura),
             };
 
-            const response = await fetch('http://localhost:8080/api/v2/user/modify', {
+            const response = await fetch('https://quentin-semipreserved-kaci.ngrok-free.dev/api/v2/user/modify', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

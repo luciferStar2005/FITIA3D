@@ -26,7 +26,7 @@ export default function Home() {
                 if (!token) return;
 
                 const response = await fetch(
-                    'http://localhost:8080/api/v1/progreso/racha',
+                    'https://quentin-semipreserved-kaci.ngrok-free.dev/api/v1/progreso/racha',
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -77,7 +77,7 @@ export default function Home() {
             try {
                 if (!token) return;
 
-                const response = await fetch('http://localhost:8080/api/v1/rutinas/misRutinas', {
+                const response = await fetch('https://quentin-semipreserved-kaci.ngrok-free.dev/api/v1/rutinas/misRutinas', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -109,7 +109,7 @@ export default function Home() {
                 if (!token) return;
                 const fechaFormateada = format(fecha, 'yyyy-MM-dd');
                 const response = await fetch(
-                    `http://localhost:8080/api/v1/rutinas/obtener?fecha=${fechaFormateada}`,
+                    `https://quentin-semipreserved-kaci.ngrok-free.dev/api/v1/rutinas/obtener?fecha=${fechaFormateada}`,
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`
@@ -163,7 +163,7 @@ export default function Home() {
 
         try {
             const response = await fetch(
-                "http://localhost:8080/api/v1/progreso/guardar",
+                "https://quentin-semipreserved-kaci.ngrok-free.dev/api/v1/progreso/guardar",
                 {
                     method: "POST",
                     headers: {
@@ -214,7 +214,7 @@ export default function Home() {
         const nombreDia = diasSemana[fecha.getDay()];
 
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/rutinas/eliminar/${nombreDia}`, {
+            const response = await fetch(`https://quentin-semipreserved-kaci.ngrok-free.dev/api/v1/rutinas/eliminar/${nombreDia}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`

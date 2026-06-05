@@ -6,7 +6,11 @@ spring:
     username: postgres.qakojyucncuuyjxdyvuo
     password: qA86tJufEJ7aCHEd
     driver-class-name: org.postgresql.Driver
-
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
 logging:
   level:
     org.springframework.security: DEBUG

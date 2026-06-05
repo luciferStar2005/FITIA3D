@@ -30,6 +30,9 @@ function App() {
       <Route path="/configurar-rutina" element={<ConfiguracionPage />} />
       <Route path="/resultado-rutina" element={<ResultadoRutinaPage />} />
       <Route path='/biblioteca-animaciones' element={<BibliotecaPage/>}/>
+
+      <Route path="*" element={<LandingPage />} />
+
     </Routes>
   );
 }

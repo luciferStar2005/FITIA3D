@@ -80,7 +80,7 @@ export default function PlanesPage() {
             console.log(`Enviando al backend día ${nombreDiaLimpio}:`, payload);
 
             // 4. Hacemos el fetch a tu endpoint actual por cada iteración
-            const response = await fetch('http://localhost:8080/api/v1/rutinas/crear', {
+            const response = await fetch('https://quentin-semipreserved-kaci.ngrok-free.dev/api/v1/rutinas/crear', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -22,7 +22,7 @@ import com.example.back_end.usuario.service.UserService;
 
 import lombok.AllArgsConstructor;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v2/user")
 @AllArgsConstructor
