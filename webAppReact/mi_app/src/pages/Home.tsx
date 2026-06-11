@@ -13,40 +13,32 @@ export default function Home() {
     const [diasConRutina, setDiasConRutina] = useState<string[]>([]);
     const [rachaActual, setRachaActual] = useState(0);
 
-    useEffect(() => {
-        const fetchRacha = async () => {
+    // ← Mover la función fuera del useEffect
+    const fetchRacha = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
 
-            try {
-
-                if (!token) return;
-
-                const response = await fetch(
-                    'http://localhost:8080/api/v1/progreso/racha',
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
+            const response = await fetch(
+                'http://localhost:8080/api/v1/progreso/racha',
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
                     }
-                );
-
-                if (response.ok) {
-
-                    const data = await response.json();
-
-                    setRachaActual(data.racha);
                 }
+            );
 
-            } catch (error) {
-
-                console.error(
-                    "Error obteniendo la racha",
-                    error
-                );
+            if (response.ok) {
+                const data = await response.json();
+                setRachaActual(data.racha);
             }
-        };
+        } catch (error) {
+            console.error("Error obteniendo la racha", error);
+        }
+    };
 
+    useEffect(() => {
         fetchRacha();
-
     }, []);
 
     const porcentajeCompletado =
@@ -174,6 +166,7 @@ export default function Home() {
                 : `😅 Completaste el ${porcentaje}% de la rutina.\n\nNecesitas al menos 60% para mantener la racha.`;
 
             alert(mensaje);
+            await fetchRacha();
 
             console.log({
                 ejerciciosTotales: planHoyData.length,
