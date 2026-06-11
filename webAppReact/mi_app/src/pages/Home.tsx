@@ -60,48 +60,77 @@ export default function Home() {
             : 0;
 
     const token = localStorage.getItem('token');
+
     const tileContent = ({ date, view }: { date: Date; view: string }) => {
         if (view === 'month') {
+            const fechaStr = format(date, 'yyyy-MM-dd');
             const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
             const nombreDia = diasSemana[date.getDay()];
 
-            if (diasConRutina.includes(nombreDia)) {
-                return <div className="w-1.5 h-1.5 bg-red-500 rounded-full mx-auto mt-0.5" />;
+            // Soporta tanto fechas como nombres de día
+            const tieneRutina = 
+                diasConRutina.includes(fechaStr) || 
+                diasConRutina.includes(nombreDia);
+
+            if (tieneRutina) {
+                return (
+                    <div className="flex justify-center mt-1">
+                        <div className="w-1.5 h-1.5 bg-red-500 rounded-full shadow-[0_0_4px_rgba(239,68,68,0.8)]" />
+                    </div>
+                );
             }
         }
         return null;
     };
 
+    const fetchRacha = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            const response = await fetch(
+                'http://localhost:8080/api/v1/progreso/racha',
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                setRachaActual(data.racha);
+            }
+        } catch (error) {
+            console.error("Error obteniendo la racha", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchRacha();
+    }, []);
+
     useEffect(() => {
         const fetchFechasConRutina = async () => {
             try {
+                const token = localStorage.getItem('token');
                 if (!token) return;
 
                 const response = await fetch('http://localhost:8080/api/v1/rutinas/misRutinas', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    setDiasConRutina(data.dias);
-
-                    console.log(data.dias)
-
-                    const yaVisto = sessionStorage.getItem('plan_modal_visto');
-                    if (data.dias && data.dias.length === 0 && !yaVisto) {
-                        setIsModalOpen(true);
-                    }
-
+                    setDiasConRutina(data.dias || []);
                 }
-            }
-            catch (error) {
+            } catch (error) {
                 console.error("Error al obtener las fechas con rutina", error);
             }
-        }
+        };
+
         fetchFechasConRutina();
-    }, [])
+    }, []);
 
     useEffect(() => {
         const fetchRutinaPorFecha = async () => {
@@ -131,13 +160,13 @@ export default function Home() {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-        sessionStorage.setItem('plan_modal_visto', 'true'); // Evita que salte de nuevo al recargar pestañas internas
+        sessionStorage.setItem('plan_modal_visto', 'true'); 
     };
 
     const handleNavigateToPlanes = () => {
         setIsModalOpen(false);
         sessionStorage.setItem('plan_modal_visto', 'true');
-        window.location.href = '/planes'; // Redirección a tu nueva página
+        window.location.href = '/planes'; 
     };
 
     const toggleCompletado = (id: number) => {
@@ -189,6 +218,13 @@ export default function Home() {
                 : `😅 Completaste el ${porcentaje}% de la rutina.\n\nNecesitas al menos 60% para mantener la racha.`;
 
             showModal(cumplioMeta ? "¡Felicidades!" : "Atención", mensaje, "info");
+
+           
+            if (cumplioMeta) {
+                await fetchRacha();           
+            } else {
+                setRachaActual(0);            
+            }
 
         } catch (error) {
             console.error(error);
