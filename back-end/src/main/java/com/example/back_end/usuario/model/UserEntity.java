@@ -50,6 +50,9 @@ public class UserEntity {
     @Column(name = "info_tipo_cuerpo")
     private String bodyType;
 
+    @Column(name = "racha_actual")
+    private int rachaActual = 0;
+
     protected UserEntity() {
     }
 }
